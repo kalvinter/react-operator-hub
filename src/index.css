@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+}
+
+h1 {
+  font-weight: bolder;
+  font-size: larger;
+}
+
+h4 {
+  font-weight: bolder;
+  font-size: large;
+}
+
+.main-card {
+  min-height: 60vh;
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid rgb(75 85 99);
+  border-radius: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+.history-card {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.25rem;
+  margin: 0.25rem auto;
+}
+
+.history-card .history-card-label {
+  font-weight: bolder;
+}
+
+#game-stats-table td:first-child {
+  width: 50%;
+}
+
+#game-stats-table td:nth-child(2) {
+  text-align: right;
+}
+
+#game-stats-table td:last-child {
+  width: 90px;
+  padding-left: 0.8rem
+}
