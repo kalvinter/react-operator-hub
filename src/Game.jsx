@@ -25,9 +25,14 @@ class Game extends React.Component {
       currentElectricityOutput: 0,
       currentTemperature: 30,
       averageProductionIntensity: 0,
-      reactorIsRunning: false,
+      gameIsPaused: false,
+      
       temperatureHistory: [],
+      displayedTemperatureHistory: [],
+
       electricityOutputHistory: [],
+      displayedTemperatureHistory: [],
+
       gameHistory: []
     }
   }
@@ -41,8 +46,8 @@ class Game extends React.Component {
   stopGame(){
     console.log("stopping game")
 
-    if (this.state.reactorIsRunning){
-      this.toggleReactorActive()
+    if (!this.state.gameIsPaused){
+      this.toggleGamePauseOnClick()
     }
 
     let gameHistory = this.state.gameHistory.slice()
@@ -52,7 +57,7 @@ class Game extends React.Component {
       timeRunning: this.state.timeRunning,
       producedEnergy: this.state.producedEnergy,
       averageProductionIntensity: this.state.averageProductionIntensity,
-      gameWon: false,
+      gameLost: this.gameIsLost(),
     })
 
     console.log(gameHistory)
@@ -67,9 +72,18 @@ class Game extends React.Component {
       currentElectricityOutput: 0,
       averageProductionIntensity: 0,
       temperatureHistory: [],
+      displayedTemperatureHistory: [],
       electricityOutputHistory: [],
+      displayedElectricityOutputHistory: [],
       gameHistory: gameHistory
     })
+  }
+
+  gameIsLost(){
+    if (this.state.currentTemperature > this.maxTemperature){
+      return true
+    }
+    return false
   }
 
   tick() {
@@ -79,29 +93,47 @@ class Game extends React.Component {
     let temperatureHistory = this.state.temperatureHistory.slice()
     temperatureHistory.push(currentTemperature)
 
+    let displayedTemperatureHistory = temperatureHistory.slice(-6)
+    displayedTemperatureHistory.push(null, null, null, null, null)
+
     let electricityOutputHistory = this.state.electricityOutputHistory.slice()
     electricityOutputHistory.push(currentElectricityOutput)
+    
+    let displayedElectricityOutputHistory = electricityOutputHistory.slice(-6)
+    displayedElectricityOutputHistory.push(null, null, null, null, null)
 
     let producedEnergy = this.state.producedEnergy + currentElectricityOutput
     let averageProductionIntensity = producedEnergy / (this.state.timeRunning + 1)
 
+    let gameIsLost = this.gameIsLost()
+
     this.setState({
+        gameIsLost: gameIsLost,
         timeRunning: this.state.timeRunning + 1,
         currentElectricityOutput: currentElectricityOutput,
         currentTemperature: currentTemperature,
         producedEnergy: producedEnergy,
+        
         temperatureHistory: temperatureHistory,
+        displayedTemperatureHistory: displayedTemperatureHistory,
+
         electricityOutputHistory: electricityOutputHistory,
+        displayedElectricityOutputHistory: displayedElectricityOutputHistory,
+
         averageProductionIntensity: averageProductionIntensity
     });
+
+    if (gameIsLost && this.state.gameIsRunning){
+      this.toggleGamePauseOnClick()
+    }
   }
 
-  toggleReactorActive(){
+  toggleGamePauseOnClick(){
 
     let a = this.state.temperatureHistory.slice()
     console.log(a)
 
-    if (this.state.reactorIsRunning){
+    if (this.state.gameIsPaused){
       clearInterval(this.timerID);
     } else {
       this.timerID = setInterval(
@@ -111,7 +143,7 @@ class Game extends React.Component {
     }
 
     this.setState({
-      reactorIsRunning: !this.state.reactorIsRunning
+      gameIsPaused: !this.state.gameIsPaused
     })
   }
 
@@ -147,8 +179,11 @@ class Game extends React.Component {
 
           <GameUI 
             timeRunning={this.state.timeRunning}
-            reactorActivateOnClick={() => {this.toggleReactorActive()}}
-            reactorIsRunning={this.state.reactorIsRunning}
+            toggleGamePauseOnClick={() => {this.toggleGamePauseOnClick()}}
+            
+            gameIsLost={this.state.gameIsLost}
+            gameIsPaused={this.state.gameIsPaused}
+            gameIsRunning={this.state.gameIsRunning}
             fuelInputOnChange={(event) => this.changeFuelInputValue(event)}
             coolingLevelOnChange={(event) => this.changeCoolingLevelValue(event)}
             currentElectricityOutput={this.state.currentElectricityOutput}
@@ -157,7 +192,10 @@ class Game extends React.Component {
             currentFuelInputLevel={this.state.currentFuelInputLevel}
             maxTemperature={this.maxTemperature}
             temperatureHistory={this.state.temperatureHistory}
+            displayedTemperatureHistory={this.state.displayedTemperatureHistory}
+
             electricityOutputHistory={this.state.electricityOutputHistory}
+            displayedElectricityOutputHistory={this.state.displayedElectricityOutputHistory}
           />
         </div>
       )

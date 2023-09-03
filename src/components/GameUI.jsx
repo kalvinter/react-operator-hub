@@ -23,8 +23,18 @@ ChartJS.register(
 
 const baseOptions = {
     responsive: true,
-    pointStyle: "line"
-};
+    pointStyle: "line",
+    animations: {
+        x: {
+            type: 'number',
+            easing: 'linear',
+            duration: 2,
+            }
+        },
+        y: {
+            duration: 2
+        }
+    };
 
 
 const temperature_options = {
@@ -39,6 +49,9 @@ const temperature_options = {
         },
     },
     scales: {
+        x: {
+            max: 20,
+        },
         y: {
             suggestedMin: 0,
             suggestedMax: 300,
@@ -64,10 +77,6 @@ const output_options = {
         },
     },
     scales: {
-        x: {
-            min: 0,
-            suggestedMax: 300,
-        },
         y: {
             suggestedMin: 0,
             suggestedMax: 300,
@@ -91,6 +100,7 @@ const GameUI = (props) => {
     let show_low_temperature_info = false
     let show_temperature_warning = false
     let show_temperature_critical = false
+    let show_you_lost = false
 
     if (props.currentTemperature <= 30) {
         temperature_indication_bg = "bg-blue-600"
@@ -102,46 +112,72 @@ const GameUI = (props) => {
     } else if (props.currentTemperature < 200){
         temperature_indication_bg = "bg-orange-500"
         show_temperature_warning = true
-    } else {
+    } else if (props.currentTemperature < props.maxTemperature) {
         temperature_indication_bg = "bg-red-500"
         show_temperature_critical = true
+    } else {
+        temperature_indication_bg = "bg-red-500"
+        show_you_lost = true
     }
 
-    let labels = Array.from(Array(props.timeRunning).keys())
+    let labels;
+
+    if (props.timeRunning <= 10) {
+        labels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10]
+    } else {
+        labels = Array.from(Array(props.timeRunning).keys()).slice(-11)
+    }
+
+    console.log(props.displayedTemperatureHistory)
 
     let temperature_line_chart_data = {
         labels,
         datasets: [
             {
               label: 'Temperature',
-              data: props.temperatureHistory,
+              data: props.displayedTemperatureHistory,
               borderColor: 'red',
               backgroundColor: 'red',
             },
           ],
     }
+    console.log(props)
+    console.log(temperature_line_chart_data)
 
     let output_line_chart_data = {
         labels,
         datasets: [
             {
               label: 'Electricity Output',
-              data: props.electricityOutputHistory,
+              data: props.displayedElectricityOutputHistory,
               borderColor: 'lime',
               backgroundColor: 'lime',
             },
           ],
     }
 
+    let gamePauseBar = (
+        <div className="w-full my-2 border-solid border-2 rounded border-gray-900 flex justify-between p-2 items-center bg-neutral-700">
+            <h4>Game {props.gameIsPaused ? "is Running" : "is Paused"}</h4>
+                <button 
+                    onClick={() => {props.toggleGamePauseOnClick()}}
+                    className={`${(props.gameIsPaused ? 'bg-red-400' : 'bg-green-400')} text-black p-1 border-solid border-2 rounded border-slate-900`}
+                >{`${props.gameIsPaused ? 'Pause' : 'Start'}`}</button>
+        </div>
+    )
+
+    
+    if (props.gameIsLost){
+        gamePauseBar = (
+            <div className="w-full border-gray-900 rounded bg-red-500  p-2 my-2">
+                <h4>You have lost.</h4>
+            </div>
+        )
+    }
+
     return (
         <div className="w-full h-full mt-1">
-            <div className="w-full my-2 border-solid border-2 rounded border-gray-900 flex justify-between p-2 items-center bg-neutral-700">
-                <h4>Reactor {props.reactorIsRunning ? "is Running" : "is Turned Off"}</h4>
-                <button 
-                    onClick={() => {props.reactorActivateOnClick()}}
-                    className={`${(props.reactorIsRunning ? 'bg-red-400' : 'bg-green-400')} text-black p-1 border-solid border-2 rounded border-slate-900`}
-                >{`${props.reactorIsRunning ? 'Stop' : 'Start'}`}</button>
-            </div>
+                {gamePauseBar}
             
             <div className="flex flex-1 gap-2 my-2">
                 <div className="border-2 rounded border-gray-900 p-2 bg-neutral-700 w-full
@@ -215,9 +251,13 @@ const GameUI = (props) => {
 
             <div className={`${show_temperature_critical? '' : 'hidden'} 
                 w-full border-gray-900 rounded bg-red-500  p-2 my-2`}>
-                <h4>WARNING: Temperature is critical! <br></br>Reactor will soon explode!</h4>
+                <h4>WARNING: Temperature is critical! <br></br>The reactor will break down once it reaches {props.maxTemperature}°C!</h4>
             </div>
 
+            <div className={`${show_you_lost? '' : 'hidden'} 
+                w-full border-gray-900 rounded bg-red-500  p-2 my-2`}>
+                <h4>The reactor exceeded critical temperature and was damaged! <br></br>You have lost.</h4>
+            </div>
             
         </div>
     )

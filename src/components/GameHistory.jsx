@@ -17,7 +17,7 @@ function GameHistory(props) {
             <h4 className='mb-2'>Past Games and Highscores</h4>
 
             {gameHistory.map((element) => (
-                <div className='history-card bg-slate-400'>
+                <div className='history-card bg-slate-400' key={element.date}>
                     <div>
                         <span className='history-card-label'>Date</span> <br></br>
                         {element.date.toLocaleDateString("de-DE") + " " + element.date.getUTCHours() + ":" + element.date.getUTCMinutes()}
@@ -36,8 +36,8 @@ function GameHistory(props) {
                         {element.averageProductionIntensity.toFixed(2)} kWh / s
                     </div>
                     <div>
-                        <span className='history-card-label'>Game Won</span> <br></br>
-                        {element.gameWon? 'Won' : '-'}
+                        <span className='history-card-label'>Game Lost</span> <br></br>
+                        {element.gameLost? 'Lost' : '-'}
                     </div>
                 </div>
             ))}    
