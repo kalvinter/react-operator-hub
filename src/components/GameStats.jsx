@@ -10,18 +10,13 @@ const GameStats = (props) => {
             <tbody>
                 <tr>
                     <td>Reactor running in sec</td>
-                    <td>{ props.timeRunning.toFixed(2)}</td>
+                    <td>{ (props.timeRunning / 10).toFixed(1)}</td>
                     <td> sec.</td>
                 </tr>
                 <tr>
                     <td>Produced Energy</td>
                     <td>{ props.producedEnergy.toFixed(2)}</td>
                     <td>kWh</td>
-                </tr>
-                <tr>
-                    <td>Average Intensity</td>
-                    <td>{ props.averageProductionIntensity.toFixed(2)} </td>
-                    <td>kWh / sec.</td>
                 </tr>
             </tbody>
         </table>

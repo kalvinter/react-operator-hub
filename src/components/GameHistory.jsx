@@ -32,10 +32,6 @@ function GameHistory(props) {
                     </div>
                     
                     <div>
-                        <span className='history-card-label'>Production Intensity</span> <br></br>
-                        {element.averageProductionIntensity.toFixed(2)} kWh / s
-                    </div>
-                    <div>
                         <span className='history-card-label'>Game Lost</span> <br></br>
                         {element.gameLost? 'Lost' : '-'}
                     </div>
