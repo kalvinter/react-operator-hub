@@ -18,7 +18,7 @@ These events will be highlighted at the top of your screen.
 
 # Play the Game
 
-The game can be accessed here: https://kalvinter.github.io/react-reactor-game/
+The game can be accessed here: <a target="_blank">https://kalvinter.github.io/react-reactor-game/</a>
 
 <img src="https://github.com/kalvinter/react-reactor-game/blob/9cf840dcae08ae335410871ec0428ad974d7eb30/docs/20230910_MainScreen_1.jpg" height="500" />
 
