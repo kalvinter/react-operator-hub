@@ -20,7 +20,7 @@ These events will be highlighted at the top of your screen.
 
 The game can be accessed here: https://kalvinter.github.io/react-reactor-game/
 
-<img src="https://github.com/kalvinter/react-reactor-game/assets/37836612/467b1f7c-dd36-48e9-a575-2ad8b89cd2b0" height="500" />
+<img src="https://github.com/kalvinter/react-reactor-game/blob/9cf840dcae08ae335410871ec0428ad974d7eb30/docs/20230910_MainScreen_1.jpg" height="500" />
 
 # About the Repository
 
