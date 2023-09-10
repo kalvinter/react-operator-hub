@@ -16,16 +16,15 @@ These events will be highlighted at the top of your screen.
     <li>Earn points by maintaining power production within the optimal green zone.</li>
 </ul>
 
-
 # Play the Game
 
-The game can be accessed here: 
+The game can be accessed here: <a target="_blank">https://kalvinter.github.io/react-reactor-game/</a>
+
+<img src="https://github.com/kalvinter/react-reactor-game/blob/9cf840dcae08ae335410871ec0428ad974d7eb30/docs/20230910_MainScreen_1.jpg" height="500" />
 
 # About the Repository
 
-This repository is an experiment to practice working with react. It is a constant work-in-progress and more of a playground for myself than a production-ready project. Use the code with care
-
-
+This repository is an experiment to practice working with react. It is a constant work-in-progress and more of a playground for myself than a production-ready project. Use the code with care.
 
 # Usage
 ```shell
