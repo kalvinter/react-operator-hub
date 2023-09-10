@@ -8,7 +8,7 @@ import GameStats from './components/GameStats';
 import Welcome from './components/Welcome';
 import GameHistory from './components/GameHistory';
 import {GameConfig} from './components/Config.js'
-import {increaseEvents, decreaseEvents, effectDirection, noEventText} from './components/Events.js'
+import {AvailableEventHandler, effectDirection, noEventText} from './components/Events.js'
 
 class Game extends React.Component {
   
@@ -17,6 +17,8 @@ class Game extends React.Component {
     this.mediumDemand = this.maxPossibleDemand / 2
 
     this.initialElectricityDemand = 0
+
+    this.availableEventHandler = new AvailableEventHandler()
 
     this.newGameState = {
       gameIsRunning: false,
@@ -105,6 +107,12 @@ class Game extends React.Component {
     let currentElectricityDemand = electricityDemandHistory[electricityDemandHistory.length - 1]
     let lastElectricityDemand = currentElectricityDemand
 
+    let availableIncreaseEvents = this.availableEventHandler.getAvailableEvents(effectDirection.increase)
+    let availableDecreaseEvents = this.availableEventHandler.getAvailableEvents(effectDirection.decrease)
+
+    console.log(availableIncreaseEvents)
+    console.log(availableDecreaseEvents)
+
     let activeIncreaseEvents = this.state.activeIncreaseEvents.slice()
     let activeDecreaseEvents = this.state.activeDecreaseEvents.slice()
 
@@ -118,7 +126,7 @@ class Game extends React.Component {
 
     console.log(this.state.timeRunning % 100)
     /* If there is no upcoming event - decide if there should be one */
-    if (this.state.upcomingEventChange.length === 0 && this.state.timeRunning % 100 == 50 && randomFactor > 0.2){
+    if (this.state.upcomingEventChange.length === 0 && this.state.timeRunning % 100 == 40 && randomFactor > 0.4){
 
       /* If there is now a new event coming, decide if an existing event should be phased out or a new one should be introduced */
       const introduceNewEvent = (activeEvents.length === 0)? true : Math.random() > 0.5
@@ -128,13 +136,13 @@ class Game extends React.Component {
         /* If the demand is already at 0 - choose an event that would increase demand */
         const introduceIncreaseEvent = (lastElectricityDemand === 0)? true : Math.random() > 0.5
         
-        const eventList = introduceIncreaseEvent ? increaseEvents : decreaseEvents
-        const activeEventList = introduceIncreaseEvent ? activeIncreaseEvents : activeDecreaseEvents
+        const eventList = introduceIncreaseEvent ? availableIncreaseEvents : availableDecreaseEvents
         
         /* Check if the event list even has events before proceeding */
         if (eventList.length > 0){
           /* Remove the event from the list while it is active */
-          const newEvent = eventList.pop(Math.random() * eventList.length)
+          const index = Math.floor(Math.random() * eventList.length)
+          const newEvent = eventList[index]
           
           /* calculate effect */
           const upDownFactor = (newEvent.direction === effectDirection.increase)? 1 : -1
@@ -144,11 +152,11 @@ class Game extends React.Component {
           upcomingEventChange = [{
             text: newEvent.textStart,
             operation: "add",
+            indexInSourceList: index,
             direction: newEvent.direction,
             newElectricityDemand: currentElectricityDemand + 200 * (Math.random() * 0.25 + newEvent.effect) * upDownFactor,
             originalEvent: newEvent
           }]
-          activeEventList.push(newEvent)
         }
 
       } else {
@@ -157,11 +165,9 @@ class Game extends React.Component {
         let eventList = removeIncreaseEvent ? activeIncreaseEvents : activeDecreaseEvents
         
         if (eventList.length > 0){
-          const removedEvent = eventList.pop(Math.random() * eventList.length)
+          const index = Math.floor(Math.random() * eventList.length)
+          const removedEvent = eventList[index]
 
-          /* add the removed active event back to the event list so that it can happen again */
-          removedEvent.direction === effectDirection.increase? increaseEvents.push(removedEvent) : decreaseEvents.push(removedEvent)
-          
           /* calculate effect */
           const upDownFactor = (removedEvent.direction === effectDirection.increase)? -1 : 1
           
@@ -170,6 +176,7 @@ class Game extends React.Component {
           upcomingEventChange = [{
             text: removedEvent.textEnd,
             operation: "remove",
+            indexInSourceList: index,
             direction: removedEvent.direction,
             newElectricityDemand: currentElectricityDemand + 200 * (Math.random() * 0.25 + removedEvent.effect) * upDownFactor,
             originalEvent: removedEvent
@@ -182,28 +189,39 @@ class Game extends React.Component {
 
     if (upcomingEventChange.length > 0 && this.state.timeRunning % 100 === 0){
         /* Introduce the scheduled event change */
+        console.log(upcomingEventChange)
         currentElectricityDemand = upcomingEventChange[0].newElectricityDemand
+
+        currentElectricityDemand = (currentElectricityDemand <= 0) ? 0 : currentElectricityDemand
         displayedEventText = noEventText
-        
-        /*
-        const activeEventList = upcomingEventChange.direction === effectDirection.increase ? activeIncreaseEvents : activeDecreaseEvents
-        const eventList = upcomingEventChange.direction === effectDirection.increase ? increaseEvents : decreaseEvents
+
         if (upcomingEventChange[0].operation === "add"){
-          activeEventList.push(upcomingEventChange[0].originalEvent)  
-          
-          let index = eventList.indexOf(upcomingEventChange[0].originalEvent)
-          eventList.pop(index)
+          if (upcomingEventChange[0].direction === effectDirection.increase){
+            activeIncreaseEvents.push(upcomingEventChange[0].originalEvent)
+            this.availableEventHandler.removeEvent(upcomingEventChange[0].indexInSourceList, effectDirection.increase)
+          } else {
+            activeDecreaseEvents.push(upcomingEventChange[0].originalEvent)
+            this.availableEventHandler.removeEvent(upcomingEventChange[0].indexInSourceList, effectDirection.decrease)
+          }
 
         } else {
-          let index = activeEventList.indexOf(upcomingEventChange.originalEvent)
-          activeEventList.pop(index)
-          eventList.push(upcomingEventChange[0].originalEvent)
-        } */
+          this.availableEventHandler.addEvent(upcomingEventChange[0].originalEvent)
+
+          if (upcomingEventChange[0].direction === effectDirection.increase){
+            activeIncreaseEvents.splice(upcomingEventChange[0].indexInSourceList, 1)
+
+          } else {
+            activeDecreaseEvents.splice(upcomingEventChange[0].indexInSourceList, 1)
+            
+          }
+        }
+        console.log(activeIncreaseEvents)
         upcomingEventChange = []
     }
 
+    /* Initialize a minimum demand of 100 at the beginning of the game  */
     if (this.state.timeRunning === 0){
-      currentElectricityDemand = currentElectricityDemand + 400 * Math.random()
+      currentElectricityDemand = currentElectricityDemand + 300 * Math.random() + 100
     }
 
     electricityDemandHistory.push(currentElectricityDemand)

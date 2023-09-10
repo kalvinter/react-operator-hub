@@ -11,18 +11,18 @@ export const effectDirection = {
 
 export const noEventText = "Electricity Demand is stable."
 
-export const decreaseEvents = [
+export let decreaseEvents = [
     {
         id: "D1",
         title: "High wind energy output",
         textStart: "Strong winds increase electricity generated from wind farms. Medium demand decrease expected shortly!",
-        textEnd: "Winds have returned to normal. Production decrease from wind farms. Medium demand surge decrease shortly!",
+        textEnd: "Winds have returned to normal. Medium demand surge decrease shortly!",
         effect: effectLevels.low,
         direction: effectDirection.decrease,
-    }
+    },
 ]
 
-export const increaseEvents = [
+export let increaseEvents = [
     {
         id: "I1",
         title: "Reactor #7 is down",
@@ -46,5 +46,36 @@ export const increaseEvents = [
         textEnd: "Most people have finished wathcing the new episode. Low demand decrease decrease shortly!",
         effect: effectLevels.low,
         direction: effectDirection.increase,
-    },
+    }
 ]
+
+
+
+export class AvailableEventHandler {
+    constructor() {
+        this.increaseEvents = increaseEvents
+        this.decreaseEvents = decreaseEvents
+    }
+
+    getAvailableEvents(direction){
+        return direction === effectDirection.increase ? this.increaseEvents : this.decreaseEvents
+    }
+
+    addEvent(event){
+        if (event.direction === effectDirection.increase){
+            increaseEvents.push(event)
+        } else {
+            decreaseEvents.push(event)
+        }
+    }
+    
+    removeEvent(index, direction) {
+        if (direction === effectDirection.increase){
+            this.increaseEvents.splice(index, 1)
+        } else {
+            this.decreaseEvents.splice(index, 1)
+        }
+        
+    }
+    
+}
