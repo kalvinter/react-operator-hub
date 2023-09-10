@@ -81,3 +81,8 @@ p {
 #activeEventsArea svg {
   height: 1.2rem;
 }
+
+.container {
+  max-width: 70rem;
+  padding: 4rem
+}
