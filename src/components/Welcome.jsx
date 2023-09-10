@@ -4,21 +4,22 @@ import React from 'react'
 function Welcome(props) {
   return (
     <div>
-        <h1>Welcome to the Reactor Game!</h1>
+        <h1>Welcome to the Grid</h1>
+        <p>Step into the role of a reactor operator at the heart of the nation's power grid. Your mission? 
+        Keep the country powered up! But remember, it's all about balance: match the country's electricity demand without overloading the system.</p>
 
-        <p>In this game you take control of a reactor and your goal is 
-        to produce as much energy as possible. However, this is not so easy 
-        as the reactor will explode if the temperature gets to high. So be careful
-        and try to find the optimal settings for achieving the highest 
-        output for the longest possible time.</p>
-        <br></br>
-        <p><strong>Keep the following mechanics in mind:</strong></p>
-        
+        <h2 className='mt-4'>Gameplay Essentials</h2>
+        <p>Your reactor relies on <b>fuel</b> to generate electricity. The more fuel you use, the hotter the reactor becomes, leading to increased power output.</p>
+        <p><b>Stay vigilant!</b> <b>Demand</b> can fluctuate based on various events, such as other reactors going offline. 
+        These events will be highlighted at the top of your screen.</p>
+
+        <h2 className='mt-4'><strong>Quick Tips for Power Mastery:</strong></h2>
         <ul className='list-inside list-disc'>
-            <li>Increasing the fuel input increases energy output but also 
-            the temperature.</li>
-            <li>A higher temperature increases the energy output.</li>
-            <li>Increase the cooling level to counter the increase in temperature.</li>
+            <li>Adding fuel boosts power but also heats up the reactor.</li>
+            <li>A hotter reactor means a faster reaction-factor, giving you more power.</li>
+            <li>If things heat up too much, up the cooling level to keep things stable.</li>
+            <li>Always be on the lookout for events affecting power demand.</li>
+            <li>Earn points by maintaining power production within the optimal green zone.</li>
         </ul>
 
         <div className='w-full mt-6 flex align-middle'>
