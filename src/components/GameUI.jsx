@@ -10,7 +10,10 @@ import {
   } from 'chart.js';
   import { Line } from 'react-chartjs-2';
 import {GameConfig} from './Config.js'
-  
+import { effectDirection } from './Events.js';
+
+import {ArrowDownCircleIcon, ArrowUpCircleIcon} from '@heroicons/react/20/solid'
+
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -50,7 +53,7 @@ const temperature_options = {
     },
     scales: {
         y: {
-            suggestedMin: 0,
+            min: 0,
             suggestedMax: GameConfig.maxTemperature,
             ticks: {
                 callback: function(value, index, ticks) {
@@ -74,7 +77,7 @@ const output_options = {
     },
     scales: {
         y: {
-            suggestedMin: 0,
+            min: 0,
             suggestedMax: GameConfig.maxPossibleDemand,
             ticks: {
                 callback: function(value, index, ticks) {
@@ -93,7 +96,7 @@ const GameUI = (props) => {
     let temperature_text;
     let display_temperature_text;
             
-    if (props.currentTemperature <= props.minimumTemperature) {
+    if (props.currentTemperature <= GameConfig.minimumTemperature) {
         temperature_indication_bg = "bg-blue-600"
         temperature_text = (
             <h4>Temperature is not high enough </h4>
@@ -158,10 +161,10 @@ const GameUI = (props) => {
     }
 
     let displayedUpperElectricityDemandLimit = props.displayedElectricityDemandHistory.map((element) => {
-        return element === 0 ? 0 : element + GameConfig.productionDemandDeltaLimit
+        return (element + GameConfig.productionDemandDeltaLimit) === 0 ? 0 : element + GameConfig.productionDemandDeltaLimit
     })
     let displayedLowerElectricityDemandLimit = props.displayedElectricityDemandHistory.map((element) => {
-        return element === 0 ? 0 : element - GameConfig.productionDemandDeltaLimit
+        return (element - GameConfig.productionDemandDeltaLimit) === 0 ? 0 : element - GameConfig.productionDemandDeltaLimit
     })
 
     let output_line_chart_data = {
@@ -194,17 +197,6 @@ const GameUI = (props) => {
           ],
     }
 
-    let gamePauseBar = (
-        <div className="w-full my-2 border-solid border-2 rounded border-gray-900 flex justify-between p-2 items-center bg-neutral-700">
-            <h4>Game {props.gameIsPaused ? "is Paused" : "is Running"}</h4>
-            <button 
-                onClick={() => {props.toggleGamePauseOnClick()}}
-                className={`${(props.gameIsPaused ? 'bg-green-400' : 'bg-red-400')} text-black p-1 border-solid border-2 rounded border-slate-900`}
-            >{`${props.gameIsPaused ? 'Start' : 'Pause'}`}</button>
-        </div>
-    )
-
-    
     if (props.gameIsLost){
         gamePauseBar = (
             <div className="w-full border-gray-900 rounded bg-red-500  p-2 my-2">
@@ -243,43 +235,46 @@ const GameUI = (props) => {
         )
     }
     
-    let changeImminentLabel;
-
-    if (props.demandIsChangingSoon){
-        changeImminentLabel = (
-            <h5 className='text-orange-500'>Electricity Demand change is imminent </h5>
+    const activeEvents = props.activeEvents.map((element) => {
+        return (
+            <div className='mx-3' key={element.id}><span className='flex items-center'>{element.direction === effectDirection.increase ?  <ArrowUpCircleIcon></ArrowUpCircleIcon>: <ArrowDownCircleIcon></ArrowDownCircleIcon>} &nbsp;{element.title}</span></div>
         )
-    } else {
-        changeImminentLabel = (
-            <h5></h5>
-        )
-    }
-
-    let demandBar = (
+    })
+    let topBar = (
         <div className="w-full my-2 border-solid border-2 rounded border-gray-900 flex justify-between p-2 items-center bg-neutral-700">
             <h4>Points &nbsp;<span className={`${deltaBg} px-2`}>{props.currentPoints.toFixed(0)}</span></h4>
-            {changeImminentLabel}
+            <button 
+                onClick={() => {props.toggleGamePauseOnClick()}}
+                className={`${(props.gameIsPaused ? 'bg-green-400' : 'bg-red-400')} text-black p-1 border-solid border-2 rounded border-slate-900`}
+            >{`${props.gameIsPaused ? 'Start Game' : 'Pause Game'}`}</button>
         </div>
     )
 
+    let eventPrefixLabel = (props.upcomingEventChange)? (<span className='text-orange-600'>WARNING:</span>) : (<span>STATUS:</span>)
+
     let eventsBar = (
-        <div className="w-full my-2 border-solid border-2 rounded border-gray-900 flex justify-between p-2 items-center bg-neutral-700">
-            <h4 className='mr-4'>Events</h4>
-            <div className='w-full my-1 border-solid border-2 rounded border-gray-900 bg-black p-2 flex items-center' id='eventsArea'>
-                <span><span className='text-orange-600'>WARNING:</span> Technical difficulties at reactor #7. Demand surge expected shortly!</span>
+        <div className="w-full my-2 border-solid border-2 rounded border-gray-900 p-2 bg-neutral-700">
+            <div className='w-full my-2 flex justify-between items-center'>
+                <div className='w-full my-1 border-solid border-2 rounded border-gray-900 bg-black p-2 flex items-center' id='eventsArea'>
+                    <span>{eventPrefixLabel} {props.displayedEventText}</span>
+                </div>
+            </div>
+            <div className='w-full my-2 flex justify-between items-center'>
+                <b className='ml-2 mr-4 whitespace-nowrap'>Active Events</b>
+                <div className='w-full my-1 flex items-center' id='activeEventsArea'>
+                    {activeEvents}
+                </div>
             </div>
         </div>
     )
 
     return (
         <div className="w-full h-full mt-1">
-            {gamePauseBar}
+            {topBar}
             {eventsBar}
 
             <div className="flex flex-1 gap-2 my-2">
-                <div className="border-2 rounded border-gray-900 p-2 bg-neutral-700 w-full
-
-                ">
+                <div className="border-2 rounded border-gray-900 p-2 bg-neutral-700 w-full">
                     <datalist id="input-level-list">
                         {inputLevelList}
                     </datalist>
@@ -307,8 +302,6 @@ const GameUI = (props) => {
                 </div>
 
             </div>
-
-            {demandBar}
 
             <div className='flex flex-1 gap-2 my-2'>
 

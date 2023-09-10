@@ -8,7 +8,7 @@ import GameStats from './components/GameStats';
 import Welcome from './components/Welcome';
 import GameHistory from './components/GameHistory';
 import {GameConfig} from './components/Config.js'
-
+import {increaseEvents, decreaseEvents, effectDirection, noEventText} from './components/Events.js'
 
 class Game extends React.Component {
   
@@ -27,7 +27,11 @@ class Game extends React.Component {
 
       timeRunning: 0,
 
-      activeEvents: [],
+      displayedEventText: noEventText,
+      upcomingEventChange: [],
+      activeIncreaseEvents: [],
+      activeDecreaseEvents: [],
+
 
       producedEnergy: 0,
       currentCoolingLevel: 0,
@@ -35,7 +39,6 @@ class Game extends React.Component {
       currentElectricityOutput: 0,
       currentTemperature: GameConfig.baseTemperature,
 
-      demandIsChangingSoon: false,
       productionDemandDelta: this.initialElectricityDemand,
       underProduction: false,
       overProduction: false,
@@ -102,36 +105,106 @@ class Game extends React.Component {
     let currentElectricityDemand = electricityDemandHistory[electricityDemandHistory.length - 1]
     let lastElectricityDemand = currentElectricityDemand
 
+    let activeIncreaseEvents = this.state.activeIncreaseEvents.slice()
+    let activeDecreaseEvents = this.state.activeDecreaseEvents.slice()
+
+    let activeEvents = [...activeDecreaseEvents, ...activeIncreaseEvents]
+    console.log(activeEvents)
+
+    let upcomingEventChange = this.state.upcomingEventChange
+    let displayedEventText = this.state.displayedEventText
+    
     const randomFactor = Math.random()
 
     console.log(this.state.timeRunning % 100)
+    /* If there is no upcoming event - decide if there should be one */
+    if (this.state.upcomingEventChange.length === 0 && this.state.timeRunning % 100 == 50 && randomFactor > 0.2){
 
-    let demandIsChangingSoon = this.state.demandIsChangingSoon
+      /* If there is now a new event coming, decide if an existing event should be phased out or a new one should be introduced */
+      const introduceNewEvent = (activeEvents.length === 0)? true : Math.random() > 0.5
+      console.log("introduceNewEvent ", introduceNewEvent)
 
-    if (!this.state.demandIsChangingSoon && this.state.timeRunning % 100 == 70 && randomFactor > 0.5){
-      demandIsChangingSoon = true
+      if (introduceNewEvent){
+        /* If the demand is already at 0 - choose an event that would increase demand */
+        const introduceIncreaseEvent = (lastElectricityDemand === 0)? true : Math.random() > 0.5
+        
+        const eventList = introduceIncreaseEvent ? increaseEvents : decreaseEvents
+        const activeEventList = introduceIncreaseEvent ? activeIncreaseEvents : activeDecreaseEvents
+        
+        /* Check if the event list even has events before proceeding */
+        if (eventList.length > 0){
+          /* Remove the event from the list while it is active */
+          const newEvent = eventList.pop(Math.random() * eventList.length)
+          
+          /* calculate effect */
+          const upDownFactor = (newEvent.direction === effectDirection.increase)? 1 : -1
+          
+          displayedEventText = newEvent.textStart
+
+          upcomingEventChange = [{
+            text: newEvent.textStart,
+            operation: "add",
+            direction: newEvent.direction,
+            newElectricityDemand: currentElectricityDemand + 200 * (Math.random() * 0.25 + newEvent.effect) * upDownFactor,
+            originalEvent: newEvent
+          }]
+          activeEventList.push(newEvent)
+        }
+
+      } else {
+        const removeIncreaseEvent = (lastElectricityDemand === 0)? true : Math.random() > 0.5
+
+        let eventList = removeIncreaseEvent ? activeIncreaseEvents : activeDecreaseEvents
+        
+        if (eventList.length > 0){
+          const removedEvent = eventList.pop(Math.random() * eventList.length)
+
+          /* add the removed active event back to the event list so that it can happen again */
+          removedEvent.direction === effectDirection.increase? increaseEvents.push(removedEvent) : decreaseEvents.push(removedEvent)
+          
+          /* calculate effect */
+          const upDownFactor = (removedEvent.direction === effectDirection.increase)? -1 : 1
+          
+          displayedEventText = removedEvent.textEnd
+
+          upcomingEventChange = [{
+            text: removedEvent.textEnd,
+            operation: "remove",
+            direction: removedEvent.direction,
+            newElectricityDemand: currentElectricityDemand + 200 * (Math.random() * 0.25 + removedEvent.effect) * upDownFactor,
+            originalEvent: removedEvent
+          }]
+        }
+      }
+
+      console.log(upcomingEventChange)
+    }
+
+    if (upcomingEventChange.length > 0 && this.state.timeRunning % 100 === 0){
+        /* Introduce the scheduled event change */
+        currentElectricityDemand = upcomingEventChange[0].newElectricityDemand
+        displayedEventText = noEventText
+        
+        /*
+        const activeEventList = upcomingEventChange.direction === effectDirection.increase ? activeIncreaseEvents : activeDecreaseEvents
+        const eventList = upcomingEventChange.direction === effectDirection.increase ? increaseEvents : decreaseEvents
+        if (upcomingEventChange[0].operation === "add"){
+          activeEventList.push(upcomingEventChange[0].originalEvent)  
+          
+          let index = eventList.indexOf(upcomingEventChange[0].originalEvent)
+          eventList.pop(index)
+
+        } else {
+          let index = activeEventList.indexOf(upcomingEventChange.originalEvent)
+          activeEventList.pop(index)
+          eventList.push(upcomingEventChange[0].originalEvent)
+        } */
+        upcomingEventChange = []
     }
 
     if (this.state.timeRunning === 0){
-      /*  At the start of the game it is necessary to use demand generation method that cannot go negative.
-          Otherwise it might generate a negative demand, leaving it at 0 which would be weird to users
-      */
-      currentElectricityDemand = currentElectricityDemand + 200 * randomFactor
-      demandIsChangingSoon = false
-    } else if ( this.state.timeRunning % 100 === 0 && this.state.demandIsChangingSoon) {
-      /*
-        Generally, the electricity demand should fluctuate randomly. However, this can lead to it 
-        being stuck at 0 or at the highest setting for too long. 
-      */
-
-      let upDownFactor = (lastElectricityDemand === 0) ? 1 : 0.75
-
-      currentElectricityDemand = currentElectricityDemand + 400 * (upDownFactor - randomFactor)
-      demandIsChangingSoon = false
+      currentElectricityDemand = currentElectricityDemand + 400 * Math.random()
     }
-
-    currentElectricityDemand = (currentElectricityDemand <= 0) ? 0 : currentElectricityDemand
-    currentElectricityDemand = (currentElectricityDemand > GameConfig.maxPossibleDemand) ? GameConfig.maxPossibleDemand : currentElectricityDemand
 
     electricityDemandHistory.push(currentElectricityDemand)
 
@@ -182,13 +255,18 @@ class Game extends React.Component {
 
     // Other metrics
     let gameIsLost = this.gameIsLost()
-
+    
     this.setState({
         gameIsLost: gameIsLost,
 
         currentPoints: currentPoints,
+
+        activeIncreaseEvents: activeIncreaseEvents,
+        activeDecreaseEvents: activeDecreaseEvents,
+
+        upcomingEventChange: upcomingEventChange,
+        displayedEventText: displayedEventText,
         
-        demandIsChangingSoon: demandIsChangingSoon, 
         productionDemandDelta: productionDemandDelta,
         overProduction: overProduction,
         underProduction: underProduction,
@@ -262,7 +340,11 @@ class Game extends React.Component {
             timeRunning={this.state.timeRunning}
             toggleGamePauseOnClick={() => {this.toggleGamePauseOnClick()}}
             
-            demandIsChangingSoon={this.state.demandIsChangingSoon}
+            upcomingEventChange={this.state.upcomingEventChange.length !== 0}
+            displayedEventText={this.state.displayedEventText}
+
+            activeEvents={[...this.state.activeIncreaseEvents, ...this.state.activeDecreaseEvents]}
+
             productionDemandDelta={this.state.productionDemandDelta}
             overProduction={this.state.overProduction}
             underProduction={this.state.underProduction}
