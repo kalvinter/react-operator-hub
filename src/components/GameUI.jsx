@@ -9,7 +9,7 @@ import {
     Legend,
   } from 'chart.js';
   import { Line } from 'react-chartjs-2';
-
+import {GameConfig} from './Config.js'
   
 ChartJS.register(
     CategoryScale,
@@ -51,7 +51,7 @@ const temperature_options = {
     scales: {
         y: {
             suggestedMin: 0,
-            suggestedMax: 300,
+            suggestedMax: GameConfig.maxTemperature,
             ticks: {
                 callback: function(value, index, ticks) {
                     return value + ' °C';
@@ -75,7 +75,7 @@ const output_options = {
     scales: {
         y: {
             suggestedMin: 0,
-            suggestedMax: 300,
+            suggestedMax: GameConfig.maxPossibleDemand,
             ticks: {
                 callback: function(value, index, ticks) {
                     return value + ' Watt';
@@ -117,10 +117,10 @@ const GameUI = (props) => {
             <h4>Temperature is high!</h4>
         )
         display_temperature_text = true
-    } else if (props.currentTemperature < props.maxTemperature) {
+    } else if (props.currentTemperature < GameConfig.maxTemperature) {
         temperature_indication_bg = "bg-red-500"
         temperature_text = (
-            <h4>Temperature is critical! <br></br>Reactor breakdown occures above {props.maxTemperature}°C!</h4>
+            <h4>Temperature is critical! <br></br>Reactor breakdown occures above {GameConfig.maxTemperature}°C!</h4>
         )
         display_temperature_text = true
     } else {
@@ -157,21 +157,40 @@ const GameUI = (props) => {
           ],
     }
 
+    let displayedUpperElectricityDemandLimit = props.displayedElectricityDemandHistory.map((element) => {
+        return element === 0 ? 0 : element + GameConfig.productionDemandDeltaLimit
+    })
+    let displayedLowerElectricityDemandLimit = props.displayedElectricityDemandHistory.map((element) => {
+        return element === 0 ? 0 : element - GameConfig.productionDemandDeltaLimit
+    })
+
     let output_line_chart_data = {
         labels,
         datasets: [
             {
               label: 'Electricity Output',
               data: props.displayedElectricityOutputHistory,
-              borderColor: 'lime',
-              backgroundColor: 'lime',
+              borderColor: 'blue',
+              backgroundColor: 'blue',
             },
             {
                 label: 'Electricity Demand',
                 data: props.displayedElectricityDemandHistory,
-                borderColor: 'blue',
-                backgroundColor: 'blue',
-              },
+                borderColor: 'lime',
+                backgroundColor: 'lime',
+            },
+            {
+                label: 'Electricity Demand Upper Limit',
+                data: displayedUpperElectricityDemandLimit,
+                borderColor: 'lightgreen',
+                borderWidth: 2
+            },
+            {
+                label: 'Electricity Demand Lower Limit',
+                data: displayedLowerElectricityDemandLimit,
+                borderColor: 'lightgreen',
+                borderWidth: 2
+            },
           ],
     }
 
@@ -238,22 +257,25 @@ const GameUI = (props) => {
 
     let demandBar = (
         <div className="w-full my-2 border-solid border-2 rounded border-gray-900 flex justify-between p-2 items-center bg-neutral-700">
-            <div>
-                <h4>Points</h4>
-                <h4>250</h4>
-            </div>
+            <h4>Points &nbsp;<span className={`${deltaBg} px-2`}>{props.currentPoints.toFixed(0)}</span></h4>
             {changeImminentLabel}
         </div>
     )
 
-    if (props.productionDemandDelta > 0) {
-
-    }
+    let eventsBar = (
+        <div className="w-full my-2 border-solid border-2 rounded border-gray-900 flex justify-between p-2 items-center bg-neutral-700">
+            <h4 className='mr-4'>Events</h4>
+            <div className='w-full my-1 border-solid border-2 rounded border-gray-900 bg-black p-2 flex items-center' id='eventsArea'>
+                <span><span className='text-orange-600'>WARNING:</span> Technical difficulties at reactor #7. Demand surge expected shortly!</span>
+            </div>
+        </div>
+    )
 
     return (
         <div className="w-full h-full mt-1">
-                {gamePauseBar}
-            
+            {gamePauseBar}
+            {eventsBar}
+
             <div className="flex flex-1 gap-2 my-2">
                 <div className="border-2 rounded border-gray-900 p-2 bg-neutral-700 w-full
 
@@ -321,7 +343,7 @@ const GameUI = (props) => {
                 </div>
 
             </div>
-            
+
         </div>
     )
 }

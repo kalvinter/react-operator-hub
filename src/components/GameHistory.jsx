@@ -28,7 +28,12 @@ function GameHistory(props) {
                     </div>
                     <div>
                         <span className='history-card-label'>Produced Energy</span> <br></br>
-                        {element.producedEnergy.toFixed(2)} kWh
+                        {element.producedEnergy.toLocaleString("de-DE", {minimumFractionDigits: 2, maximumFractionDigits: 2})} kWh
+                    </div>
+                    
+                    <div>
+                        <span className='history-card-label'>Points</span> <br></br>
+                        {element.currentPoints.toFixed(0)}
                     </div>
                     
                     <div>

@@ -24,9 +24,18 @@ h1 {
   font-size: larger;
 }
 
+h2 {
+  font-weight: bolder;
+  font-size: larger;
+}
+
 h4 {
   font-weight: bolder;
   font-size: large;
+}
+
+p {
+  margin-bottom: 0.5rem;
 }
 
 .main-card {
@@ -63,4 +72,8 @@ h4 {
 #game-stats-table td:last-child {
   width: 90px;
   padding-left: 0.8rem
+}
+
+#eventsArea {
+  min-height: 3rem;
 }

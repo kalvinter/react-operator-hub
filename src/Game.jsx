@@ -7,21 +7,13 @@ import GameUI from './components/GameUI'
 import GameStats from './components/GameStats';
 import Welcome from './components/Welcome';
 import GameHistory from './components/GameHistory';
+import {GameConfig} from './components/Config.js'
 
 
 class Game extends React.Component {
   
   constructor(props){
     super(props);
-
-    this.productionDemandDeltaLimit = 30
-
-    this.naturalCoolingFactor = 0.1
-    this.minimumTemperature = 90
-    this.baseTemperature = 30
-    this.maxTemperature = 300
-
-    this.maxPossibleDemand = 1500
     this.mediumDemand = this.maxPossibleDemand / 2
 
     this.initialElectricityDemand = 0
@@ -31,13 +23,17 @@ class Game extends React.Component {
       gameIsPaused: true,
       gameIsLost: false,
 
+      currentPoints: 0,
+
       timeRunning: 0,
+
+      activeEvents: [],
 
       producedEnergy: 0,
       currentCoolingLevel: 0,
       currentFuelInputLevel: 0,
       currentElectricityOutput: 0,
-      currentTemperature: this.baseTemperature,
+      currentTemperature: GameConfig.baseTemperature,
 
       demandIsChangingSoon: false,
       productionDemandDelta: this.initialElectricityDemand,
@@ -79,6 +75,7 @@ class Game extends React.Component {
     gameHistory.push({
       date: new Date(),
       timeRunning: this.state.timeRunning,
+      currentPoints: this.state.currentPoints,
       producedEnergy: this.state.producedEnergy,
       averageProductionIntensity: this.state.averageProductionIntensity,
       gameLost: this.gameIsLost(),
@@ -93,7 +90,7 @@ class Game extends React.Component {
   }
 
   gameIsLost(){
-    if (this.state.currentTemperature > this.maxTemperature){
+    if (this.state.currentTemperature > GameConfig.maxTemperature){
       return true
     }
     return false
@@ -111,7 +108,7 @@ class Game extends React.Component {
 
     let demandIsChangingSoon = this.state.demandIsChangingSoon
 
-    if (!this.state.demandIsChangingSoon && this.state.timeRunning % 50 == 30 && randomFactor > 0.5){
+    if (!this.state.demandIsChangingSoon && this.state.timeRunning % 100 == 70 && randomFactor > 0.5){
       demandIsChangingSoon = true
     }
 
@@ -121,7 +118,7 @@ class Game extends React.Component {
       */
       currentElectricityDemand = currentElectricityDemand + 200 * randomFactor
       demandIsChangingSoon = false
-    } else if ( this.state.timeRunning % 50 === 0 && this.state.demandIsChangingSoon) {
+    } else if ( this.state.timeRunning % 100 === 0 && this.state.demandIsChangingSoon) {
       /*
         Generally, the electricity demand should fluctuate randomly. However, this can lead to it 
         being stuck at 0 or at the highest setting for too long. 
@@ -134,22 +131,22 @@ class Game extends React.Component {
     }
 
     currentElectricityDemand = (currentElectricityDemand <= 0) ? 0 : currentElectricityDemand
-    currentElectricityDemand = (currentElectricityDemand > this.maxPossibleDemand) ? this.maxPossibleDemand : currentElectricityDemand
+    currentElectricityDemand = (currentElectricityDemand > GameConfig.maxPossibleDemand) ? GameConfig.maxPossibleDemand : currentElectricityDemand
 
     electricityDemandHistory.push(currentElectricityDemand)
 
     let displayedElectricityDemandHistory = electricityDemandHistory.slice(-11)
 
     // Temperature
-    let currentTemperature = this.state.currentTemperature + (this.state.currentFuelInputLevel * 0.075 - this.state.currentCoolingLevel * 0.1)
+    let currentTemperature = this.state.currentTemperature + (this.state.currentFuelInputLevel * 0.05 - this.state.currentCoolingLevel * 0.1)
     
-    if (currentTemperature - this.naturalCoolingFactor > this.baseTemperature) {
-      currentTemperature -= this.naturalCoolingFactor
+    if (currentTemperature - GameConfig.naturalCoolingFactor > GameConfig.baseTemperature) {
+      currentTemperature -= GameConfig.naturalCoolingFactor
     }
     
-    let reactionLevel = currentTemperature / this.maxTemperature
+    let reactionLevel = 1 + (currentTemperature / GameConfig.maxTemperature)
 
-    if (currentTemperature < this.minimumTemperature) {
+    if (currentTemperature < GameConfig.minimumTemperature) {
       // If the temperature is below the limit - reactionLevel and thus output falls to 0
       reactionLevel = 0
     }
@@ -161,7 +158,7 @@ class Game extends React.Component {
     displayedTemperatureHistory.push(null, null, null, null, null)
 
     // Electricity Output
-    let currentElectricityOutput = (this.state.currentFuelInputLevel * 1.05 + this.state.currentTemperature * 0.05 * this.state.currentFuelInputLevel) * reactionLevel
+    let currentElectricityOutput = (this.state.currentFuelInputLevel * 1.05 + this.state.currentTemperature * 0.025 * this.state.currentFuelInputLevel) * reactionLevel
     
     let electricityOutputHistory = this.state.electricityOutputHistory.slice()
     electricityOutputHistory.push(currentElectricityOutput)
@@ -172,14 +169,24 @@ class Game extends React.Component {
 
     // Production / Demand Delta
     let productionDemandDelta = currentElectricityOutput - electricityDemandHistory.slice(-6)[0]
-    let overProduction = productionDemandDelta > this.productionDemandDeltaLimit
-    let underProduction = productionDemandDelta < ((-1) * this.productionDemandDeltaLimit)
+    let overProduction = productionDemandDelta > GameConfig.productionDemandDeltaLimit
+    let underProduction = productionDemandDelta < ((-1) * GameConfig.productionDemandDeltaLimit)
+
+    let currentPoints = this.state.currentPoints
+
+    // Add more points for matching production and a smaller penalty if there is no match
+    // Otherwise it is difficult to gain points
+    currentPoints += (overProduction || underProduction)? -1 : 2
+
+    currentPoints = (currentPoints < 0)? 0 : currentPoints
 
     // Other metrics
     let gameIsLost = this.gameIsLost()
 
     this.setState({
         gameIsLost: gameIsLost,
+
+        currentPoints: currentPoints,
         
         demandIsChangingSoon: demandIsChangingSoon, 
         productionDemandDelta: productionDemandDelta,
@@ -260,6 +267,8 @@ class Game extends React.Component {
             overProduction={this.state.overProduction}
             underProduction={this.state.underProduction}
 
+            currentPoints={this.state.currentPoints}
+
             gameIsLost={this.state.gameIsLost}
             gameIsPaused={this.state.gameIsPaused}
             gameIsRunning={this.state.gameIsRunning}
@@ -269,9 +278,6 @@ class Game extends React.Component {
             currentTemperature={this.state.currentTemperature}
             currentCoolingLevel={this.state.currentCoolingLevel}
             currentFuelInputLevel={this.state.currentFuelInputLevel}
-            
-            minimumTemperature={this.minimumTemperature}
-            maxTemperature={this.maxTemperature}
             
             temperatureHistory={this.state.temperatureHistory}
             displayedTemperatureHistory={this.state.displayedTemperatureHistory}
