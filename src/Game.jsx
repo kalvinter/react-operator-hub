@@ -4,7 +4,6 @@ import React from 'react';
 import Menu from './components/Menu'
 import GameUI from './components/GameUI'
 
-import GameStats from './components/GameStats';
 import Welcome from './components/Welcome';
 import GameHistory from './components/GameHistory';
 import {GameConfig} from './components/Config.js'
@@ -345,11 +344,6 @@ class Game extends React.Component {
 
       app_body = (
         <div className='main-card'>
-          <GameStats 
-            timeRunning={this.state.timeRunning}
-            producedEnergy={this.state.producedEnergy}
-          />
-
           <GameUI 
             timeRunning={this.state.timeRunning}
             toggleGamePauseOnClick={() => {this.toggleGamePauseOnClick()}}
@@ -359,6 +353,7 @@ class Game extends React.Component {
 
             activeEvents={[...this.state.activeIncreaseEvents, ...this.state.activeDecreaseEvents]}
 
+            producedEnergy={this.state.producedEnergy}
             productionDemandDelta={this.state.productionDemandDelta}
             overProduction={this.state.overProduction}
             underProduction={this.state.underProduction}
