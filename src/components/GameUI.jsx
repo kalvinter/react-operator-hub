@@ -235,7 +235,8 @@ const GameUI = (props) => {
         )
     }
     
-    const activeEvents = props.activeEvents.map((element) => {
+    const activeEvents = props.activeEvents.map((activeEvent) => {
+        let element = activeEvent.originalEvent
         return (
             <div className='mx-3' key={element.id}><span className='flex items-center'>{element.direction === effectDirection.increase ?  <ArrowUpCircleIcon></ArrowUpCircleIcon>: <ArrowDownCircleIcon></ArrowDownCircleIcon>} &nbsp;{element.title}</span></div>
         )

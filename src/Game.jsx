@@ -34,7 +34,6 @@ class Game extends React.Component {
       activeIncreaseEvents: [],
       activeDecreaseEvents: [],
 
-
       producedEnergy: 0,
       currentCoolingLevel: 0,
       currentFuelInputLevel: 0,
@@ -150,11 +149,10 @@ class Game extends React.Component {
           displayedEventText = newEvent.textStart
 
           upcomingEventChange = [{
-            text: newEvent.textStart,
             operation: "add",
             indexInSourceList: index,
             direction: newEvent.direction,
-            newElectricityDemand: currentElectricityDemand + 200 * (Math.random() * 0.25 + newEvent.effect) * upDownFactor,
+            addedElectricityDemand: 200 * (Math.random() * 0.25 + newEvent.effect) * upDownFactor,
             originalEvent: newEvent
           }]
         }
@@ -168,39 +166,26 @@ class Game extends React.Component {
           const index = Math.floor(Math.random() * eventList.length)
           const removedEvent = eventList[index]
 
-          /* calculate effect */
-          const upDownFactor = (removedEvent.direction === effectDirection.increase)? -1 : 1
-          
-          displayedEventText = removedEvent.textEnd
+          displayedEventText = removedEvent.originalEvent.textEnd
+          removedEvent.operation = "remove"
 
-          upcomingEventChange = [{
-            text: removedEvent.textEnd,
-            operation: "remove",
-            indexInSourceList: index,
-            direction: removedEvent.direction,
-            newElectricityDemand: currentElectricityDemand + 200 * (Math.random() * 0.25 + removedEvent.effect) * upDownFactor,
-            originalEvent: removedEvent
-          }]
+          upcomingEventChange = [removedEvent]
         }
       }
-
-      console.log(upcomingEventChange)
     }
 
     if (upcomingEventChange.length > 0 && this.state.timeRunning % 100 === 0){
         /* Introduce the scheduled event change */
         console.log(upcomingEventChange)
-        currentElectricityDemand = upcomingEventChange[0].newElectricityDemand
 
-        currentElectricityDemand = (currentElectricityDemand <= 0) ? 0 : currentElectricityDemand
         displayedEventText = noEventText
 
         if (upcomingEventChange[0].operation === "add"){
-          if (upcomingEventChange[0].direction === effectDirection.increase){
-            activeIncreaseEvents.push(upcomingEventChange[0].originalEvent)
+          if (upcomingEventChange[0].originalEvent.direction === effectDirection.increase){
+            activeIncreaseEvents.push(upcomingEventChange[0])
             this.availableEventHandler.removeEvent(upcomingEventChange[0].indexInSourceList, effectDirection.increase)
           } else {
-            activeDecreaseEvents.push(upcomingEventChange[0].originalEvent)
+            activeDecreaseEvents.push(upcomingEventChange[0])
             this.availableEventHandler.removeEvent(upcomingEventChange[0].indexInSourceList, effectDirection.decrease)
           }
 
@@ -215,6 +200,17 @@ class Game extends React.Component {
             
           }
         }
+
+        /* Change electricity demand accordingly - use -1 to reverse the effect when it is removed */
+        let upDownFactor = (upcomingEventChange[0].operation === "add") ? 1 : -1
+        
+        console.log(upDownFactor)
+        console.log(upcomingEventChange[0].addedElectricityDemand)
+
+        currentElectricityDemand += upcomingEventChange[0].addedElectricityDemand * upDownFactor
+
+        currentElectricityDemand = (currentElectricityDemand <= 0) ? 0 : currentElectricityDemand
+        
         console.log(activeIncreaseEvents)
         upcomingEventChange = []
     }
