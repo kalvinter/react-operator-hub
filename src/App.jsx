@@ -15,19 +15,26 @@ export class App extends Component {
   constructor(props){
     super(props);
 
+    this.defaultMainButtonConfig = {
+        display: true,
+        label: "Start Game",
+        onClick: () => this.startGame()
+    }
+
     this.state = {
         activePage: pages.landingPage,
         gameHistory: [],
-        mainButtonConfig: {
-            display: false,
-            label: "",
-            onClick: undefined
-        }
+        mainButtonConfig: this.defaultMainButtonConfig
     }
   }
 
   goToPage(page){
-    console.log(page)
+    if (page === pages.landingPage){
+        this.setState({            
+            mainButtonConfig: this.defaultMainButtonConfig
+        })
+    }
+
     this.setState({
         activePage: page
     })
@@ -49,7 +56,6 @@ export class App extends Component {
   }
 
   setMainButton(display, label, onClick){
-    console.log("setting!")
     this.setState({
         mainButtonConfig: {
             display: display,
@@ -61,7 +67,7 @@ export class App extends Component {
 
   render() {
     let app_body = "";
-    console.log(this.state.activePage)
+
     switch (this.state.activePage){
         case pages.gamePage:
             app_body = (
