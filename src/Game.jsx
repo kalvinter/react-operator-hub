@@ -2,25 +2,39 @@
 import React from 'react';
 
 import Menu from './components/Menu'
-import GameUI from './components/GameUI'
 
 import Welcome from './components/Welcome';
 import GameHistory from './components/GameHistory';
 import {GameConfig} from './components/Config.js'
-import {AvailableEventHandler, effectDirection, noEventText} from './components/Events.js'
+import {AvailableEventHandler, effectDirection, noEventText} from './Events.js'
 
-class Game extends React.Component {
+import GameStats from './components/gameui/GameStats.jsx';
+import TopBar from './components/gameui/TopBar.jsx';
+import EventsBar from './components/gameui/EventsBar.jsx';
+import InputBar from './components/gameui/InputBar.jsx';
+import OutputChart from './components/gameui/OutputChart.jsx';
+import TemperatureChart from './components/gameui/TemperatureChart.jsx';
+
+
+export const ReactorDataContext = React.createContext()
+export const GameDataContext = React.createContext()
+export const EventDataContext = React.createContext()
+
+
+export default class Game extends React.Component {
   
   constructor(props){
     super(props);
     this.mediumDemand = this.maxPossibleDemand / 2
 
     this.initialElectricityDemand = 0
+    
+    this.addGameToGameHistory = props.addGameToGameHistory
 
     this.availableEventHandler = new AvailableEventHandler()
 
     this.newGameState = {
-      gameIsRunning: false,
+      gameIsRunning: true,
       gameIsPaused: true,
       gameIsLost: false,
 
@@ -229,6 +243,8 @@ class Game extends React.Component {
     if (currentTemperature - GameConfig.naturalCoolingFactor > GameConfig.baseTemperature) {
       currentTemperature -= GameConfig.naturalCoolingFactor
     }
+
+    currentTemperature = currentTemperature >= 0 ? currentTemperature : 0
     
     let reactionLevel = 1 + (currentTemperature / GameConfig.maxTemperature)
 
@@ -342,42 +358,74 @@ class Game extends React.Component {
       main_button_label = "Stop Game"
       main_button_callback = () => {this.stopGame()}
 
+      const reactorData = {
+        producedEnergy: this.state.producedEnergy,
+
+        fuelInputOnChange: (event) => {this.changeFuelInputValue(event)},
+        coolingLevelOnChange: (event) => {this.changeCoolingLevelValue(event)},
+
+        currentElectricityOutput: this.state.currentElectricityOutput,
+        currentTemperature: this.state.currentTemperature,
+
+        currentCoolingLevel: this.state.currentCoolingLevel,
+        currentFuelInputLevel: this.state.currentFuelInputLevel,
+        
+        temperatureHistory: this.state.temperatureHistory,
+        displayedTemperatureHistory: this.state.displayedTemperatureHistory,
+
+        electricityOutputHistory: this.state.electricityOutputHistory,
+        displayedElectricityOutputHistory: this.state.displayedElectricityOutputHistory,
+        displayedElectricityDemandHistory: this.state.displayedElectricityDemandHistory
+      }
+
+      const gameData = {
+        timeRunning: this.state.timeRunning,
+        currentPoints: this.state.currentPoints,
+
+        gameIsLost: this.state.gameIsLost,
+        gameIsPaused: this.state.gameIsPaused,
+        gameIsRunning: this.state.gameIsRunning,
+
+        toggleGamePauseOnClick: (event) => this.toggleGamePauseOnClick(event),
+
+        productionDemandDelta: this.state.productionDemandDelta,
+        overProduction: this.state.overProduction,
+        underProduction: this.state.underProduction,
+      }
+
+      const eventData = {
+        upcomingEventChange: this.state.upcomingEventChange.length !== 0,
+        displayedEventText: this.state.displayedEventText,
+
+        activeEvents: [...this.state.activeIncreaseEvents, ...this.state.activeDecreaseEvents]
+      }
+
       app_body = (
         <div className='main-card'>
-          <GameUI 
-            timeRunning={this.state.timeRunning}
-            toggleGamePauseOnClick={() => {this.toggleGamePauseOnClick()}}
-            
-            upcomingEventChange={this.state.upcomingEventChange.length !== 0}
-            displayedEventText={this.state.displayedEventText}
+          <ReactorDataContext.Provider value={reactorData}>
+            <GameDataContext.Provider value={gameData}>
+              <EventDataContext.Provider value={eventData}>
+                
+                <div>
+                  <GameStats />
+                  
+                  <div className="w-full h-full mt-1">
 
-            activeEvents={[...this.state.activeIncreaseEvents, ...this.state.activeDecreaseEvents]}
+                      <TopBar/>
+                      <EventsBar />
 
-            producedEnergy={this.state.producedEnergy}
-            productionDemandDelta={this.state.productionDemandDelta}
-            overProduction={this.state.overProduction}
-            underProduction={this.state.underProduction}
+                      <div className='flex flex-1 gap-2 my-2'>
+                          <TemperatureChart />
+                          <OutputChart />
+                      </div>
 
-            currentPoints={this.state.currentPoints}
+                      <InputBar/>
+                  </div>
+                </div>
 
-            gameIsLost={this.state.gameIsLost}
-            gameIsPaused={this.state.gameIsPaused}
-            gameIsRunning={this.state.gameIsRunning}
-            fuelInputOnChange={(event) => this.changeFuelInputValue(event)}
-            coolingLevelOnChange={(event) => this.changeCoolingLevelValue(event)}
-            currentElectricityOutput={this.state.currentElectricityOutput}
-            currentTemperature={this.state.currentTemperature}
-            currentCoolingLevel={this.state.currentCoolingLevel}
-            currentFuelInputLevel={this.state.currentFuelInputLevel}
-            
-            temperatureHistory={this.state.temperatureHistory}
-            displayedTemperatureHistory={this.state.displayedTemperatureHistory}
-
-            electricityOutputHistory={this.state.electricityOutputHistory}
-            displayedElectricityOutputHistory={this.state.displayedElectricityOutputHistory}
-
-            displayedElectricityDemandHistory={this.state.displayedElectricityDemandHistory}
-          />
+              </EventDataContext.Provider>
+            </GameDataContext.Provider>
+          </ReactorDataContext.Provider>
         </div>
       )
 
@@ -409,5 +457,3 @@ class Game extends React.Component {
     )
   }
 }
-
-export default Game

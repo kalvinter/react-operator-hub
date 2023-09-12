@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 
 import { Line } from 'react-chartjs-2';
 import { GameConfig } from '../Config.js';
@@ -14,6 +14,7 @@ import {
     Tooltip,
     Legend,
   } from 'chart.js';
+import { GameDataContext, ReactorDataContext } from '../../Game.jsx';
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -48,29 +49,31 @@ const outputChartOptions = {
     }
 };
 
-export default function OutputChart(props) {
-    
-    let displayedUpperElectricityDemandLimit = props.displayedElectricityDemandHistory.map((element) => {
+export default function OutputChart() {
+    const gameData = useContext(GameDataContext)
+    const reactorData = useContext(ReactorDataContext)
+
+    let displayedUpperElectricityDemandLimit = reactorData.displayedElectricityDemandHistory.map((element) => {
         return (element + GameConfig.productionDemandDeltaLimit) === 0 ? 0 : element + GameConfig.productionDemandDeltaLimit
     })
-    let displayedLowerElectricityDemandLimit = props.displayedElectricityDemandHistory.map((element) => {
+    let displayedLowerElectricityDemandLimit = reactorData.displayedElectricityDemandHistory.map((element) => {
         return (element - GameConfig.productionDemandDeltaLimit) === 0 ? 0 : element - GameConfig.productionDemandDeltaLimit
     })
 
-    let labels = generateChartLabels(props.timeRunning)
+    let labels = generateChartLabels(gameData.timeRunning)
 
     let outputChartData = {
         labels,
         datasets: [
             {
               label: 'Electricity Output',
-              data: props.displayedElectricityOutputHistory,
+              data: reactorData.displayedElectricityOutputHistory,
               borderColor: 'blue',
               backgroundColor: 'blue',
             },
             {
                 label: 'Electricity Demand',
-                data: props.displayedElectricityDemandHistory,
+                data: reactorData.displayedElectricityDemandHistory,
                 borderColor: 'lime',
                 backgroundColor: 'lime',
             },
@@ -90,16 +93,16 @@ export default function OutputChart(props) {
     }
 
     let delta = getProductionLabelBg({
-        overProduction: props.overProduction, 
-        underProduction: props.underProduction
+        overProduction: gameData.overProduction, 
+        underProduction: gameData.underProduction
     })
 
     let deltaComponent;
-    if (props.overProduction || props.underProduction) {
+    if (gameData.overProduction || gameData.underProduction) {
         deltaComponent = (
             <div className={`w-full my-2 border-solid border-2 rounded border-gray-900 flex justify-between p-2 items-center ${delta.deltaBg}`}>
                 <h5>{delta.deltaLabel}</h5> 
-                <div>{props.productionDemandDelta.toFixed(0)} Watt</div>
+                <div>{gameData.productionDemandDelta.toFixed(0)} Watt</div>
             </div>    
         )
     } else {
@@ -115,7 +118,7 @@ export default function OutputChart(props) {
             <div className="grid grid-cols-2 mb-2 border-b-2 border-gray-200">
                 <p className="w-full">Current Electricity Output</p>
                 <div className="w-full text-right px-2 flex justify-end">
-                    <div>{props.currentElectricityOutput.toFixed(2)}</div> 
+                    <div>{reactorData.currentElectricityOutput.toFixed(2)}</div> 
                     <div className="w-[40px]">Watt</div>
                 </div>
             </div>

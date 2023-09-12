@@ -1,8 +1,10 @@
-import React from 'react'
+import React, {useContext} from 'react'
 
 import { GameConfig } from '../Config.js';
 import {lineChartBaseOptions, generateChartLabels} from './ChartUtils.js'
 import { Line } from 'react-chartjs-2';
+
+import { GameDataContext, ReactorDataContext } from '../../Game.jsx';
 
 import {
     Chart as ChartJS,
@@ -49,36 +51,39 @@ const temperatureChartOptions = {
 };
 
 
-const TemperatureChart = (props) => {
+const TemperatureChart = () => {
+    const reactorData = useContext(ReactorDataContext)
+    const gameData = useContext(GameDataContext)
+
     let temperature_indication_bg;
     let temperature_text;
     let display_temperature_text;
             
-    if (props.currentTemperature <= GameConfig.minimumTemperature) {
+    if (reactorData.currentTemperature <= GameConfig.minimumTemperature) {
         temperature_indication_bg = "bg-blue-600"
         temperature_text = (
             <h4>Temperature is not high enough </h4>
         )
         display_temperature_text = true
-    } else if (props.currentTemperature <= 150){
+    } else if (reactorData.currentTemperature <= 150){
         temperature_indication_bg = "bg-green-600"
         temperature_text = (
             <h4>Temperature is normal</h4>
         )
         display_temperature_text = false
-    } else if (props.currentTemperature <= 200){
+    } else if (reactorData.currentTemperature <= 200){
         temperature_indication_bg = "bg-yellow-600"
         temperature_text = (
             <h4>Temperature is above normal</h4>
         )
         display_temperature_text = false
-    } else if (props.currentTemperature < 250){
+    } else if (reactorData.currentTemperature < 250){
         temperature_indication_bg = "bg-orange-500"
         temperature_text = (
             <h4>Temperature is high!</h4>
         )
         display_temperature_text = true
-    } else if (props.currentTemperature < GameConfig.maxTemperature) {
+    } else if (reactorData.currentTemperature < GameConfig.maxTemperature) {
         temperature_indication_bg = "bg-red-500"
         temperature_text = (
             <h4>Temperature is critical! <br></br>Reactor breakdown occures above {GameConfig.maxTemperature}°C!</h4>
@@ -92,14 +97,14 @@ const TemperatureChart = (props) => {
         display_temperature_text = true
     }
     
-    let labels = generateChartLabels(props.timeRunning)
+    let labels = generateChartLabels(gameData.timeRunning)
     
     let temperature_line_chart_data = {
         labels,
         datasets: [
             {
               label: 'Temperature',
-              data: props.displayedTemperatureHistory,
+              data: reactorData.displayedTemperatureHistory,
               borderColor: 'red',
               backgroundColor: 'red',
             },
@@ -114,7 +119,7 @@ const TemperatureChart = (props) => {
                 <div className={`${temperature_indication_bg} 
                     w-full text-right px-2 flex justify-end`}
                 >
-                    <div>{props.currentTemperature.toFixed(2)}</div> 
+                    <div>{reactorData.currentTemperature.toFixed(2)}</div> 
                     <div className="w-[40px]">°C</div>
                 </div>    
             </div>
