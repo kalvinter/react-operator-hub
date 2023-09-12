@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import { ReactorDataContext } from '../../Game'
+import { ReactorDataContext } from '../Game'
 
 const inputLevelList = Array.from({ length: 100 }, (_, i) => <option key={i} value={i}>{i}</option>)
 

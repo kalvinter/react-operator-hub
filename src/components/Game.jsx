@@ -1,19 +1,17 @@
 
 import React from 'react';
 
-import Menu from './components/Menu'
+import {GameConfig} from './Config.js'
+import {AvailableEventHandler, effectDirection, noEventText} from '../Events.js'
 
-import Welcome from './components/Welcome';
-import GameHistory from './components/GameHistory';
-import {GameConfig} from './components/Config.js'
-import {AvailableEventHandler, effectDirection, noEventText} from './Events.js'
+import {pages} from '../App.jsx'
 
-import GameStats from './components/gameui/GameStats.jsx';
-import TopBar from './components/gameui/TopBar.jsx';
-import EventsBar from './components/gameui/EventsBar.jsx';
-import InputBar from './components/gameui/InputBar.jsx';
-import OutputChart from './components/gameui/OutputChart.jsx';
-import TemperatureChart from './components/gameui/TemperatureChart.jsx';
+import GameStats from './gameui/GameStats.jsx';
+import TopBar from './gameui/TopBar.jsx';
+import EventsBar from './gameui/EventsBar.jsx';
+import InputBar from './gameui/InputBar.jsx';
+import OutputChart from './gameui/OutputChart.jsx';
+import TemperatureChart from './gameui/TemperatureChart.jsx';
 
 
 export const ReactorDataContext = React.createContext()
@@ -22,9 +20,12 @@ export const EventDataContext = React.createContext()
 
 
 export default class Game extends React.Component {
-  
+
   constructor(props){
     super(props);
+    console.log(pages)
+    props.setMainButton(true, "Stop Game", () => {this.stopGame()})
+
     this.mediumDemand = this.maxPossibleDemand / 2
 
     this.initialElectricityDemand = 0
@@ -87,23 +88,24 @@ export default class Game extends React.Component {
       this.toggleGamePauseOnClick()
     }
 
-    let gameHistory = this.state.gameHistory.slice()
-
-    gameHistory.push({
+    const gameHistoryEntry = {
       date: new Date(),
       timeRunning: this.state.timeRunning,
       currentPoints: this.state.currentPoints,
       producedEnergy: this.state.producedEnergy,
       averageProductionIntensity: this.state.averageProductionIntensity,
       gameLost: this.gameIsLost(),
-    })
+    }
 
-    console.log(gameHistory)
-    
+    console.log(gameHistoryEntry)
+
+    this.props.addGameToGameHistory(gameHistoryEntry)
+
     this.setState({
-      ...this.newGameState,
-      gameHistory: gameHistory
+      ...this.newGameState
     })
+    console.log(pages.landingPage)
+    this.props.goToPage(pages.landingPage)
   }
 
   gameIsLost(){
@@ -349,110 +351,74 @@ export default class Game extends React.Component {
   }
 
   render(){
-    let main_button_label;
-    let main_button_callback;
-    let app_body;
+    const reactorData = {
+      producedEnergy: this.state.producedEnergy,
 
-    if (this.state.gameIsRunning){
+      fuelInputOnChange: (event) => {this.changeFuelInputValue(event)},
+      coolingLevelOnChange: (event) => {this.changeCoolingLevelValue(event)},
 
-      main_button_label = "Stop Game"
-      main_button_callback = () => {this.stopGame()}
+      currentElectricityOutput: this.state.currentElectricityOutput,
+      currentTemperature: this.state.currentTemperature,
 
-      const reactorData = {
-        producedEnergy: this.state.producedEnergy,
+      currentCoolingLevel: this.state.currentCoolingLevel,
+      currentFuelInputLevel: this.state.currentFuelInputLevel,
+      
+      temperatureHistory: this.state.temperatureHistory,
+      displayedTemperatureHistory: this.state.displayedTemperatureHistory,
 
-        fuelInputOnChange: (event) => {this.changeFuelInputValue(event)},
-        coolingLevelOnChange: (event) => {this.changeCoolingLevelValue(event)},
+      electricityOutputHistory: this.state.electricityOutputHistory,
+      displayedElectricityOutputHistory: this.state.displayedElectricityOutputHistory,
+      displayedElectricityDemandHistory: this.state.displayedElectricityDemandHistory
+    }
 
-        currentElectricityOutput: this.state.currentElectricityOutput,
-        currentTemperature: this.state.currentTemperature,
+    const gameData = {
+      timeRunning: this.state.timeRunning,
+      currentPoints: this.state.currentPoints,
 
-        currentCoolingLevel: this.state.currentCoolingLevel,
-        currentFuelInputLevel: this.state.currentFuelInputLevel,
-        
-        temperatureHistory: this.state.temperatureHistory,
-        displayedTemperatureHistory: this.state.displayedTemperatureHistory,
+      gameIsLost: this.state.gameIsLost,
+      gameIsPaused: this.state.gameIsPaused,
+      gameIsRunning: this.state.gameIsRunning,
 
-        electricityOutputHistory: this.state.electricityOutputHistory,
-        displayedElectricityOutputHistory: this.state.displayedElectricityOutputHistory,
-        displayedElectricityDemandHistory: this.state.displayedElectricityDemandHistory
-      }
+      toggleGamePauseOnClick: (event) => this.toggleGamePauseOnClick(event),
 
-      const gameData = {
-        timeRunning: this.state.timeRunning,
-        currentPoints: this.state.currentPoints,
+      productionDemandDelta: this.state.productionDemandDelta,
+      overProduction: this.state.overProduction,
+      underProduction: this.state.underProduction,
+    }
 
-        gameIsLost: this.state.gameIsLost,
-        gameIsPaused: this.state.gameIsPaused,
-        gameIsRunning: this.state.gameIsRunning,
+    const eventData = {
+      upcomingEventChange: this.state.upcomingEventChange.length !== 0,
+      displayedEventText: this.state.displayedEventText,
 
-        toggleGamePauseOnClick: (event) => this.toggleGamePauseOnClick(event),
-
-        productionDemandDelta: this.state.productionDemandDelta,
-        overProduction: this.state.overProduction,
-        underProduction: this.state.underProduction,
-      }
-
-      const eventData = {
-        upcomingEventChange: this.state.upcomingEventChange.length !== 0,
-        displayedEventText: this.state.displayedEventText,
-
-        activeEvents: [...this.state.activeIncreaseEvents, ...this.state.activeDecreaseEvents]
-      }
-
-      app_body = (
-        <div className='main-card'>
-          <ReactorDataContext.Provider value={reactorData}>
-            <GameDataContext.Provider value={gameData}>
-              <EventDataContext.Provider value={eventData}>
-                
-                <div>
-                  <GameStats />
-                  
-                  <div className="w-full h-full mt-1">
-
-                      <TopBar/>
-                      <EventsBar />
-
-                      <div className='flex flex-1 gap-2 my-2'>
-                          <TemperatureChart />
-                          <OutputChart />
-                      </div>
-
-                      <InputBar/>
-                  </div>
-                </div>
-
-              </EventDataContext.Provider>
-            </GameDataContext.Provider>
-          </ReactorDataContext.Provider>
-        </div>
-      )
-
-    } else {
-      main_button_label = "Start a new Game"
-      main_button_callback = () => {this.startGame()}
-      app_body = (
-        <div className="main-card">
-          <Welcome 
-            onClick={main_button_callback}
-          />
-          <GameHistory 
-            gameHistory={this.state.gameHistory}
-          />
-        </div>
-      )
+      activeEvents: [...this.state.activeIncreaseEvents, ...this.state.activeDecreaseEvents]
     }
 
     return (
-      <div className="App container p-[4rem] w-full mx-auto">
-        <Menu 
-          label={main_button_label}
-          onClick={main_button_callback}
-        />
+      <div className='main-card'>
+        <ReactorDataContext.Provider value={reactorData}>
+          <GameDataContext.Provider value={gameData}>
+            <EventDataContext.Provider value={eventData}>
+              
+              <div>
+                <GameStats />
+                
+                <div className="w-full h-full mt-1">
 
-        {app_body}
+                    <TopBar/>
+                    <EventsBar />
 
+                    <div className='flex flex-1 gap-2 my-2'>
+                        <TemperatureChart />
+                        <OutputChart />
+                    </div>
+
+                    <InputBar/>
+                </div>
+              </div>
+
+            </EventDataContext.Provider>
+          </GameDataContext.Provider>
+        </ReactorDataContext.Provider>
       </div>
     )
   }

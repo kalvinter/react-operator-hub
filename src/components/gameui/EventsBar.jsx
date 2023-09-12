@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 
 import { effectDirection } from '../../Events.js';
 import {ArrowDownCircleIcon, ArrowUpCircleIcon} from '@heroicons/react/20/solid'
-import { EventDataContext } from '../../Game';
+import { EventDataContext } from '../Game';
 
 export default function EventsBar() {
     const eventData = useContext(EventDataContext)

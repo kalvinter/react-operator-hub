@@ -4,7 +4,7 @@ import { GameConfig } from '../Config.js';
 import {lineChartBaseOptions, generateChartLabels} from './ChartUtils.js'
 import { Line } from 'react-chartjs-2';
 
-import { GameDataContext, ReactorDataContext } from '../../Game.jsx';
+import { GameDataContext, ReactorDataContext } from '../Game.jsx';
 
 import {
     Chart as ChartJS,

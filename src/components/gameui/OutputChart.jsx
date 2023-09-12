@@ -14,7 +14,7 @@ import {
     Tooltip,
     Legend,
   } from 'chart.js';
-import { GameDataContext, ReactorDataContext } from '../../Game.jsx';
+import { GameDataContext, ReactorDataContext } from '../Game.jsx';
   ChartJS.register(
     CategoryScale,
     LinearScale,

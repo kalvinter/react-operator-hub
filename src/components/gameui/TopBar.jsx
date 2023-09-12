@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 
 import { getProductionLabelBg } from './Utils'
 
-import { GameDataContext } from '../../Game.jsx';
+import { GameDataContext } from '../Game.jsx';
 
 export default function TopBar(props) {
     const gameData = useContext(GameDataContext)

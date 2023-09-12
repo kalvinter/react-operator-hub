@@ -2,7 +2,7 @@
 
 import React, {useContext} from 'react'
 
-import { GameDataContext, ReactorDataContext } from '../../Game';
+import { GameDataContext, ReactorDataContext } from '../Game';
 
 const GameStats = () => {
     const gameData = useContext(GameDataContext)
