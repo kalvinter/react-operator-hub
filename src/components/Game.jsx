@@ -143,7 +143,7 @@ export default class Game extends React.Component {
     if (this.state.upcomingEventChange.length === 0 && this.state.timeRunning % 100 == 40 && randomFactor > 0.4){
 
       /* If there is now a new event coming, decide if an existing event should be phased out or a new one should be introduced */
-      const introduceNewEvent = (activeEvents.length === 0)? true : Math.random() > 0.5
+      const introduceNewEvent = (activeEvents.length === 0)? true : Math.random() > 0.3
       console.log("introduceNewEvent ", introduceNewEvent)
 
       if (introduceNewEvent){

@@ -11,18 +11,26 @@ export const effectDirection = {
 
 export const noEventText = "Electricity Demand is stable."
 
-export let decreaseEvents = [
+let decreaseEvents = [
     {
         id: "D1",
         title: "High wind energy output",
         textStart: "Strong winds increase electricity generated from wind farms. Medium demand decrease expected shortly!",
-        textEnd: "Winds have returned to normal. Medium demand surge decrease shortly!",
+        textEnd: "Winds have returned to normal. Medium demand decrease expected shortly!",
+        effect: effectLevels.medium,
+        direction: effectDirection.decrease,
+    },
+    {
+        id: "D2",
+        title: "High solar energy output",
+        textStart: "A cloudless sky and strong sun increase electricity generated from solar energy farms. Low demand decrease expected shortly!",
+        textEnd: "Solar output decreased again. Low demand decrease expected shortly!",
         effect: effectLevels.low,
         direction: effectDirection.decrease,
     },
 ]
 
-export let increaseEvents = [
+let increaseEvents = [
     {
         id: "I1",
         title: "Reactor #7 is down",
@@ -41,6 +49,14 @@ export let increaseEvents = [
     },
     {
         id: "I3",
+        title: "New LLM app launched",
+        textStart: "A new LLM wrapper app was launched and everyone is hyped. Medium demand surge by our data centers expected shortly!",
+        textEnd: "People realised that the new app was not so good. Medium demand decrease expected shortly!",
+        effect: effectLevels.medium,
+        direction: effectDirection.increase,
+    },
+    {
+        id: "I4",
         title: "New Netflix series",
         textStart: "Everybody is about to watch the new series on Netflix. Low demand surge expected shortly!",
         textEnd: "Most people have finished wathcing the new episode. Low demand decrease decrease shortly!",
