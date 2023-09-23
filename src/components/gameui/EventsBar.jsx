@@ -25,7 +25,7 @@ export default function EventsBar() {
             </div>
             <div className='w-full my-2 flex justify-between items-center'>
                 <b className='ml-2 mr-4 whitespace-nowrap'>Active Events</b>
-                <div className='w-full my-1 flex items-center' id='activeEventsArea'>
+                <div className='w-full my-1 flex items-center flex-wrap gap-2' id='activeEventsArea'>
                     {activeEvents}
                 </div>
             </div>
