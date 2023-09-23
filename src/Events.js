@@ -11,7 +11,7 @@ export const effectDirection = {
 
 export const noEventText = "Electricity Demand is stable."
 
-let decreaseEvents = [
+const decreaseEvents = [
     {
         title: "High wind energy output",
         textStart: "Strong winds increase electricity generated from wind farms. Medium demand decrease expected shortly!",
@@ -28,7 +28,7 @@ let decreaseEvents = [
     },
 ]
 
-let increaseEvents = [
+const increaseEvents = [
     {
         title: "Reactor #7 is down",
         textStart: "Technical difficulties at reactor #7. Large demand surge expected shortly!",
