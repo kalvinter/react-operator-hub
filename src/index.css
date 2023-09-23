@@ -105,4 +105,8 @@ p {
   #game--charts-wrapper {
     flex-direction: column;
   }
+
+  #temperatureLineChartWrapper {
+    display: none;
+  }
 }

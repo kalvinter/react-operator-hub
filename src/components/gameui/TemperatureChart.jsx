@@ -123,7 +123,9 @@ const TemperatureChart = () => {
                     <div className="w-[40px]">°C</div>
                 </div>    
             </div>
-            <Line options={temperatureChartOptions} data={temperature_line_chart_data} />
+            <div id='temperatureLineChartWrapper'>
+                <Line options={temperatureChartOptions} data={temperature_line_chart_data} />
+            </div>
             <div className={`${display_temperature_text? '' : 'invisible'} w-full border-solid border-2 rounded border-gray-900
             ${temperature_indication_bg} p-2 my-2`}>
                 {temperature_text}
