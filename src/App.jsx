@@ -95,7 +95,7 @@ export class App extends Component {
     }
 
     return (
-        <div className="App container p-[4rem] w-full mx-auto">
+        <div className="App container">
             <Navigation
                 mainButtonConfig={this.state.mainButtonConfig}
              />

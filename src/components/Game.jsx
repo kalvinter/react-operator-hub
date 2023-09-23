@@ -407,7 +407,7 @@ export default class Game extends React.Component {
                     <TopBar/>
                     <EventsBar />
 
-                    <div className='flex flex-1 gap-2 my-2'>
+                    <div id='game--charts-wrapper'>
                         <TemperatureChart />
                         <OutputChart />
                     </div>
