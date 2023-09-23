@@ -38,6 +38,15 @@ p {
   margin-bottom: 0.5rem;
 }
 
+a {
+  color: white;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: gray;
+}
+
 .main-card {
   min-height: 60vh;
   height: 100%;

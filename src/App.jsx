@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Game from './components/Game';
 import Welcome from './components/Welcome';
 import GameHistory from './components/GameHistory';
+import About from './pages/About';
 import Navigation from './components/Navigation';
 
 export const pages = {
@@ -86,9 +87,18 @@ export class App extends Component {
                         setMainButton={(display, label, onClick) => {this.setMainButton(display, label, onClick)}} 
                         onClick={() => {this.startGame()}}
                     />
-                    <GameHistory 
-                        gameHistory={this.state.gameHistory}
-                    />
+
+                    <div className='w-full my-2 border-solid border-2 rounded border-gray-900 flex justify-between p-2 items-center bg-neutral-700'>
+
+                        <GameHistory 
+                            gameHistory={this.state.gameHistory}
+                        />
+
+                    </div>
+                    <div className='w-full my-2 border-solid border-2 rounded border-gray-900 flex justify-between p-2 items-center bg-neutral-700'>
+
+                    <About />
+                    </div>
                 </div>
             )
         

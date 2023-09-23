@@ -3,20 +3,17 @@
 import React from 'react'
 
 function GameHistory(props) {
-    if (props.gameHistory.length === 0){
-        return (<div></div>)
-    }
-
     let gameHistory = props.gameHistory.sort(
         (p1, p2) => (p1.averageProductionIntensity < p2.averageProductionIntensity) ? 1 : -1
     );
 
-    return (
-        <div className='w-full'>
-            <hr className='mt-4 mb-4'></hr>
-            <h4 className='mb-2'>Past Games and Highscores</h4>
+    let gameHistoryElement = (
+        <div>You have not played any games yet. Finished games and highscores will appear here.</div>
+    )
 
-            {gameHistory.map((element) => (
+    if (gameHistory.length > 0) {
+        gameHistoryElement = (
+            gameHistory.map((element) => (
                 <div className='history-card bg-slate-400' key={element.date}>
                     <div>
                         <span className='history-card-label'>Date</span> <br></br>
@@ -41,7 +38,14 @@ function GameHistory(props) {
                         {element.gameLost? 'Lost' : '-'}
                     </div>
                 </div>
-            ))}    
+            ))
+        )
+    }
+
+    return (
+        <div className='w-full'>
+            <h4 className='mb-2'>Past Games and Highscores</h4>
+            {gameHistoryElement}    
         </div>
     )
 }
