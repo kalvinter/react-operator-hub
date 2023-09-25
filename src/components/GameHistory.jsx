@@ -44,7 +44,7 @@ function GameHistory(props) {
 
     return (
         <div className='w-full'>
-            <h4 className='mb-2'>Past Games and Highscores</h4>
+            <h2>Past Games and Highscores</h2>
             {gameHistoryElement}    
         </div>
     )

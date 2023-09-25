@@ -4,7 +4,7 @@ function About() {
   return (
     <div>
 
-    <h2 className='mb-2'>About</h2>
+    <h2>About</h2>
     
     <p>This game is an experiment to practice working with react. I always loved browser games and as such I wanted to learn 
     react by creating something I would enjoy using. I hope that you have as much fun with this little game as I had. </p>

@@ -14,7 +14,7 @@ const GameStats = () => {
             <table className='w-full' id='game-stats-table'>
                 <tbody>
                     <tr>
-                        <td>Reactor running in sec</td>
+                        <td>Game duration</td>
                         <td>{ (gameData.timeRunning / 10).toFixed(1)}</td>
                         <td> sec.</td>
                     </tr>

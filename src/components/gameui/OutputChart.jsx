@@ -115,8 +115,8 @@ export default function OutputChart() {
 
     return (
         <div className='border-2 rounded border-gray-900 p-2 bg-neutral-700 w-full'>
-            <div className="grid grid-cols-2 mb-2 border-b-2 border-gray-200">
-                <p className="w-full">Electricity Output</p>
+            <div className="grid grid-cols-2 mb-2 border-b-2 border-gray-200 items-center py-1">
+                <div className="w-full">Electricity Output</div>
                 <div className="w-full text-right px-2 flex justify-end">
                     <div>{reactorData.currentElectricityOutput.toFixed(2)}</div> 
                     <div className="w-[40px]">Watt</div>

@@ -27,11 +27,13 @@ h1 {
 h2 {
   font-weight: bolder;
   font-size: larger;
+  margin-bottom: 0.5rem;
 }
 
 h4 {
   font-weight: bolder;
   font-size: large;
+  margin-bottom: 0.5;
 }
 
 p {
