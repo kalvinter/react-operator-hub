@@ -42,7 +42,7 @@ const temperatureChartOptions = {
     scales: {
         y: {
             min: 0,
-            suggestedMax: GameConfig.maxTemperature,
+            suggestedMax: GameConfig.maximumTemperature,
             ticks: {
                 callback: function(value, index, ticks) {
                     return value + ' °C';

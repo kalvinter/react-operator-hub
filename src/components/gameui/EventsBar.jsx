@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 
-import { effectDirection } from '../../Events.js';
+import { effectDirection } from '../../game/Events.js';
 import {ArrowDownCircleIcon, ArrowUpCircleIcon} from '@heroicons/react/20/solid'
 import { EventDataContext } from '../Game';
 

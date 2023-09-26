@@ -1,10 +1,12 @@
 
 import React from 'react';
 
-import {GameConfig} from './Config.js'
-import {AvailableEventHandler, effectDirection, noEventText} from '../Events.js'
+import {GameConfig} from '../game/Config.js'
 
 import {pages} from '../App.jsx'
+
+import {Reactor} from '../game/Reactor.js'
+import {ElectricityGrid} from '../game/ElectricityGrid.js'
 
 import GameStats from './gameui/GameStats.jsx';
 import TopBar from './gameui/TopBar.jsx';
@@ -25,14 +27,20 @@ export default class Game extends React.Component {
     super(props);
     console.log(pages)
     props.setMainButton(true, "Stop Game", () => {this.stopGame()})
-
-    this.mediumDemand = this.maxPossibleDemand / 2
-
-    this.initialElectricityDemand = 0
     
     this.addGameToGameHistory = props.addGameToGameHistory
 
-    this.availableEventHandler = new AvailableEventHandler()
+    this.reactor = new Reactor({
+      baseTemperature: GameConfig.baseTemperature,
+      maximumTemperature: GameConfig.maximumTemperature,
+      minimumTemperature: GameConfig.minimumTemperature,
+      naturalCoolingFactor: GameConfig.naturalCoolingFactor
+    })
+    
+    this.electricityGrid = new ElectricityGrid({
+      initialElectricityDemand: 0,
+      productionDemandDeltaLimit: GameConfig.productionDemandDeltaLimit
+    })
 
     this.newGameState = {
       gameIsRunning: true,
@@ -43,29 +51,29 @@ export default class Game extends React.Component {
 
       timeRunning: 0,
 
-      displayedEventText: noEventText,
+      displayedEventText: this.electricityGrid.displayedEventText,
       upcomingEventChange: [],
       activeIncreaseEvents: [],
       activeDecreaseEvents: [],
 
-      producedEnergy: 0,
+      producedEnergy: this.reactor.producedEnergy,
       currentCoolingLevel: 0,
       currentFuelInputLevel: 0,
       currentElectricityOutput: 0,
-      currentTemperature: GameConfig.baseTemperature,
+      currentTemperature: this.reactor.currentTemperature,
 
-      productionDemandDelta: this.initialElectricityDemand,
+      productionDemandDelta: this.electricityGrid.productionDemandDelta,
       underProduction: false,
       overProduction: false,
 
-      temperatureHistory: Array(11).fill(0),
+      temperatureHistory: this.reactor.temperatureHistory,
       displayedTemperatureHistory: [],
 
-      electricityOutputHistory: Array(11).fill(0),
+      electricityOutputHistory: this.reactor.electricityOutputHistory,
       displayedElectricityOutputHistory: [],
 
-      currentElectricityDemand: this.initialElectricityDemand,
-      electricityDemandHistory: Array(11).fill(this.initialElectricityDemand),
+      currentElectricityDemand: this.electricityGrid.currentElectricityDemand,
+      electricityDemandHistory: this.electricityGrid.electricityDemandHistory,
       displayedElectricityDemandHistory: []
     }
 
@@ -109,178 +117,33 @@ export default class Game extends React.Component {
   }
 
   gameIsLost(){
-    if (this.state.currentTemperature > GameConfig.maxTemperature){
+    if (this.state.currentTemperature > GameConfig.maximumTemperature){
       return true
     }
     return false
   }
 
   tick() {
+    // Temperature and Electricity Output
+    this.reactor.updateElectricityOutput(this.state.currentFuelInputLevel, this.state.currentCoolingLevel)
+
     // Electricity Demand
-    let electricityDemandHistory = this.state.electricityDemandHistory.slice()
-    let currentElectricityDemand = electricityDemandHistory[electricityDemandHistory.length - 1]
-    let lastElectricityDemand = currentElectricityDemand
+    this.electricityGrid.updateElectricityDemand(this.state.timeRunning)
+    let displayedElectricityDemandHistory = this.electricityGrid.electricityDemandHistory.slice(-11)
 
-    let availableIncreaseEvents = this.availableEventHandler.getAvailableEvents(effectDirection.increase)
-    let availableDecreaseEvents = this.availableEventHandler.getAvailableEvents(effectDirection.decrease)
-
-    console.log(availableIncreaseEvents)
-    console.log(availableDecreaseEvents)
-
-    let activeIncreaseEvents = this.state.activeIncreaseEvents.slice()
-    let activeDecreaseEvents = this.state.activeDecreaseEvents.slice()
-
-    let activeEvents = [...activeDecreaseEvents, ...activeIncreaseEvents]
-    console.log(activeEvents)
-
-    let upcomingEventChange = this.state.upcomingEventChange
-    let displayedEventText = this.state.displayedEventText
-    
-    const randomFactor = Math.random()
-
-    console.log(this.state.timeRunning % 100)
-    /* If there is no upcoming event - decide if there should be one */
-    if (this.state.upcomingEventChange.length === 0 && this.state.timeRunning % 100 == 40 && randomFactor > 0.4){
-
-      /* If there is now a new event coming, decide if an existing event should be phased out or a new one should be introduced */
-      const introduceNewEvent = (activeEvents.length === 0)? true : Math.random() > 0.3
-      console.log("introduceNewEvent ", introduceNewEvent)
-
-      if (introduceNewEvent){
-        /* If the demand is already at 0 - choose an event that would increase demand */
-        const introduceIncreaseEvent = (lastElectricityDemand === 0)? true : Math.random() > 0.5
-        
-        const eventList = introduceIncreaseEvent ? availableIncreaseEvents : availableDecreaseEvents
-        
-        /* Check if the event list even has events before proceeding */
-        if (eventList.length > 0){
-          /* Remove the event from the list while it is active */
-          const index = Math.floor(Math.random() * eventList.length)
-          const newEvent = eventList[index]
-          
-          /* calculate effect */
-          const upDownFactor = (newEvent.direction === effectDirection.increase)? 1 : -1
-          
-          displayedEventText = newEvent.textStart
-
-          upcomingEventChange = [{
-            operation: "add",
-            indexInSourceList: index,
-            direction: newEvent.direction,
-            addedElectricityDemand: 200 * (Math.random() * 0.25 + newEvent.effect) * upDownFactor,
-            originalEvent: newEvent
-          }]
-        }
-
-      } else {
-        const removeIncreaseEvent = (lastElectricityDemand === 0)? true : Math.random() > 0.5
-
-        let eventList = removeIncreaseEvent ? activeIncreaseEvents : activeDecreaseEvents
-        
-        if (eventList.length > 0){
-          const index = Math.floor(Math.random() * eventList.length)
-          const removedEvent = eventList[index]
-
-          displayedEventText = removedEvent.originalEvent.textEnd
-          removedEvent.operation = "remove"
-
-          upcomingEventChange = [removedEvent]
-        }
-      }
-    }
-
-    if (upcomingEventChange.length > 0 && this.state.timeRunning % 100 === 0){
-        /* Introduce the scheduled event change */
-        console.log(upcomingEventChange)
-
-        displayedEventText = noEventText
-
-        if (upcomingEventChange[0].operation === "add"){
-          if (upcomingEventChange[0].originalEvent.direction === effectDirection.increase){
-            activeIncreaseEvents.push(upcomingEventChange[0])
-            this.availableEventHandler.removeEvent(upcomingEventChange[0].indexInSourceList, effectDirection.increase)
-          } else {
-            activeDecreaseEvents.push(upcomingEventChange[0])
-            this.availableEventHandler.removeEvent(upcomingEventChange[0].indexInSourceList, effectDirection.decrease)
-          }
-
-        } else {
-          this.availableEventHandler.addEvent(upcomingEventChange[0].originalEvent)
-
-          if (upcomingEventChange[0].direction === effectDirection.increase){
-            activeIncreaseEvents.splice(upcomingEventChange[0].indexInSourceList, 1)
-
-          } else {
-            activeDecreaseEvents.splice(upcomingEventChange[0].indexInSourceList, 1)
-            
-          }
-        }
-
-        /* Change electricity demand accordingly - use -1 to reverse the effect when it is removed */
-        let upDownFactor = (upcomingEventChange[0].operation === "add") ? 1 : -1
-        
-        console.log(upDownFactor)
-        console.log(upcomingEventChange[0].addedElectricityDemand)
-
-        currentElectricityDemand += upcomingEventChange[0].addedElectricityDemand * upDownFactor
-
-        currentElectricityDemand = (currentElectricityDemand <= 0) ? 0 : currentElectricityDemand
-        
-        console.log(activeIncreaseEvents)
-        upcomingEventChange = []
-    }
-
-    /* Initialize a minimum demand of 100 at the beginning of the game  */
-    if (this.state.timeRunning === 0){
-      currentElectricityDemand = currentElectricityDemand + 300 * Math.random() + 100
-    }
-
-    electricityDemandHistory.push(currentElectricityDemand)
-
-    let displayedElectricityDemandHistory = electricityDemandHistory.slice(-11)
-
-    // Temperature
-    let currentTemperature = this.state.currentTemperature + (this.state.currentFuelInputLevel * 0.05 - this.state.currentCoolingLevel * 0.1)
-    
-    if (currentTemperature - GameConfig.naturalCoolingFactor > GameConfig.baseTemperature) {
-      currentTemperature -= GameConfig.naturalCoolingFactor
-    }
-
-    currentTemperature = currentTemperature >= 0 ? currentTemperature : 0
-    
-    let reactionLevel = 1 + (currentTemperature / GameConfig.maxTemperature)
-
-    if (currentTemperature < GameConfig.minimumTemperature) {
-      // If the temperature is below the limit - reactionLevel and thus output falls to 0
-      reactionLevel = 0
-    }
-    
-    let temperatureHistory = this.state.temperatureHistory.slice()
-    temperatureHistory.push(currentTemperature)
-
-    let displayedTemperatureHistory = temperatureHistory.slice(-6)
+    let displayedTemperatureHistory = this.reactor.temperatureHistory.slice(-6)
     displayedTemperatureHistory.push(null, null, null, null, null)
 
-    // Electricity Output
-    let currentElectricityOutput = (this.state.currentFuelInputLevel * 1.05 + this.state.currentTemperature * 0.025 * this.state.currentFuelInputLevel) * reactionLevel
-    
-    let electricityOutputHistory = this.state.electricityOutputHistory.slice()
-    electricityOutputHistory.push(currentElectricityOutput)
-    
-    let displayedElectricityOutputHistory = electricityOutputHistory.slice(-6)
+    let displayedElectricityOutputHistory = this.reactor.electricityOutputHistory.slice(-6)
     displayedElectricityOutputHistory.push(null, null, null, null, null)
-    let producedEnergy = this.state.producedEnergy + currentElectricityOutput
-
+    
     // Production / Demand Delta
-    let productionDemandDelta = currentElectricityOutput - electricityDemandHistory.slice(-6)[0]
-    let overProduction = productionDemandDelta > GameConfig.productionDemandDeltaLimit
-    let underProduction = productionDemandDelta < ((-1) * GameConfig.productionDemandDeltaLimit)
-
+    this.electricityGrid.updateDemandDelta(this.reactor.currentElectricityOutput)
     let currentPoints = this.state.currentPoints
 
     // Add more points for matching production and a smaller penalty if there is no match
     // Otherwise it is difficult to gain points
-    currentPoints += (overProduction || underProduction)? -1 : 2
+    currentPoints += (this.electricityGrid.productionDemandMatch)? 2 : 1
 
     currentPoints = (currentPoints < 0)? 0 : currentPoints
 
@@ -292,28 +155,28 @@ export default class Game extends React.Component {
 
         currentPoints: currentPoints,
 
-        activeIncreaseEvents: activeIncreaseEvents,
-        activeDecreaseEvents: activeDecreaseEvents,
+        activeIncreaseEvents: this.electricityGrid.activeIncreaseEvents,
+        activeDecreaseEvents: this.electricityGrid.activeDecreaseEvents,
 
-        upcomingEventChange: upcomingEventChange,
-        displayedEventText: displayedEventText,
+        upcomingEventChange: this.electricityGrid.upcomingEventChange,
+        displayedEventText: this.electricityGrid.displayedEventText,
         
-        productionDemandDelta: productionDemandDelta,
-        overProduction: overProduction,
-        underProduction: underProduction,
+        productionDemandDelta: this.electricityGrid.productionDemandDelta,
+        overProduction: this.electricityGrid.overProduction,
+        underProduction: this.electricityGrid.underProduction,
 
         timeRunning: this.state.timeRunning + 1,
-        currentElectricityOutput: currentElectricityOutput,
-        currentTemperature: currentTemperature,
-        producedEnergy: producedEnergy,
+        currentElectricityOutput: this.reactor.currentElectricityOutput,
+        currentTemperature: this.reactor.currentTemperature,
+        producedEnergy: this.reactor.producedEnergy,
         
-        temperatureHistory: temperatureHistory,
+        temperatureHistory: this.reactor.temperatureHistory,
         displayedTemperatureHistory: displayedTemperatureHistory,
 
-        electricityOutputHistory: electricityOutputHistory,
+        electricityOutputHistory: this.reactor.electricityOutputHistory,
         displayedElectricityOutputHistory: displayedElectricityOutputHistory,
 
-        electricityDemandHistory: electricityDemandHistory,
+        electricityDemandHistory: this.electricityGrid.electricityDemandHistory,
         displayedElectricityDemandHistory: displayedElectricityDemandHistory,
 
     });

@@ -5,7 +5,7 @@ export const lineChartBaseOptions = {
         x: {
             type: 'number',
             easing: 'linear',
-            duration: 2,
+            duration: 1,
             }
     },
 };
