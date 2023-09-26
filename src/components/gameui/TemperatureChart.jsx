@@ -1,8 +1,10 @@
 import React, {useContext} from 'react'
 
-import { GameConfig } from '../Config.js';
+import { GameConfig } from '../../game/Config.js';
 import {lineChartBaseOptions, generateChartLabels} from './ChartUtils.js'
 import { Line } from 'react-chartjs-2';
+
+import {ExclamationTriangleIcon} from '@heroicons/react/20/solid'
 
 import { GameDataContext, ReactorDataContext } from '../Game.jsx';
 
@@ -115,7 +117,7 @@ const TemperatureChart = () => {
         <div className='border-2 rounded border-gray-900 p-2 bg-neutral-700 w-full'>
                         
             <div className="grid grid-cols-2 mb-2 border-b-2 border-gray-200 py-1 items-center">
-                <div className="w-full">Reactor Temperature</div>
+                <div className="game--chart-label"><ExclamationTriangleIcon className='game--chart-label-icon'/><span>Reactor Temperature</span></div>
                 <div className={`${temperature_indication_bg} 
                     w-full text-right px-2 flex justify-end`}
                 >
