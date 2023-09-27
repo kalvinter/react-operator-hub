@@ -24,7 +24,7 @@ export class Reactor {
     }
 
     calculateTemperature(currentTemperature, currentFuelInputLevel, currentCoolingLevel){
-        currentTemperature += (currentFuelInputLevel * 0.05 - currentCoolingLevel * 0.1)
+        currentTemperature += (currentFuelInputLevel * 0.025 - currentCoolingLevel * 0.05)
     
         if (currentTemperature - this.naturalCoolingFactor > this.baseTemperature) {
             currentTemperature -= this.naturalCoolingFactor
@@ -44,7 +44,7 @@ export class Reactor {
         let reactionLevel = this.calculateReactionLevel(currentTemperature)
 
         // Electricity Output
-        return (currentFuelInputLevel * 1.05 + currentTemperature * 0.025 * currentFuelInputLevel) * reactionLevel
+        return (currentFuelInputLevel * 1.025 + currentTemperature * 0.0125 * currentFuelInputLevel) * reactionLevel
     }
 
     updateElectricityOutput(currentFuelInputLevel, currentCoolingLevel){

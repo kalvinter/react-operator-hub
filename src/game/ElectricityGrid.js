@@ -71,13 +71,13 @@ export class ElectricityGrid {
           } else {
             const removeIncreaseEvent = (lastElectricityDemand === 0)? true : Math.random() > 0.5
     
-            let eventList = removeIncreaseEvent ? activeIncreaseEvents : activeDecreaseEvents
+            let eventList = removeIncreaseEvent ? this.activeIncreaseEvents : this.activeDecreaseEvents
             
             if (eventList.length > 0){
               const index = Math.floor(Math.random() * eventList.length)
               const removedEvent = eventList[index]
     
-              displayedEventText = removedEvent.originalEvent.textEnd
+              this.displayedEventText = removedEvent.originalEvent.textEnd
               removedEvent.operation = "remove"
     
               this.upcomingEventChange = [removedEvent]

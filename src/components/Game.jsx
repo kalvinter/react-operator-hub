@@ -192,7 +192,7 @@ export default class Game extends React.Component {
     } else {
       this.timerID = setInterval(
         () => this.tick(),
-        100
+        50
       );
     }
 
