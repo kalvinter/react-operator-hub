@@ -6,5 +6,9 @@ export const GameConfig = {
     baseTemperature: 30,
     maximumTemperature: 300,
 
-    maxPossibleDemand: 800
+    maximumPossibleDemand: 800,
+    baseDemandAddition: 200,
+
+    // 50 * 20 = 1 second * 60 * X = X Minutes
+    shiftDuration: 50 * 20 * 60 * 2,
 }

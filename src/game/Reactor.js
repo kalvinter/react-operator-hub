@@ -25,10 +25,15 @@ export class Reactor {
 
     calculateTemperature(currentTemperature, currentFuelInputLevel, currentCoolingLevel){
         currentTemperature += (currentFuelInputLevel * 0.025 - currentCoolingLevel * 0.05)
-    
+        
         if (currentTemperature - this.naturalCoolingFactor > this.baseTemperature) {
             currentTemperature -= this.naturalCoolingFactor
         }
+
+        /* Add randomness to temperature to avoid that the user hits a perfect spot
+        * where the temperature and output stay exactly constant
+        */
+        currentTemperature += 0.5 - Math.random()
 
         return currentTemperature >= 0 ? currentTemperature : 0
     }

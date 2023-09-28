@@ -9,6 +9,7 @@ import {Reactor} from '../game/Reactor.js'
 import {ElectricityGrid} from '../game/ElectricityGrid.js'
 
 import GameStats from './gameui/GameStats.jsx';
+import ShiftProgressBar from './gameui/ShiftProgressBar.jsx';
 import TopBar from './gameui/TopBar.jsx';
 import EventsBar from './gameui/EventsBar.jsx';
 import InputBar from './gameui/InputBar.jsx';
@@ -30,6 +31,8 @@ export default class Game extends React.Component {
     
     this.addGameToGameHistory = props.addGameToGameHistory
 
+    this.shiftDuration = GameConfig.shiftDuration
+    
     this.reactor = new Reactor({
       baseTemperature: GameConfig.baseTemperature,
       maximumTemperature: GameConfig.maximumTemperature,
@@ -39,7 +42,9 @@ export default class Game extends React.Component {
     
     this.electricityGrid = new ElectricityGrid({
       initialElectricityDemand: 0,
-      productionDemandDeltaLimit: GameConfig.productionDemandDeltaLimit
+      productionDemandDeltaLimit: GameConfig.productionDemandDeltaLimit,
+      maximumPossibleDemand: GameConfig.maximumPossibleDemand,
+      baseDemandAddition: GameConfig.baseDemandAddition
     })
 
     this.newGameState = {
@@ -48,8 +53,10 @@ export default class Game extends React.Component {
       gameIsLost: false,
 
       currentPoints: 0,
+      achievedMatchedRate: 0,
 
       timeRunning: 0,
+      shiftTimeLeft: this.shiftDuration,
 
       displayedEventText: this.electricityGrid.displayedEventText,
       upcomingEventChange: [],
@@ -65,6 +72,7 @@ export default class Game extends React.Component {
       productionDemandDelta: this.electricityGrid.productionDemandDelta,
       underProduction: false,
       overProduction: false,
+      productionDemandMatch: true,
 
       temperatureHistory: this.reactor.temperatureHistory,
       displayedTemperatureHistory: [],
@@ -74,7 +82,9 @@ export default class Game extends React.Component {
 
       currentElectricityDemand: this.electricityGrid.currentElectricityDemand,
       electricityDemandHistory: this.electricityGrid.electricityDemandHistory,
-      displayedElectricityDemandHistory: []
+      displayedElectricityDemandHistory: [],
+
+      demandMatchedStatusHistory: []
     }
 
     this.state = {
@@ -98,7 +108,7 @@ export default class Game extends React.Component {
 
     const gameHistoryEntry = {
       date: new Date(),
-      timeRunning: this.state.timeRunning,
+      timeRunningInSeconds: this.state.timeRunning,
       currentPoints: this.state.currentPoints,
       producedEnergy: this.state.producedEnergy,
       averageProductionIntensity: this.state.averageProductionIntensity,
@@ -123,6 +133,22 @@ export default class Game extends React.Component {
     return false
   }
 
+  calculateMatchedRate(demandMatchedStatusHistory){
+    if (demandMatchedStatusHistory.length === 0) {
+      return 0
+    }
+
+    let result = demandMatchedStatusHistory.reduce(
+      function (count, currentValue) {
+        count[currentValue] += 1;
+        return count;
+      },
+      { true: 0, false: 0 }
+    );
+    
+    return result.true / demandMatchedStatusHistory.length
+  }
+
   tick() {
     // Temperature and Electricity Output
     this.reactor.updateElectricityOutput(this.state.currentFuelInputLevel, this.state.currentCoolingLevel)
@@ -143,9 +169,21 @@ export default class Game extends React.Component {
 
     // Add more points for matching production and a smaller penalty if there is no match
     // Otherwise it is difficult to gain points
-    currentPoints += (this.electricityGrid.productionDemandMatch)? 2 : 1
+    currentPoints += (this.electricityGrid.productionDemandMatch)? 2 : -1
 
     currentPoints = (currentPoints < 0)? 0 : currentPoints
+
+    let demandMatchedStatusHistory = this.state.demandMatchedStatusHistory.slice()
+    demandMatchedStatusHistory.push(this.electricityGrid.productionDemandMatch)
+    
+    let achievedMatchedRate = this.calculateMatchedRate(demandMatchedStatusHistory)
+    console.log("achievedMatchedRate, ", achievedMatchedRate)
+
+    let shiftTimeLeft = this.shiftDuration - this.state.timeRunning * 50
+
+    if (shiftTimeLeft <= 0) {
+      this.stopGame()
+    }
 
     // Other metrics
     let gameIsLost = this.gameIsLost()
@@ -153,7 +191,10 @@ export default class Game extends React.Component {
     this.setState({
         gameIsLost: gameIsLost,
 
+        shiftTimeLeft: shiftTimeLeft,
+
         currentPoints: currentPoints,
+        achievedMatchedRate: achievedMatchedRate,
 
         activeIncreaseEvents: this.electricityGrid.activeIncreaseEvents,
         activeDecreaseEvents: this.electricityGrid.activeDecreaseEvents,
@@ -164,6 +205,7 @@ export default class Game extends React.Component {
         productionDemandDelta: this.electricityGrid.productionDemandDelta,
         overProduction: this.electricityGrid.overProduction,
         underProduction: this.electricityGrid.underProduction,
+        productionDemandMatch: this.electricityGrid.productionDemandMatch,
 
         timeRunning: this.state.timeRunning + 1,
         currentElectricityOutput: this.reactor.currentElectricityOutput,
@@ -178,6 +220,8 @@ export default class Game extends React.Component {
 
         electricityDemandHistory: this.electricityGrid.electricityDemandHistory,
         displayedElectricityDemandHistory: displayedElectricityDemandHistory,
+
+        demandMatchedStatusHistory: demandMatchedStatusHistory,
 
     });
 
@@ -238,6 +282,10 @@ export default class Game extends React.Component {
       timeRunning: this.state.timeRunning,
       currentPoints: this.state.currentPoints,
 
+      shiftDuration: this.shiftDuration,
+      shiftTimeLeft: this.state.shiftTimeLeft,
+      achievedMatchedRate: this.state.achievedMatchedRate,
+
       gameIsLost: this.state.gameIsLost,
       gameIsPaused: this.state.gameIsPaused,
       gameIsRunning: this.state.gameIsRunning,
@@ -247,6 +295,9 @@ export default class Game extends React.Component {
       productionDemandDelta: this.state.productionDemandDelta,
       overProduction: this.state.overProduction,
       underProduction: this.state.underProduction,
+      productionDemandMatch: this.state.productionDemandMatch,
+
+      demandMatchedStatusHistory: this.state.demandMatchedStatusHistory
     }
 
     const eventData = {
@@ -268,6 +319,9 @@ export default class Game extends React.Component {
                 <div className="w-full h-full mt-1">
 
                     <TopBar/>
+      
+                    <ShiftProgressBar />
+            
                     <EventsBar />
 
                     <div id='game--charts-wrapper'>

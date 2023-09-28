@@ -4,7 +4,7 @@ import { getProductionLabelBg } from './Utils'
 
 import { GameDataContext } from '../Game.jsx';
 
-export default function TopBar(props) {
+export default function TopBar() {
     const gameData = useContext(GameDataContext)
 
     let delta = getProductionLabelBg({

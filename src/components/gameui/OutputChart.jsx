@@ -42,7 +42,7 @@ const outputChartOptions = {
     scales: {
         y: {
             min: 0,
-            suggestedMax: GameConfig.maxPossibleDemand,
+            suggestedMax: GameConfig.maximumPossibleDemand,
             ticks: {
                 callback: function(value, index, ticks) {
                     return value + ' Watt';

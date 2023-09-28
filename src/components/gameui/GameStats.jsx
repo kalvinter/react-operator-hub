@@ -15,7 +15,7 @@ const GameStats = () => {
                 <tbody>
                     <tr>
                         <td>Game duration</td>
-                        <td>{ (gameData.timeRunning / 10).toFixed(1)}</td>
+                        <td>{ (gameData.timeRunning / 20).toFixed(1)}</td>
                         <td> sec.</td>
                     </tr>
                     <tr>

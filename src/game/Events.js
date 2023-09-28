@@ -1,7 +1,7 @@
 export const effectLevels = {
-    large: 1.75,
-    medium: 1.5,
-    low: 1.25
+    large: 1,
+    medium: 0.75,
+    low: 0.5
 }
 
 export const effectDirection = {

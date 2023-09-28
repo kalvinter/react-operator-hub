@@ -1,17 +1,20 @@
 
+export const productionMatchedBg = "bg-green-600"
+export const productionMisMatchBg = "bg-yellow-600"
+
 export function getProductionLabelBg(props){
     let deltaLabel = "";
-    let deltaBg = "bg-green-600"
+    let deltaBg = productionMatchedBg
 
     if (props.overProduction){
         deltaLabel = "Overproduction"
-        deltaBg = "bg-yellow-600"
+        deltaBg = productionMisMatchBg
 
     } else if (props.underProduction) {
         deltaLabel = "Underproduction"
-        deltaBg = "bg-yellow-600"
+        deltaBg = productionMisMatchBg
     } else {
-        deltaBg = "bg-green-600"
+        deltaBg = productionMatchedBg
     }
     return {
         deltaBg: deltaBg,
