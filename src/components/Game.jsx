@@ -133,20 +133,50 @@ export default class Game extends React.Component {
     return false
   }
 
+  addToMatchedStatusHistory(demandMatchedStatusHistory, productionDemandMatch){
+    if (demandMatchedStatusHistory.length === 0){
+      demandMatchedStatusHistory = [
+        {
+          productionDemandMatch: productionDemandMatch,
+          duration: 1
+        }
+      ]
+
+      return demandMatchedStatusHistory
+    }
+
+    let lastEntry = demandMatchedStatusHistory.slice(-1)[0]
+    console.log(lastEntry)
+    console.log(productionDemandMatch)
+    if (lastEntry.productionDemandMatch === productionDemandMatch){
+      demandMatchedStatusHistory[demandMatchedStatusHistory.length - 1].duration += 1
+    } else {
+      demandMatchedStatusHistory.push({
+        productionDemandMatch: productionDemandMatch,
+        duration: 1
+      })
+    }
+    console.log(demandMatchedStatusHistory)
+    return demandMatchedStatusHistory
+  }
+
   calculateMatchedRate(demandMatchedStatusHistory){
     if (demandMatchedStatusHistory.length === 0) {
       return 0
     }
 
-    let result = demandMatchedStatusHistory.reduce(
-      function (count, currentValue) {
-        count[currentValue] += 1;
-        return count;
-      },
-      { true: 0, false: 0 }
-    );
-    
-    return result.true / demandMatchedStatusHistory.length
+    let totalDuration = 0;
+    let matchedDuration = 0;
+
+    for (let item of demandMatchedStatusHistory){
+      totalDuration += item.duration
+      
+      if (item.productionDemandMatch){
+        matchedDuration += 1
+      }
+    }
+
+    return matchedDuration / totalDuration
   }
 
   tick() {
@@ -174,8 +204,8 @@ export default class Game extends React.Component {
     currentPoints = (currentPoints < 0)? 0 : currentPoints
 
     let demandMatchedStatusHistory = this.state.demandMatchedStatusHistory.slice()
-    demandMatchedStatusHistory.push(this.electricityGrid.productionDemandMatch)
-    
+    demandMatchedStatusHistory = this.addToMatchedStatusHistory(demandMatchedStatusHistory, this.electricityGrid.productionDemandMatch)
+
     let achievedMatchedRate = this.calculateMatchedRate(demandMatchedStatusHistory)
     console.log("achievedMatchedRate, ", achievedMatchedRate)
 

@@ -1,16 +1,11 @@
 import React, {useContext} from 'react'
 
-import { getProductionLabelBg } from './Utils'
-
 import { GameDataContext } from '../Game.jsx';
 
 export default function TopBar() {
     const gameData = useContext(GameDataContext)
 
-    let delta = getProductionLabelBg({
-        overProduction: gameData.overProduction, 
-        underProduction: gameData.underProduction
-    })
+    let shiftTimeLeftInSeconds = Math.round(gameData.shiftTimeLeft / 1000)
 
     let pauseButton;
     if (gameData.gameIsLost){
@@ -30,7 +25,7 @@ export default function TopBar() {
 
     return (
         <div className="w-full my-2 border-solid border-2 rounded border-gray-900 flex justify-between p-2 items-center bg-neutral-700">
-            <h4>Points &nbsp;<span className={`${delta.deltaBg} px-2`}>{gameData.currentPoints.toFixed(0)}</span></h4>
+            <div>Time until shift ends: {shiftTimeLeftInSeconds} seconds</div>
             {pauseButton}
         </div>
     )
