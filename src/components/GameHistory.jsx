@@ -21,7 +21,7 @@ function GameHistory(props) {
                     </div>
                     <div>
                         <span className='history-card-label'>Game Duration</span> <br></br>
-                        {element.timeRunning} seconds
+                        {element.timeRunningInSeconds.toFixed(0)} seconds
                     </div>
                     <div>
                         <span className='history-card-label'>Produced Energy</span> <br></br>
@@ -29,12 +29,12 @@ function GameHistory(props) {
                     </div>
                     
                     <div>
-                        <span className='history-card-label'>Points</span> <br></br>
-                        {element.currentPoints.toFixed(0)}
+                        <span className='history-card-label'>Achieved Matched Rate</span> <br></br>
+                        {(element.achievedMatchedRate * 100).toFixed(2)} % 
                     </div>
                     
                     <div>
-                        <span className='history-card-label'>Game Lost</span> <br></br>
+                        <span className='history-card-label'>Status</span> <br></br>
                         {element.gameLost? 'Lost' : '-'}
                     </div>
                 </div>

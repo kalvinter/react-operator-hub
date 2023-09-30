@@ -8,7 +8,6 @@ import {pages} from '../App.jsx'
 import {Reactor} from '../game/Reactor.js'
 import {ElectricityGrid} from '../game/ElectricityGrid.js'
 
-import GameStats from './gameui/GameStats.jsx';
 import ShiftProgressBar from './gameui/ShiftProgressBar.jsx';
 import TopBar from './gameui/TopBar.jsx';
 import EventsBar from './gameui/EventsBar.jsx';
@@ -16,6 +15,7 @@ import InputBar from './gameui/InputBar.jsx';
 import OutputChart from './gameui/OutputChart.jsx';
 import TemperatureChart from './gameui/TemperatureChart.jsx';
 
+import ShiftEndModal from './gameui/modals/ShiftEndModal.jsx';
 
 export const ReactorDataContext = React.createContext()
 export const GameDataContext = React.createContext()
@@ -52,7 +52,6 @@ export default class Game extends React.Component {
       gameIsPaused: true,
       gameIsLost: false,
 
-      currentPoints: 0,
       achievedMatchedRate: 0,
 
       timeRunning: 0,
@@ -108,9 +107,9 @@ export default class Game extends React.Component {
 
     const gameHistoryEntry = {
       date: new Date(),
-      timeRunningInSeconds: this.state.timeRunning,
-      currentPoints: this.state.currentPoints,
+      timeRunningInSeconds: this.state.timeRunning / 20,
       producedEnergy: this.state.producedEnergy,
+      achievedMatchedRate: this.state.achievedMatchedRate,
       averageProductionIntensity: this.state.averageProductionIntensity,
       gameLost: this.gameIsLost(),
     }
@@ -122,7 +121,7 @@ export default class Game extends React.Component {
     this.setState({
       ...this.newGameState
     })
-    console.log(pages.landingPage)
+
     this.props.goToPage(pages.landingPage)
   }
 
@@ -146,8 +145,7 @@ export default class Game extends React.Component {
     }
 
     let lastEntry = demandMatchedStatusHistory.slice(-1)[0]
-    console.log(lastEntry)
-    console.log(productionDemandMatch)
+    
     if (lastEntry.productionDemandMatch === productionDemandMatch){
       demandMatchedStatusHistory[demandMatchedStatusHistory.length - 1].duration += 1
     } else {
@@ -156,7 +154,7 @@ export default class Game extends React.Component {
         duration: 1
       })
     }
-    console.log(demandMatchedStatusHistory)
+    
     return demandMatchedStatusHistory
   }
 
@@ -172,9 +170,12 @@ export default class Game extends React.Component {
       totalDuration += item.duration
       
       if (item.productionDemandMatch){
-        matchedDuration += 1
+        matchedDuration += item.duration
       }
     }
+
+    console.log("matchedDuration, ", matchedDuration)
+    console.log("totalDuration, ", totalDuration)
 
     return matchedDuration / totalDuration
   }
@@ -195,13 +196,6 @@ export default class Game extends React.Component {
     
     // Production / Demand Delta
     this.electricityGrid.updateDemandDelta(this.reactor.currentElectricityOutput)
-    let currentPoints = this.state.currentPoints
-
-    // Add more points for matching production and a smaller penalty if there is no match
-    // Otherwise it is difficult to gain points
-    currentPoints += (this.electricityGrid.productionDemandMatch)? 2 : -1
-
-    currentPoints = (currentPoints < 0)? 0 : currentPoints
 
     let demandMatchedStatusHistory = this.state.demandMatchedStatusHistory.slice()
     demandMatchedStatusHistory = this.addToMatchedStatusHistory(demandMatchedStatusHistory, this.electricityGrid.productionDemandMatch)
@@ -223,7 +217,6 @@ export default class Game extends React.Component {
 
         shiftTimeLeft: shiftTimeLeft,
 
-        currentPoints: currentPoints,
         achievedMatchedRate: achievedMatchedRate,
 
         activeIncreaseEvents: this.electricityGrid.activeIncreaseEvents,
@@ -310,7 +303,6 @@ export default class Game extends React.Component {
 
     const gameData = {
       timeRunning: this.state.timeRunning,
-      currentPoints: this.state.currentPoints,
 
       shiftDuration: this.shiftDuration,
       shiftTimeLeft: this.state.shiftTimeLeft,
@@ -343,10 +335,7 @@ export default class Game extends React.Component {
           <GameDataContext.Provider value={gameData}>
             <EventDataContext.Provider value={eventData}>
               
-              <div>
-                <GameStats />
-                
-                <div className="w-full h-full mt-1">
+              <div className="w-full h-full mt-1">
 
                     <TopBar/>
       
@@ -361,8 +350,7 @@ export default class Game extends React.Component {
 
                     <InputBar/>
                 </div>
-              </div>
-
+              
             </EventDataContext.Provider>
           </GameDataContext.Provider>
         </ReactorDataContext.Provider>

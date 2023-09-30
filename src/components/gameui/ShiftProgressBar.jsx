@@ -22,8 +22,9 @@ function ShiftProgressBar(props) {
         <div className='w-full flex justify-between py-2'>
             <div className='flex p-1 bg-black whitespace-nowrap w-full mr-2'>
                 {gameData.demandMatchedStatusHistory.map((item, index) => {
-                    return <div key={index} className={`${item.productionDemandMatch ? productionMatchedBg : productionMisMatchBg}`} style={{width: `${item.duration}px`, height: "100%"}}></div>
+                    return <div key={index} className={`${item.productionDemandMatch ? productionMatchedBg : productionMisMatchBg}`} style={{width: `${item.duration}%`, height: "100%"}}></div>
                 })}
+                <div key="remaining-time" className="bg-gray-500" style={{width: `${gameData.shiftTimeLeft / 50}%`, height: "100%"}}></div>
             </div>
             <h4 className={`${delta.deltaBg} px-2 whitespace-nowrap`}>{(gameData.achievedMatchedRate * 100).toFixed(2)} %</h4>
         </div>
