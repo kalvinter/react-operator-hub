@@ -16,6 +16,7 @@ import OutputChart from './gameui/OutputChart.jsx';
 import TemperatureChart from './gameui/TemperatureChart.jsx';
 
 import ShiftEndModal from './gameui/modals/ShiftEndModal.jsx';
+import StartShiftModal from './gameui/modals/StartShiftModal.jsx';
 
 export const ReactorDataContext = React.createContext()
 export const GameDataContext = React.createContext()
@@ -32,7 +33,8 @@ export default class Game extends React.Component {
     this.addGameToGameHistory = props.addGameToGameHistory
 
     this.shiftDuration = GameConfig.shiftDuration
-    
+    this.shiftDurationInSeconds = this.shiftDuration / 20 / 50
+
     this.reactor = new Reactor({
       baseTemperature: GameConfig.baseTemperature,
       maximumTemperature: GameConfig.maximumTemperature,
@@ -51,6 +53,9 @@ export default class Game extends React.Component {
       gameIsRunning: true,
       gameIsPaused: true,
       gameIsLost: false,
+
+      showShiftEndeModal: false,
+      showShiftStartModal: true, 
 
       achievedMatchedRate: 0,
 
@@ -94,8 +99,12 @@ export default class Game extends React.Component {
 
   startGame(){
     this.setState({
-      gameIsRunning: true
+      gameIsRunning: true,
+      showShiftStartModal: false,
+      gameIsPaused: false
     })
+
+    this.toggleGamePauseOnClick()
   }
 
   stopGame(){
@@ -205,8 +214,11 @@ export default class Game extends React.Component {
 
     let shiftTimeLeft = this.shiftDuration - this.state.timeRunning * 50
 
+    let showShiftEndeModal = false
+
     if (shiftTimeLeft <= 0) {
-      this.stopGame()
+      showShiftEndeModal = true
+      this.toggleGamePauseOnClick()
     }
 
     // Other metrics
@@ -214,6 +226,8 @@ export default class Game extends React.Component {
     
     this.setState({
         gameIsLost: gameIsLost,
+
+        showShiftEndeModal: showShiftEndeModal,
 
         shiftTimeLeft: shiftTimeLeft,
 
@@ -329,11 +343,25 @@ export default class Game extends React.Component {
       activeEvents: [...this.state.activeIncreaseEvents, ...this.state.activeDecreaseEvents]
     }
 
+    console.log("showShiftStartModal, ", this.state.showShiftStartModal)
+
     return (
       <div className='main-card'>
         <ReactorDataContext.Provider value={reactorData}>
           <GameDataContext.Provider value={gameData}>
             <EventDataContext.Provider value={eventData}>
+
+              <ShiftEndModal
+                showModal={this.state.showShiftEndeModal}
+                actionButtonOnClick={() => this.stopGame()}
+              />
+
+              <StartShiftModal 
+                showModal={this.state.showShiftStartModal}
+                actionButtonOnClick={() => this.startGame()}
+                maximumTemperature={this.reactor.maximumTemperature}
+                shiftDurationInSeconds={this.shiftDurationInSeconds}
+              />
               
               <div className="w-full h-full mt-1">
 

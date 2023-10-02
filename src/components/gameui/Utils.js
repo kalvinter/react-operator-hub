@@ -1,6 +1,10 @@
 
-export const productionMatchedBg = "bg-green-600"
-export const productionMisMatchBg = "bg-yellow-600"
+export const greenBg = "bg-green-600"
+export const orangeBg = "bg-yellow-600"
+export const redBg = "bg-red-600"
+
+export const productionMatchedBg = greenBg
+export const productionMisMatchBg = orangeBg
 
 export function getProductionLabelBg(props){
     let deltaLabel = "";
