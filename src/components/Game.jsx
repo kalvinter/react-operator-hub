@@ -55,7 +55,7 @@ export default class Game extends React.Component {
       gameIsLost: false,
 
       showShiftEndeModal: false,
-      showShiftStartModal: true, 
+      showShiftStartModal: false, 
 
       achievedMatchedRate: 0,
 
@@ -95,6 +95,22 @@ export default class Game extends React.Component {
       ...this.newGameState,
       gameHistory: []
     }
+  }
+
+  componentDidMount() {
+    /* delay the shiftStartModal opening for a short time so that it fades in and does 
+    * not just appear
+    */
+   console.log("start timer")
+    this.showShiftStartModalTimer = setTimeout(() => {
+
+      this.setState({ showShiftStartModal: true });
+    }, 10);
+  }
+
+  componentWillUnmount() {
+    // Cleanup the timer when the component is unmounted
+    clearTimeout(this.showShiftStartModalTimer);
   }
 
   startGame(){

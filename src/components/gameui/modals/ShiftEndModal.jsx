@@ -24,7 +24,7 @@ export default function ShiftEndModal(props) {
         matchRateBg = redBg
     }
 
-    return (props.showModal) ? (
+    return (
         <ModalLayout
             title={"You have finished your Shift"}
             showModal={props.showModal}
@@ -36,7 +36,7 @@ export default function ShiftEndModal(props) {
 
                     <div className='w-full text-center my-4 font-bold justify-center flex'>
                         <span className='py-1'>Your Demand-Matched-Rate was </span>
-                        <span className={`${matchRateBg} ml-4 py-1 px-2`}>{gameData.achievedMatchedRate.toFixed(2)} %</span>
+                        <span className={`${matchRateBg} ml-4 py-1 px-2`}>{(gameData.achievedMatchedRate * 100).toFixed(2)} %</span>
                     </div>
                     
                 </div>
@@ -49,5 +49,5 @@ export default function ShiftEndModal(props) {
                 />
             </ModalFooter>
         </ModalLayout>
-    ) : null
+    )
 }
