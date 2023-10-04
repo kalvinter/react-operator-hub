@@ -123,12 +123,24 @@ export default class Game extends React.Component {
     this.toggleGamePauseOnClick()
   }
 
-  stopGame(){
+  stopGame({shiftWasFinished}){
     console.log("stopping game")
 
     if (!this.state.gameIsPaused){
       this.toggleGamePauseOnClick()
     }
+
+    console.log("shiftWasFinished ", shiftWasFinished)
+
+    let gameStatus = ""
+
+    if (this.gameIsLost()){
+      gameStatus = "Lost"
+    } else if (shiftWasFinished) {
+      gameStatus = "Finished"
+    }
+
+    console.log(gameStatus)
 
     const gameHistoryEntry = {
       date: new Date(),
@@ -136,7 +148,7 @@ export default class Game extends React.Component {
       producedEnergy: this.state.producedEnergy,
       achievedMatchedRate: this.state.achievedMatchedRate,
       averageProductionIntensity: this.state.averageProductionIntensity,
-      gameLost: this.gameIsLost(),
+      gameStatus: gameStatus
     }
 
     console.log(gameHistoryEntry)
@@ -369,7 +381,7 @@ export default class Game extends React.Component {
 
               <ShiftEndModal
                 showModal={this.state.showShiftEndeModal}
-                actionButtonOnClick={() => this.stopGame()}
+                actionButtonOnClick={() => this.stopGame({shiftWasFinished: true})}
               />
 
               <StartShiftModal 

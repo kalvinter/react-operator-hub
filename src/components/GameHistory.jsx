@@ -14,28 +14,24 @@ function GameHistory(props) {
     if (gameHistory.length > 0) {
         gameHistoryElement = (
             gameHistory.map((element) => (
-                <div className='history-card bg-slate-400' key={element.date}>
-                    <div>
+                <div className='history-card flex-wrap border-solid border-2 rounded border-neutral-400' key={element.date}>
+                    <div className='history-card--section'>
                         <span className='history-card-label'>Date</span> <br></br>
                         {element.date.toLocaleDateString("de-DE") + " " + element.date.getUTCHours() + ":" + element.date.getUTCMinutes()}
                     </div>
-                    <div>
+                    <div className='history-card--section'>
                         <span className='history-card-label'>Game Duration</span> <br></br>
                         {element.timeRunningInSeconds.toFixed(0)} seconds
                     </div>
-                    <div>
-                        <span className='history-card-label'>Produced Energy</span> <br></br>
-                        {element.producedEnergy.toLocaleString("de-DE", {minimumFractionDigits: 2, maximumFractionDigits: 2})} kWh
-                    </div>
                     
-                    <div>
+                    <div className='history-card--section'>
                         <span className='history-card-label'>Achieved Matched Rate</span> <br></br>
                         {(element.achievedMatchedRate * 100).toFixed(2)} % 
                     </div>
                     
-                    <div>
+                    <div className='history-card--section'>
                         <span className='history-card-label'>Status</span> <br></br>
-                        {element.gameLost? 'Lost' : '-'}
+                        {element.gameStatus}
                     </div>
                 </div>
             ))
