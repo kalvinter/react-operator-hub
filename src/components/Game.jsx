@@ -15,8 +15,8 @@ import InputBar from './gameui/InputBar.jsx';
 import OutputChart from './gameui/OutputChart.jsx';
 import TemperatureChart from './gameui/TemperatureChart.jsx';
 
-import ShiftEndModal from './gameui/modals/ShiftEndModal.jsx';
-import StartShiftModal from './gameui/modals/StartShiftModal.jsx';
+import ShiftEndModal from './modals/ShiftEndModal.jsx';
+import StartShiftModal from './modals/StartShiftModal.jsx';
 
 export const ReactorDataContext = React.createContext()
 export const GameDataContext = React.createContext()
