@@ -11,5 +11,11 @@ export const GameConfig = {
 
     // 50 * 20 = 1 second * 60 * X = X Minutes
     shiftDuration: 50 * 20 * 60 * 2,
-    // shiftDuration: 50 * 20 * 5  // for testing
+    shiftDuration: 50 * 20 * 5  // for testing
+}
+
+export const GameEndTypes = {
+    shiftWasFinished: "shiftWasFinished",
+    lost: "lost",
+    aborted: "Aborted"
 }

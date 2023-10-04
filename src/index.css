@@ -134,6 +134,7 @@ a:hover {
 
 .history-card--section {
   min-width: 10rem;
+  padding: 0.5rem 0;
 }
 
 @media (max-width: 750px) {

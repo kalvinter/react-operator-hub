@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import {GameConfig} from '../game/Config.js'
+import {GameConfig, GameEndTypes} from '../game/Config.js'
 
 import {pages} from '../App.jsx'
 
@@ -28,7 +28,7 @@ export default class Game extends React.Component {
   constructor(props){
     super(props);
     console.log(pages)
-    props.setMainButton(true, "Stop Game", () => {this.stopGame()})
+    props.setMainButton(true, "Stop Game", () => {this.stopGame({gameEndType: GameEndTypes.aborted})})
     
     this.addGameToGameHistory = props.addGameToGameHistory
 
@@ -132,7 +132,7 @@ export default class Game extends React.Component {
 
     console.log("shiftWasFinished ", shiftWasFinished)
 
-    let gameStatus = ""
+    let gameStatus = "Aborted"
 
     if (this.gameIsLost()){
       gameStatus = "Lost"
@@ -381,7 +381,7 @@ export default class Game extends React.Component {
 
               <ShiftEndModal
                 showModal={this.state.showShiftEndeModal}
-                actionButtonOnClick={() => this.stopGame({shiftWasFinished: true})}
+                actionButtonOnClick={() => this.stopGame({gameEndType: GameEndTypes.shiftWasFinished})}
               />
 
               <StartShiftModal 
