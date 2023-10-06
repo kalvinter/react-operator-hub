@@ -17,6 +17,7 @@ import TemperatureChart from './gameui/TemperatureChart.jsx';
 
 import ShiftEndModal from './modals/ShiftEndModal.jsx';
 import StartShiftModal from './modals/StartShiftModal.jsx';
+import { gameHistoryEntry } from '../game/Storage.js';
 
 export const ReactorDataContext = React.createContext()
 export const GameDataContext = React.createContext()
@@ -27,7 +28,6 @@ export default class Game extends React.Component {
 
   constructor(props){
     super(props);
-    console.log(pages)
     props.setMainButton(true, "Stop Game", () => {this.stopGame({gameEndType: GameEndTypes.aborted})})
     
     this.addGameToGameHistory = props.addGameToGameHistory
@@ -142,18 +142,16 @@ export default class Game extends React.Component {
 
     console.log(gameStatus)
 
-    const gameHistoryEntry = {
-      date: new Date(),
-      timeRunningInSeconds: this.state.timeRunning / 20,
-      producedEnergy: this.state.producedEnergy,
-      achievedMatchedRate: this.state.achievedMatchedRate,
-      averageProductionIntensity: this.state.averageProductionIntensity,
-      gameStatus: gameStatus
-    }
-
-    console.log(gameHistoryEntry)
-
-    this.props.addGameToGameHistory(gameHistoryEntry)
+    this.props.addGameToGameHistory({
+      gameHistoryEntry: new gameHistoryEntry({
+        date: new Date(),
+        timeRunningInSeconds: this.state.timeRunning / 20,
+        producedEnergy: this.state.producedEnergy,
+        achievedMatchedRate: this.state.achievedMatchedRate,
+        averageProductionIntensity: this.state.averageProductionIntensity,
+        gameStatus: gameStatus
+      })
+    })
 
     this.setState({
       ...this.newGameState

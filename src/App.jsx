@@ -6,6 +6,8 @@ import GameHistory from './components/GameHistory';
 import About from './pages/About';
 import Navigation from './components/Navigation';
 
+import {gameHistoryStorage} from './game/Storage'
+
 export const pages = {
     landingPage: "Landing Page",
     gamePage: "Game"
@@ -16,15 +18,22 @@ export class App extends Component {
   constructor(props){
     super(props);
 
+    this.gameHistoryStorage = new gameHistoryStorage()
+
     this.defaultMainButtonConfig = {
         display: true,
         label: "Start Game",
         onClick: () => this.startGame()
     }
 
+    let gameHistory = this.gameHistoryStorage.load()
+    console.log("gameHistory ", gameHistory)
+
+    gameHistory = (gameHistory !== undefined)? gameHistory : []
+
     this.state = {
         activePage: pages.landingPage,
-        gameHistory: [],
+        gameHistory: gameHistory,
         mainButtonConfig: this.defaultMainButtonConfig
     }
   }
@@ -47,13 +56,27 @@ export class App extends Component {
     })
   }
 
-  addGameToGameHistory(gameResult){
+  deleteHistory(){
+    this.gameHistoryStorage.deleteAllEntries()
+    
+    this.setState({
+        gameHistory: []
+    })
+  }
+
+  addGameToGameHistory({gameHistoryEntry}){
     let gameHistory = this.state.gameHistory.slice()
 
-    gameHistory.push(gameResult)
+    gameHistory.push(gameHistoryEntry)
+    
+    this.gameHistoryStorage.save({
+        gameHistory: gameHistory
+    })
+
     this.setState({
         gameHistory: gameHistory
     })
+
   }
 
   setMainButton(display, label, onClick){
@@ -92,6 +115,7 @@ export class App extends Component {
 
                         <GameHistory 
                             gameHistory={this.state.gameHistory}
+                            deleteHistoryOnClick={() => this.deleteHistory()}
                         />
 
                     </div>

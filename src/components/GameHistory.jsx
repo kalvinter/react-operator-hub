@@ -11,6 +11,8 @@ function GameHistory(props) {
         <div>You have not played any games yet. Finished games and highscores will appear here.</div>
     )
 
+    let deleteHistoryButton = ""
+
     if (gameHistory.length > 0) {
         gameHistoryElement = (
             gameHistory.map((element) => (
@@ -36,12 +38,21 @@ function GameHistory(props) {
                 </div>
             ))
         )
+
+        deleteHistoryButton = (
+            <div className='flex justify-center mt-4'>
+                <button className="bg-gray-500 px-2 py-1 rounded" onClick={() => props.deleteHistoryOnClick()}>Reset History</button>
+            </div>
+        )
+    
     }
 
     return (
         <div className='w-full'>
             <h2>Past Games and Highscores</h2>
-            {gameHistoryElement}    
+            
+            {gameHistoryElement}
+            {deleteHistoryButton}
         </div>
     )
 }
