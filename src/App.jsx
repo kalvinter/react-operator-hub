@@ -6,6 +6,7 @@ import GameHistory from './components/GameHistory';
 import About from './pages/About';
 import Navigation from './components/Navigation';
 
+import ResetHistoryModal from './components/modals/ResetHistoryModal';
 import {gameHistoryStorage} from './game/Storage'
 
 export const pages = {
@@ -34,8 +35,15 @@ export class App extends Component {
     this.state = {
         activePage: pages.landingPage,
         gameHistory: gameHistory,
-        mainButtonConfig: this.defaultMainButtonConfig
+        mainButtonConfig: this.defaultMainButtonConfig,
+        showDeleteHistoryModal: false,
     }
+  }
+
+  toggleResetHistoryModal(){
+    this.setState({
+        showDeleteHistoryModal: !this.state.showDeleteHistoryModal
+    })
   }
 
   goToPage(page){
@@ -58,6 +66,7 @@ export class App extends Component {
 
   deleteHistory(){
     this.gameHistoryStorage.deleteAllEntries()
+    this.toggleResetHistoryModal()
     
     this.setState({
         gameHistory: []
@@ -106,6 +115,11 @@ export class App extends Component {
         default:
             app_body = (
                 <div className="main-card">
+                    <ResetHistoryModal 
+                        showModal={this.state.showDeleteHistoryModal}
+                        cancelButtonOnClick={() => this.toggleResetHistoryModal()}
+                        deleteButtonOnClick={() => this.deleteHistory()}
+                    />
                     <Welcome
                         setMainButton={(display, label, onClick) => {this.setMainButton(display, label, onClick)}} 
                         onClick={() => {this.startGame()}}
@@ -115,7 +129,7 @@ export class App extends Component {
 
                         <GameHistory 
                             gameHistory={this.state.gameHistory}
-                            deleteHistoryOnClick={() => this.deleteHistory()}
+                            deleteHistoryOnClick={() => this.toggleResetHistoryModal()}
                         />
 
                     </div>
