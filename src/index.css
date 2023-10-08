@@ -113,17 +113,25 @@ a:hover {
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: all 0.5s ease-in-out;
-  transform: translateY(-50px);
+  transition: all 0.3s ease-in-out;  
   z-index: -1;
+}
+
+.modal--body {
+  transition: all 0.3s ease-in-out;
+  transform: translateY(-50px);
 }
 
 .modal.show {
   z-index: 5;
   opacity: 1;
   visibility: visible;
+  transition: all 0.3s ease-in-out;
+}
+
+.modal.show .modal--body{
   transform: translateY(0);
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .modal--content {
