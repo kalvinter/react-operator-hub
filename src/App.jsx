@@ -3,15 +3,19 @@ import React, { Component } from 'react'
 import Game from './components/Game';
 import Welcome from './components/Welcome';
 import GameHistory from './components/GameHistory';
-import About from './pages/About';
+import About from './components/About';
 import Navigation from './components/Navigation';
+import {AchievementsBar, AchievementsListDetailled} from './components/Achievements';
+import {AchievementsManager} from './game/Achievements'
+import {gameHistoryStorage} from './game/Storage'
 
 import ResetHistoryModal from './components/modals/ResetHistoryModal';
-import {gameHistoryStorage} from './game/Storage'
+import UnlockedAchievementsModal from './components/modals/UnlockedAchievementsModal';
 
 export const pages = {
     landingPage: "Landing Page",
-    gamePage: "Game"
+    gamePage: "Game",
+    achievementsDetailPage: "Achievements Detail Page"
 }
 
 export class App extends Component {
@@ -21,28 +25,40 @@ export class App extends Component {
 
     this.gameHistoryStorage = new gameHistoryStorage()
 
-    this.defaultMainButtonConfig = {
-        display: true,
-        label: "Start Game",
-        onClick: () => this.startGame()
-    }
+    this.achievementsManager = new AchievementsManager()
 
     let gameHistory = this.gameHistoryStorage.load()
     console.log("gameHistory ", gameHistory)
 
     gameHistory = (gameHistory !== undefined)? gameHistory : []
 
+    this.achievementsManager.checkGameHistoryEntries({gameHistoryEntries: gameHistory, unlockAchievements: true})
+
+    this.defaultMainButtonConfig = {
+        display: true,
+        label: "Start Game",
+        onClick: () => this.startGame()
+    }
+
     this.state = {
         activePage: pages.landingPage,
         gameHistory: gameHistory,
         mainButtonConfig: this.defaultMainButtonConfig,
         showDeleteHistoryModal: false,
+        showUnlockedAchievementsModal: false,
+        newlyUnlockedAchievements: []
     }
   }
 
   toggleResetHistoryModal(){
     this.setState({
         showDeleteHistoryModal: !this.state.showDeleteHistoryModal
+    })
+  }
+
+  toggleShowUnlockedAchievementsModal(){
+    this.setState({
+        showUnlockedAchievementsModal: !this.state.showUnlockedAchievementsModal
     })
   }
 
@@ -66,8 +82,9 @@ export class App extends Component {
 
   deleteHistory(){
     this.gameHistoryStorage.deleteAllEntries()
+    this.achievementsManager.resetAchievements()
     this.toggleResetHistoryModal()
-    
+
     this.setState({
         gameHistory: []
     })
@@ -78,14 +95,29 @@ export class App extends Component {
 
     gameHistory.push(gameHistoryEntry)
     
+    let newlyUnlockedAchievements = this.achievementsManager.checkGameHistoryEntries({
+        gameHistoryEntries: gameHistory,
+        unlockAchievements: true
+    })
+
+    console.log("newlyUnlocked ", newlyUnlockedAchievements)
+
     this.gameHistoryStorage.save({
         gameHistory: gameHistory
     })
 
     this.setState({
-        gameHistory: gameHistory
+        gameHistory: gameHistory,
+        newlyUnlockedAchievements: newlyUnlockedAchievements,
     })
 
+    if (newlyUnlockedAchievements.length){
+        this.showUnlockedAchievementsModalTimer = setTimeout(() => {
+            this.setState({ showUnlockedAchievementsModal: true });
+        }, 10);
+    } else {
+        this.setState({ showUnlockedAchievementsModal: false });
+    }
   }
 
   setMainButton(display, label, onClick){
@@ -96,6 +128,10 @@ export class App extends Component {
             onClick: onClick
         }
     })
+  }
+
+  componentWillUnmount(){
+    clearTimeout(this.showUnlockedAchievementsModalTimer)
   }
 
   render() {
@@ -112,21 +148,43 @@ export class App extends Component {
                  />
               )
               break
+        
+        case pages.achievementsDetailPage:
+            app_body = (
+                <AchievementsListDetailled 
+                    goToPage={(page) => {this.goToPage(page)}}
+                    achievementsManager={this.achievementsManager}
+                />
+            )
+            break
         default:
             app_body = (
-                <div className="main-card">
+                <div>
                     <ResetHistoryModal 
                         showModal={this.state.showDeleteHistoryModal}
                         cancelButtonOnClick={() => this.toggleResetHistoryModal()}
                         deleteButtonOnClick={() => this.deleteHistory()}
                     />
+
+                    <UnlockedAchievementsModal 
+                        showModal={this.state.showUnlockedAchievementsModal}
+                        cancelButtonOnClick={() => this.toggleShowUnlockedAchievementsModal()}
+                        newlyUnlockedAchievements={this.state.newlyUnlockedAchievements}
+                    />
+
                     <Welcome
                         setMainButton={(display, label, onClick) => {this.setMainButton(display, label, onClick)}} 
                         onClick={() => {this.startGame()}}
                     />
 
                     <div className='w-full my-2 border-solid border-2 rounded border-gray-900 flex justify-between p-2 items-center bg-neutral-700'>
+                        <AchievementsBar 
+                            achievementsManager={this.achievementsManager}
+                            goToPage={(page) => {this.goToPage(page)}}
+                        />
+                    </div>
 
+                    <div className='w-full my-2 border-solid border-2 rounded border-gray-900 flex justify-between p-2 items-center bg-neutral-700'>
                         <GameHistory 
                             gameHistory={this.state.gameHistory}
                             deleteHistoryOnClick={() => this.toggleResetHistoryModal()}
@@ -147,7 +205,9 @@ export class App extends Component {
             <Navigation
                 mainButtonConfig={this.state.mainButtonConfig}
              />
-            {app_body}
+            <div className="main-card">
+                {app_body}
+            </div>
         </div>
     )
   }

@@ -3,19 +3,15 @@
 import React from 'react'
 
 function GameHistory(props) {
-    let gameHistory = props.gameHistory.sort(
-        (p1, p2) => (p1.averageProductionIntensity < p2.averageProductionIntensity) ? 1 : -1
-    );
-
     let gameHistoryElement = (
         <div>You have not played any games yet. Finished games and highscores will appear here.</div>
     )
 
     let deleteHistoryButton = ""
 
-    if (gameHistory.length > 0) {
+    if (props.gameHistory.length > 0) {
         gameHistoryElement = (
-            gameHistory.map((element) => (
+            props.gameHistory.map((element) => (
                 <div className='history-card flex-wrap border-solid border-2 rounded border-neutral-400' key={element.date}>
                     <div className='history-card--section'>
                         <span className='history-card-label'>Date</span> <br></br>
@@ -41,7 +37,7 @@ function GameHistory(props) {
 
         deleteHistoryButton = (
             <div className='flex justify-center mt-4'>
-                <button className="bg-gray-500 px-2 py-1 rounded" onClick={() => props.deleteHistoryOnClick()}>Reset History</button>
+                <button className="bg-gray-500 px-2 py-1 hover:bg-gray-600 rounded" onClick={() => props.deleteHistoryOnClick()}>Reset History</button>
             </div>
         )
     
@@ -49,7 +45,7 @@ function GameHistory(props) {
 
     return (
         <div className='w-full'>
-            <h2>Past Games and Highscores</h2>
+            <h2>Game History</h2>
             
             {gameHistoryElement}
             {deleteHistoryButton}

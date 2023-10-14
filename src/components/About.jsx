@@ -11,7 +11,7 @@ function About() {
     
     <p>This app is a constant work-in-progress and things are changing. Additionally, it is currently thought to be used on desktop or a tablet. The mobile version is not yet optimal.</p>
     
-    <p>You can also check out the <a href='https://github.com/kalvinter/react-reactor-game.git'>full code on Github</a></p>
+    <p>You can also check out the <a target='_blank' href='https://github.com/kalvinter/react-reactor-game.git'>full code on Github</a></p>
 
 </div>
 

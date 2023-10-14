@@ -132,12 +132,12 @@ export default class Game extends React.Component {
 
     console.log("shiftWasFinished ", shiftWasFinished)
 
-    let gameStatus = "Aborted"
+    let gameStatus = GameEndTypes.aborted
 
     if (this.gameIsLost()){
-      gameStatus = "Lost"
+      gameStatus = GameEndTypes.lost
     } else if (shiftWasFinished) {
-      gameStatus = "Finished"
+      gameStatus = GameEndTypes.shiftWasFinished
     }
 
     console.log(gameStatus)
@@ -372,14 +372,14 @@ export default class Game extends React.Component {
     console.log("showShiftStartModal, ", this.state.showShiftStartModal)
 
     return (
-      <div className='main-card'>
+      <div>
         <ReactorDataContext.Provider value={reactorData}>
           <GameDataContext.Provider value={gameData}>
             <EventDataContext.Provider value={eventData}>
 
               <ShiftEndModal
                 showModal={this.state.showShiftEndeModal}
-                actionButtonOnClick={() => this.stopGame({gameEndType: GameEndTypes.shiftWasFinished})}
+                actionButtonOnClick={() => this.stopGame({shiftWasFinished: true})}
               />
 
               <StartShiftModal 

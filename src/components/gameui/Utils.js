@@ -1,7 +1,4 @@
-
-export const greenBg = "bg-green-600"
-export const orangeBg = "bg-yellow-600"
-export const redBg = "bg-red-600"
+import { greenBg, orangeBg } from "../Utils";
 
 export const productionMatchedBg = greenBg
 export const productionMisMatchBg = orangeBg

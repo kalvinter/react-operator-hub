@@ -19,7 +19,7 @@ function Welcome(props) {
             <li>A hotter reactor means a faster reaction-factor, giving you more power.</li>
             <li>If things heat up too much, up the cooling level to keep things stable.</li>
             <li>Always be on the lookout for events affecting power demand.</li>
-            <li>Earn points by maintaining power production within the optimal green zone.</li>
+            <li>Always maintain power production within the optimal green zone to earn achievements.</li>
         </ul>
 
         <div className='w-full mt-6 flex align-middle'>

@@ -15,7 +15,7 @@ export const GameConfig = {
 }
 
 export const GameEndTypes = {
-    shiftWasFinished: "shiftWasFinished",
-    lost: "lost",
+    shiftWasFinished: "Finished",
+    lost: "Lost",
     aborted: "Aborted"
 }

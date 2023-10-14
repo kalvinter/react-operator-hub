@@ -3,7 +3,7 @@ import React from 'react'
 
 import { GameDataContext } from '../Game.jsx';
 
-import { greenBg, orangeBg, redBg } from '../gameui/Utils.js';
+import { greenBg, orangeBg, redBg } from '../Utils.js';
 
 import ModalLayout from './ModalLayout.jsx';
 import ModalFooter from './ModalFooter.jsx';
