@@ -92,7 +92,7 @@ export class gameHistoryEntry{
     }
 }
 
-export class gameHistoryStorage {
+export class GameHistoryStorage {
     constructor(){
         this.storageManager = new LocalStorageManager()
         this.storedDataType = storedDataTypes.gameHistory

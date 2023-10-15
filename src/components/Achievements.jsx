@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { pages } from '../App'
+import { Link } from 'react-router-dom'
+
 import { AchievementGroups } from '../game/Achievements'
 import {StarIcon} from '@heroicons/react/20/solid'
 import {StarIcon as StarIconOutlin} from '@heroicons/react/24/outline'
@@ -52,10 +53,9 @@ export function AchievementsBar(props) {
     <div className='w-full'>
         <div className='w-full flex justify-between items-center'>
           <h2>Achievements</h2>
-          <button 
+          <Link to={`/react-reactor-game/achievements/`}><button 
             className='underline hover:text-gray-300'
-            onClick={() => props.goToPage(pages.achievementsDetailPage)}
-            >More Information</button>
+            >More Information</button></Link>
         </div>
         
         <p><small className='mb-5 w-full'>{unlockedAchievements.length} / {props.achievementsManager.availableAchievements.length} unlocked</small></p>
@@ -74,54 +74,5 @@ export function AchievementsBar(props) {
             achievements={props.achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.numberOfGameEnds})}
         />
     </div>
-  )
-}
-
-export function AchievementsListDetailled(props){
-  let unlockedAchievements = props.achievementsManager.getUnlockedAchievements()
-
-  return (
-    <div className='w-full'>
-      <button 
-            className='underline hover:text-gray-300 mb-5'
-            onClick={() => props.goToPage(pages.landingPage)}
-      >Go Back</button>
-      <h4>Achievements</h4>
-      <p className='mb-6'><small className='w-full'>{unlockedAchievements.length} / {props.achievementsManager.availableAchievements.length} unlocked</small></p>
-      
-      <h4>Achievements related to the Achieved Mathed Rate</h4>
-      <div className='mb-6 flex gap-2 flex-col'>
-        {props.achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.achievedMatchedRate}).map((achievement) => {
-          return <AchievementBadgeFull
-              key={achievement.label} 
-              achievement={achievement}         
-              showDescription={true}
-          />
-        })}
-      </div>
-
-      <h4>Achievements related to finished Shifts</h4>
-      <div className='mb-6 flex gap-2 flex-col'>
-        {props.achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.numberOfGames}).map((achievement) => {
-          return <AchievementBadgeFull
-              key={achievement.label}   
-              achievement={achievement}         
-              showDescription={true}
-          />
-        })}
-      </div>
-
-      <h4>Other Achievements</h4>
-      <div className='mb-6 flex gap-2 flex-col'>
-        {props.achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.numberOfGameEnds}).map((achievement) => {
-          return <AchievementBadgeFull
-              key={achievement.label} 
-              achievement={achievement}         
-              showDescription={true}
-          />
-        })}
-      </div>
-
-    </div>  
   )
 }

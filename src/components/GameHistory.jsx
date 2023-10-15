@@ -2,6 +2,8 @@
 
 import React from 'react'
 
+import Button, { buttonType } from './common/Button'
+
 function GameHistory(props) {
     let gameHistoryElement = (
         <div>You have not played any games yet. Finished games and highscores will appear here.</div>
@@ -37,7 +39,11 @@ function GameHistory(props) {
 
         deleteHistoryButton = (
             <div className='flex justify-center mt-4'>
-                <button className="bg-gray-500 px-2 py-1 hover:bg-gray-600 rounded" onClick={() => props.deleteHistoryOnClick()}>Reset History</button>
+                <Button 
+                    buttonType={buttonType.neutralButton}
+                    label={"Reset History"}
+                    onClick={() => props.deleteHistoryOnClick()}>
+                </Button>
             </div>
         )
     

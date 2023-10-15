@@ -3,7 +3,7 @@ import React from 'react';
 
 import {GameConfig, GameEndTypes} from '../game/Config.js'
 
-import {pages} from '../App.jsx'
+import {pages} from '../pages/App.jsx'
 
 import {Reactor} from '../game/Reactor.js'
 import {ElectricityGrid} from '../game/ElectricityGrid.js'

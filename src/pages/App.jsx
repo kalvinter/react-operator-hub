@@ -1,21 +1,20 @@
 import React, { Component } from 'react'
 
-import Game from './components/Game';
-import Welcome from './components/Welcome';
-import GameHistory from './components/GameHistory';
-import About from './components/About';
-import Navigation from './components/Navigation';
-import {AchievementsBar, AchievementsListDetailled} from './components/Achievements';
-import {AchievementsManager} from './game/Achievements'
-import {gameHistoryStorage} from './game/Storage'
+import Game from '../components/Game';
+import Welcome from '../components/Welcome';
+import GameHistory from '../components/GameHistory';
+import About from '../components/About';
+import Navigation from '../components/Navigation';
+import {AchievementsBar} from '../components/Achievements';
 
-import ResetHistoryModal from './components/modals/ResetHistoryModal';
-import UnlockedAchievementsModal from './components/modals/UnlockedAchievementsModal';
+import ScrollToTop from '../components/ScrollToTop';
+
+import ResetHistoryModal from '../components/modals/ResetHistoryModal';
+import UnlockedAchievementsModal from '../components/modals/UnlockedAchievementsModal';
 
 export const pages = {
     landingPage: "Landing Page",
     gamePage: "Game",
-    achievementsDetailPage: "Achievements Detail Page"
 }
 
 export class App extends Component {
@@ -23,9 +22,9 @@ export class App extends Component {
   constructor(props){
     super(props);
 
-    this.gameHistoryStorage = new gameHistoryStorage()
+    this.gameHistoryStorage = props.gameHistoryStorage
 
-    this.achievementsManager = new AchievementsManager()
+    this.achievementsManager = props.achievementsManager
 
     let gameHistory = this.gameHistoryStorage.load()
     console.log("gameHistory ", gameHistory)
@@ -149,14 +148,6 @@ export class App extends Component {
               )
               break
         
-        case pages.achievementsDetailPage:
-            app_body = (
-                <AchievementsListDetailled 
-                    goToPage={(page) => {this.goToPage(page)}}
-                    achievementsManager={this.achievementsManager}
-                />
-            )
-            break
         default:
             app_body = (
                 <div>
@@ -197,11 +188,11 @@ export class App extends Component {
                     </div>
                 </div>
             )
-        
     }
 
     return (
         <div className="App container">
+            <ScrollToTop />
             <Navigation
                 mainButtonConfig={this.state.mainButtonConfig}
              />

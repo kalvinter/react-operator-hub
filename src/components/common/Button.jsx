@@ -6,7 +6,7 @@ export const buttonType = {
     dangerButton: "dangerButton"
 }
 
-export default function ModalFooterButton(props) {
+export default function Button(props) {
     let buttonClasses = "";
 
     switch (props.buttonType){
@@ -27,7 +27,7 @@ export default function ModalFooterButton(props) {
       <button
           className={`${buttonClasses} font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150`}
           type="button"
-          onClick={() => props.actionButtonOnClick()}
+          onClick={() => props.onClick()}
       >
           {props.label}
       </button>
