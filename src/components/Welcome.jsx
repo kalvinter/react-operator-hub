@@ -30,7 +30,7 @@ function Welcome(props) {
         <div className='w-full flex align-middle'>
             <button className='bg-gray-500 px-4 py-2 rounded mt-4 mb-4 mx-auto'
                 onClick={() => {props.onClick()}}
-            >Start a new Game</button>
+            >Start your Shift</button>
         </div>
     </div>
   )

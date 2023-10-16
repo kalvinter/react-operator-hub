@@ -15,7 +15,7 @@ function GameHistory(props) {
         gameHistoryElement = (
             props.gameHistory.map((element) => (
                 <div className='history-card flex-wrap border-solid border-2 rounded border-neutral-400' key={element.date}>
-                    <div className='history-card--section'>
+                    <div className='history-card--section min-w-[10rem] px-0 py-1'>
                         <span className='history-card-label'>Date</span> <br></br>
                         {element.date.toLocaleDateString("de-DE") + " " + element.date.getUTCHours() + ":" + element.date.getUTCMinutes()}
                     </div>

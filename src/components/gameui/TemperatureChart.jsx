@@ -18,6 +18,7 @@ import {
     Tooltip,
     Legend,
   } from 'chart.js';
+import Card from '../common/Card.jsx';
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -64,37 +65,37 @@ const TemperatureChart = () => {
     if (reactorData.currentTemperature <= GameConfig.minimumTemperature) {
         temperature_indication_bg = "bg-blue-600"
         temperature_text = (
-            <h4>Temperature is not high enough </h4>
+            <h5>Temperature is not high enough </h5>
         )
         display_temperature_text = true
     } else if (reactorData.currentTemperature <= 150){
         temperature_indication_bg = "bg-green-600"
         temperature_text = (
-            <h4>Temperature is normal</h4>
+            <h5>Temperature is normal</h5>
         )
         display_temperature_text = false
     } else if (reactorData.currentTemperature <= 200){
         temperature_indication_bg = "bg-yellow-600"
         temperature_text = (
-            <h4>Temperature is above normal</h4>
+            <h5>Temperature is above normal</h5>
         )
         display_temperature_text = false
     } else if (reactorData.currentTemperature < 250){
         temperature_indication_bg = "bg-orange-500"
         temperature_text = (
-            <h4>Temperature is high!</h4>
+            <h5>Temperature is high!</h5>
         )
         display_temperature_text = true
-    } else if (reactorData.currentTemperature < GameConfig.maxTemperature) {
+    } else if (reactorData.currentTemperature < GameConfig.maximumTemperature) {
         temperature_indication_bg = "bg-red-500"
         temperature_text = (
-            <h4>Temperature is critical! <br></br>Reactor breakdown occures above {GameConfig.maxTemperature}°C!</h4>
+            <h5>Temperature is critical! <br></br>Reactor breakdown occures above {GameConfig.maximumTemperature}°C!</h5>
         )
         display_temperature_text = true
     } else {
         temperature_indication_bg = "bg-red-500"
         temperature_text = (
-            <h4>The reactor exceeded critical temperature</h4>
+            <h5>The reactor exceeded critical temperature</h5>
         )
         display_temperature_text = true
     }
@@ -114,7 +115,7 @@ const TemperatureChart = () => {
     }
         
     return (
-        <div className='border-2 rounded border-gray-900 p-2 bg-neutral-700 w-full'>
+        <Card className='w-full my-0'>
                         
             <div className="grid grid-cols-2 mb-2 border-b-2 border-gray-200 py-1 items-center">
                 <div className="game--chart-label"><ExclamationTriangleIcon className='game--chart-label-icon'/><span>Reactor Temperature</span></div>
@@ -133,7 +134,7 @@ const TemperatureChart = () => {
                 {temperature_text}
             </div>
             
-        </div>
+        </Card>
     )
 }
 

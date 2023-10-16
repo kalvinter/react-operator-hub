@@ -3,6 +3,7 @@ import React, {useContext} from 'react'
 import { effectDirection } from '../../game/Events.js';
 import {ArrowDownCircleIcon, ArrowUpCircleIcon} from '@heroicons/react/20/solid'
 import { EventDataContext } from '../Game';
+import Card from '../common/Card.jsx';
 
 export default function EventsBar() {
     const eventData = useContext(EventDataContext)
@@ -17,7 +18,7 @@ export default function EventsBar() {
     let eventPrefixLabel = (eventData.upcomingEventChange)? (<span className='text-orange-600'>WARNING:</span>) : (<span>STATUS:</span>)
 
     return (
-        <div className="w-full my-2 border-solid border-2 rounded border-gray-900 p-2 bg-neutral-700">
+        <Card className="w-full">
             <div className='w-full my-2 flex justify-between items-center'>
                 <div className='w-full my-1 border-solid border-2 rounded border-gray-900 bg-black p-2 flex items-center' id='eventsArea'>
                     <span>{eventPrefixLabel} {eventData.displayedEventText}</span>
@@ -29,6 +30,6 @@ export default function EventsBar() {
                     {activeEvents}
                 </div>
             </div>
-        </div>
+        </Card>
     )
 }

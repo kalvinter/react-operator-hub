@@ -1,5 +1,7 @@
 import React, {useContext} from 'react'
 
+import Card from '../common/Card.jsx';
+
 import { Line } from 'react-chartjs-2';
 import { GameConfig } from '../../game/Config.js';
 import {lineChartBaseOptions, generateChartLabels} from './ChartUtils.js'
@@ -117,7 +119,7 @@ export default function OutputChart() {
     }
 
     return (
-        <div className='border-2 rounded border-gray-900 p-2 bg-neutral-700 w-full'>
+        <Card className='w-full my-0'>
             <div className="grid grid-cols-2 mb-2 border-b-2 border-gray-200 items-center py-1">
                 <div className="game--chart-label"><BoltIcon className='game--chart-label-icon'/><span>Electricity Output</span></div>
                 <div className="w-full text-right px-2 flex justify-end">
@@ -127,6 +129,6 @@ export default function OutputChart() {
             </div>
             <Line options={outputChartOptions} data={outputChartData} />
             {deltaComponent}
-        </div>
+        </Card>
     )
 }

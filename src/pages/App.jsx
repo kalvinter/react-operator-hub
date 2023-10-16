@@ -7,6 +7,8 @@ import About from '../components/About';
 import Navigation from '../components/Navigation';
 import {AchievementsBar} from '../components/Achievements';
 
+import Card from '../components/common/Card';
+
 import ScrollToTop from '../components/ScrollToTop';
 
 import ResetHistoryModal from '../components/modals/ResetHistoryModal';
@@ -168,24 +170,23 @@ export class App extends Component {
                         onClick={() => {this.startGame()}}
                     />
 
-                    <div className='w-full my-2 border-solid border-2 rounded border-gray-900 flex justify-between p-2 items-center bg-neutral-700'>
+                    <Card>
                         <AchievementsBar 
                             achievementsManager={this.achievementsManager}
                             goToPage={(page) => {this.goToPage(page)}}
                         />
-                    </div>
+                    </Card>
 
-                    <div className='w-full my-2 border-solid border-2 rounded border-gray-900 flex justify-between p-2 items-center bg-neutral-700'>
+                    <Card>
                         <GameHistory 
                             gameHistory={this.state.gameHistory}
                             deleteHistoryOnClick={() => this.toggleResetHistoryModal()}
                         />
+                    </Card>
 
-                    </div>
-                    <div className='w-full my-2 border-solid border-2 rounded border-gray-900 flex justify-between p-2 items-center bg-neutral-700'>
-
-                    <About />
-                    </div>
+                    <Card>
+                        <About />
+                    </Card>
                 </div>
             )
     }

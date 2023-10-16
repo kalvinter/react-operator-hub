@@ -2,6 +2,8 @@ import React, {useContext} from 'react'
 
 import { GameDataContext } from '../Game.jsx';
 
+import Card from '../common/Card.jsx';
+
 export default function TopBar() {
     const gameData = useContext(GameDataContext)
 
@@ -24,9 +26,9 @@ export default function TopBar() {
     }
 
     return (
-        <div className="w-full my-2 border-solid border-2 rounded border-gray-900 flex justify-between p-2 items-center bg-neutral-700">
+        <Card className="w-full flex justify-between items-center mt-0">
             <div>Time until shift ends: {shiftTimeLeftInSeconds} seconds</div>
             {pauseButton}
-        </div>
+        </Card>
     )
 }

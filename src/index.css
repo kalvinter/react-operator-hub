@@ -98,14 +98,6 @@ a:hover {
   gap: 0.5rem
 }
 
-#game--charts-wrapper {
-  display: flex;
-  gap: 0.5rem;
-  margin: 0.5rem 0;
-  flex-direction: row;
-}
-
-
 .achievementBadge {
   --highlight: #c8b618;
   --highlight-bg: rgb(146, 133, 17);
@@ -191,10 +183,6 @@ a:hover {
   .container {
     padding: 0;
     margin: auto;
-  }
-
-  #game--charts-wrapper {
-    flex-direction: column;
   }
 
   #temperatureLineChartWrapper {

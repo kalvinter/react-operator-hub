@@ -8,6 +8,8 @@ import {pages} from '../pages/App.jsx'
 import {Reactor} from '../game/Reactor.js'
 import {ElectricityGrid} from '../game/ElectricityGrid.js'
 
+import Card from './common/Card.jsx';
+
 import ShiftProgressBar from './gameui/ShiftProgressBar.jsx';
 import TopBar from './gameui/TopBar.jsx';
 import EventsBar from './gameui/EventsBar.jsx';
@@ -390,14 +392,13 @@ export default class Game extends React.Component {
               />
               
               <div className="w-full h-full mt-1">
-
                     <TopBar/>
-      
+
                     <ShiftProgressBar />
             
                     <EventsBar />
 
-                    <div id='game--charts-wrapper'>
+                    <div className='flex gap-1 my-1 mx-0 flex-col md:flex-row'>
                         <TemperatureChart />
                         <OutputChart />
                     </div>
