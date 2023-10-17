@@ -3,7 +3,7 @@ import React from 'react'
 import ModalFooter from './ModalFooter'
 import Button from '../common/Button'
 import ModalLayout from './ModalLayout'
-import { buttonType } from '../common/Button'
+import { buttonTypes } from '../common/Button'
 
 import { AchievementBadgeFull } from '../Achievements'
 
@@ -25,10 +25,11 @@ export default function unlockedAchievementsModal(props) {
             </div>
             <ModalFooter>
                 <Button
-                    buttonType={buttonType.neutralButton}
-                    label={"Close"}
+                    buttonType={buttonTypes.neutralButton}
                     onClick={() => props.cancelButtonOnClick()}
-                />
+                >
+                    Close
+                </Button>
             </ModalFooter>
 
         </ModalLayout>

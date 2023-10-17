@@ -2,7 +2,7 @@ import React from 'react'
 
 import ModalFooter from './ModalFooter'
 import ModalLayout from './ModalLayout'
-import Button, { buttonType } from '../common/Button'
+import Button, { buttonTypes } from '../common/Button'
 
 
 export default function ResetHistoryModal(props) {
@@ -21,15 +21,19 @@ export default function ResetHistoryModal(props) {
             </div>
             <ModalFooter>
                 <Button
-                    buttonType={buttonType.neutralButton}
-                    label={"Cancel"}
+                    buttonType={buttonTypes.neutralButton}
                     onClick={() => props.cancelButtonOnClick()}
-                />
+                >
+                    Cancel
+                </Button>
+
                 <Button
-                    buttonType={buttonType.dangerButton}
-                    label={"Delete History"}
+                    buttonType={buttonTypes.dangerButton}
                     onClick={() => props.deleteButtonOnClick()}
-                />
+                >
+                    Delete History
+                </Button>
+
             </ModalFooter>
 
         </ModalLayout>

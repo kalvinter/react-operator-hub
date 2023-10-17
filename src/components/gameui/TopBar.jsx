@@ -4,6 +4,21 @@ import { GameDataContext } from '../Game.jsx';
 
 import Card from '../common/Card.jsx';
 
+import { PauseIcon, PlayIcon } from '@heroicons/react/20/solid';
+import { ButtonSmall, buttonTypes } from '../common/Button.jsx';
+
+function ButtonLabel (props) {
+
+
+    return (
+        <span className='flex items-center'>
+            {props.gameData.gameIsPaused ? <PlayIcon className='small-icon'></PlayIcon> : <PauseIcon className='small-icon'></PauseIcon>}
+            {props.gameData.gameIsPaused ? <span>&nbsp;Start Game</span> : <span>&nbsp;Pause Game</span>}
+        </span>
+    )
+}
+
+
 export default function TopBar() {
     const gameData = useContext(GameDataContext)
 
@@ -17,11 +32,14 @@ export default function TopBar() {
             </div>
         )
     } else {
+
         pauseButton = (
-            <button 
+            <ButtonSmall
                 onClick={(event) => {gameData.toggleGamePauseOnClick(event)}}
-                className={`${(gameData.gameIsPaused ? 'bg-green-400' : 'bg-gray-400')} text-black p-1 border-solid border-2 rounded border-slate-900`}
-            >{`${gameData.gameIsPaused ? 'Start Game' : 'Pause Game'}`}</button>
+                buttonType={(gameData.gameIsPaused ? buttonTypes.successButton : buttonTypes.neutralButton)}
+            >
+                <ButtonLabel gameData={gameData} />
+            </ButtonSmall>
         )
     }
 

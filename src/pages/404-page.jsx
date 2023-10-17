@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Button from "../components/common/Button";
-import { buttonType } from "../components/common/Button";
+import { buttonTypes } from "../components/common/Button";
 
 
 export default function NotFoundPage() {
@@ -12,7 +12,7 @@ export default function NotFoundPage() {
 
             <Link to={`/react-reactor-game/`}>
               <Button 
-                  buttonType={buttonType.neutralButton}
+                  buttonType={buttonTypes.neutralButton}
                   label={"Back to Home"}>
               </Button>
             </Link>

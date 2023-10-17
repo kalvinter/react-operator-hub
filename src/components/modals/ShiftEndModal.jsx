@@ -7,7 +7,7 @@ import { greenBg, orangeBg, redBg } from '../Utils.js';
 
 import ModalLayout from './ModalLayout.jsx';
 import ModalFooter from './ModalFooter.jsx';
-import Button, {buttonType} from '../common/Button.jsx';
+import Button, {buttonTypes} from '../common/Button.jsx';
 
 
 export default function ShiftEndModal(props) {
@@ -43,10 +43,11 @@ export default function ShiftEndModal(props) {
             </div>
             <ModalFooter>
                 <Button
-                    buttonType={buttonType.neutralButton}
-                    label={"Back to Main Menu"}
+                    buttonType={buttonTypes.neutralButton}
                     onClick={() => props.actionButtonOnClick()}
-                />
+                >
+                    Back to Main Menu
+                </Button>
             </ModalFooter>
         </ModalLayout>
     )

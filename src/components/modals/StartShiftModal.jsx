@@ -3,7 +3,7 @@ import React from 'react'
 import ModalFooter from './ModalFooter'
 import Button from '../common/Button'
 import ModalLayout from './ModalLayout'
-import { buttonType } from '../common/Button'
+import { buttonTypes } from '../common/Button'
 
 
 export default function StartShiftModal(props) {
@@ -28,10 +28,11 @@ export default function StartShiftModal(props) {
             </div>
             <ModalFooter>
                 <Button
-                    buttonType={buttonType.successButton}
-                    label={"Start Shift"}
+                    buttonType={buttonTypes.successButton}
                     onClick={() => props.actionButtonOnClick()}
-                />
+                >
+                    Start Shift
+                </Button>
             </ModalFooter>
 
         </ModalLayout>

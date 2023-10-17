@@ -61,35 +61,14 @@ a:hover {
   margin-top: 0.25rem;
 }
 
-.history-card {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 0.25rem 0.75rem;
-  border-radius: 0.25rem;
-  margin: 0.25rem auto;
-}
-
-.history-card .history-card-label {
-  font-weight: bolder;
-}
-
-#eventsArea {
-  min-height: 3rem;
-}
-
-#activeEventsArea svg {
-  height: 1.2rem;
-}
-
 .container {
   max-width: 70rem;
   padding: 4rem;
   margin: auto;
 }
 
-.game--chart-label-icon {
-  height: 1rem;
+.small-icon {
+  height: 1.2rem;
 }
 
 .game--chart-label {
@@ -167,11 +146,6 @@ a:hover {
 }
 
 
-.history-card--section {
-  min-width: 10rem;
-  padding: 0.5rem 0;
-}
-
 @media (max-width: 750px) {
 
   
@@ -185,7 +159,4 @@ a:hover {
     margin: auto;
   }
 
-  #temperatureLineChartWrapper {
-    display: none;
-  }
 }
