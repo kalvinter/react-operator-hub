@@ -42,7 +42,7 @@ export class App extends Component {
 
     this.defaultMainButtonConfig = {
         display: true,
-        label: "Start Game",
+        label: "Start your Shift",
         onClick: () => this.startGame()
     }
 
@@ -124,16 +124,10 @@ export class App extends Component {
 
   render() {
     return (
-        <div className="App container">
-            <ScrollToTop />
-            <Navigation
-                mainButtonConfig={this.state.mainButtonConfig}
-             />
-
             <Routes>
                 <Route path='/'
                     element={
-                        <div className="main-card">
+                        <div>
                             <ResetHistoryModal 
                                 showModal={this.state.showDeleteHistoryModal}
                                 cancelButtonOnClick={() => this.toggleResetHistoryModal()}
@@ -173,18 +167,15 @@ export class App extends Component {
                 />
                 <Route path='/game/'
                     element={
-                        <div className="main-card">
                             <Game 
                                 setMainButton={(display, label, onClick) => {this.setMainButton(display, label, onClick)}}
                                 addGameToGameHistory={(gameResult) => this.addGameToGameHistory(gameResult)}
                                 gameIsRunning={true}
                             />
-                        </div>
                     }
                 />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
-        </div>
     )
   }
 }

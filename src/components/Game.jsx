@@ -398,7 +398,9 @@ class Game extends React.Component {
               />
               
               <div className="w-full h-full mt-1">
-                    <TopBar/>
+                    <TopBar
+                      stopGame={() => {this.stopGame({gameEndType: GameEndTypes.aborted})}}
+                    />
 
                     <ShiftProgressBar />
             

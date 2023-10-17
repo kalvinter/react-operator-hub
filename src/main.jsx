@@ -5,7 +5,9 @@ import './index.css'
 
 import {
   createBrowserRouter,
-  RouterProvider,
+  BrowserRouter,
+  Routes,
+  Route
 } from "react-router-dom";
 
 import ErrorPage from './pages/error-page';
@@ -16,6 +18,7 @@ import { AchievementsManager } from './game/Achievements';
 import { GameHistoryStorage } from './game/Storage';
 
 import ScrollToTop from './components/ScrollToTop';
+import MainLayout from './pages/MainLayout';
 
 const gameHistoryStorage = new GameHistoryStorage()
 const achievementsManager = new AchievementsManager()
@@ -43,7 +46,27 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-      <RouterProvider router={router} />
+  <React.StrictMode>            
+    <BrowserRouter>
+      <Routes>
+        
+        <Route path="/react-reactor-game/" element={<MainLayout />} errorElement={<ErrorPage />}>
+          {/* Your individual routes */}
+          <Route index element={<App 
+            achievementsManager={achievementsManager}
+            gameHistoryStorage={gameHistoryStorage}
+          />} />
+          <Route path="achievements" element={<AchievementsPage 
+            achievementsManager={achievementsManager}
+          />} />
+          <Route path='*' element={<App 
+            achievementsManager={achievementsManager}
+            gameHistoryStorage={gameHistoryStorage}
+          />} />
+          {/* ... other routes ... */}
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>,
 )

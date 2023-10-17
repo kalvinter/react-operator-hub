@@ -4,7 +4,7 @@ import { GameDataContext } from '../Game.jsx';
 
 import Card from '../common/Card.jsx';
 
-import { PauseIcon, PlayIcon } from '@heroicons/react/20/solid';
+import { PauseIcon, PlayIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import { ButtonSmall, buttonTypes } from '../common/Button.jsx';
 
 function ButtonLabel (props) {
@@ -13,13 +13,13 @@ function ButtonLabel (props) {
     return (
         <span className='flex items-center'>
             {props.gameData.gameIsPaused ? <PlayIcon className='small-icon'></PlayIcon> : <PauseIcon className='small-icon'></PauseIcon>}
-            {props.gameData.gameIsPaused ? <span>&nbsp;Start Game</span> : <span>&nbsp;Pause Game</span>}
+            {props.gameData.gameIsPaused ? <span>&nbsp;Unpause</span> : <span>&nbsp;Pause</span>}
         </span>
     )
 }
 
 
-export default function TopBar() {
+export default function TopBar(props) {
     const gameData = useContext(GameDataContext)
 
     let shiftTimeLeftInSeconds = Math.round(gameData.shiftTimeLeft / 1000)
@@ -28,7 +28,7 @@ export default function TopBar() {
     if (gameData.gameIsLost){
         pauseButton = (
             <div className=" border-gray-900 rounded bg-red-500  px-2 py-1">
-                You have lost.
+                You have lost
             </div>
         )
     } else {
@@ -44,9 +44,19 @@ export default function TopBar() {
     }
 
     return (
-        <Card className="w-full flex justify-between items-center mt-0">
+        <Card className="w-full flex justify-between items-center mt-0 flex-col md:flex-row gap-2">
             <div>Time until shift ends: {shiftTimeLeftInSeconds} seconds</div>
-            {pauseButton}
+            <div className='flex gap-1'>
+                {pauseButton}
+                <ButtonSmall
+                    onClick={() => props.stopGame()}
+                    buttonType={buttonTypes.neutralButton}
+                >
+                    <span className='flex items-center'>
+                        <XMarkIcon className='small-icon' /> Quit
+                    </span>
+                </ButtonSmall>
+            </div>
         </Card>
     )
 }
