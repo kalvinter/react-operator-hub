@@ -3,12 +3,10 @@ import React from 'react';
 
 import {GameConfig, GameEndTypes} from '../game/Config.js'
 
-import {pages} from '../pages/App.jsx'
-
 import {Reactor} from '../game/Reactor.js'
 import {ElectricityGrid} from '../game/ElectricityGrid.js'
 
-import Card from './common/Card.jsx';
+import { useNavigate } from 'react-router-dom';
 
 import ShiftProgressBar from './gameui/ShiftProgressBar.jsx';
 import TopBar from './gameui/TopBar.jsx';
@@ -26,7 +24,15 @@ export const GameDataContext = React.createContext()
 export const EventDataContext = React.createContext()
 
 
-export default class Game extends React.Component {
+function withNavigation(WrappedComponent) {
+  return function(props) {
+    const navigate = useNavigate();
+    return <WrappedComponent {...props} navigate={navigate} />;
+  };
+}
+
+
+class Game extends React.Component {
 
   constructor(props){
     super(props);
@@ -159,7 +165,7 @@ export default class Game extends React.Component {
       ...this.newGameState
     })
 
-    this.props.goToPage(pages.landingPage)
+    this.props.navigate('/react-reactor-game/', { replace: true });
   }
 
   gameIsLost(){
@@ -413,3 +419,5 @@ export default class Game extends React.Component {
     )
   }
 }
+
+export default withNavigation(Game);

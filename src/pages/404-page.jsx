@@ -11,9 +11,8 @@ export default function NotFoundPage() {
           <h1 className="mb-6 w-full text-center">404 Page not Found</h1>
 
             <Link to={`/react-reactor-game/`}>
-              <Button 
-                  buttonType={buttonTypes.neutralButton}
-                  label={"Back to Home"}>
+              <Button buttonType={buttonTypes.neutralButton}>
+                  Back to Home
               </Button>
             </Link>
 

@@ -71,12 +71,6 @@ a:hover {
   height: 1.2rem;
 }
 
-.game--chart-label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem
-}
-
 .achievementBadge {
   --highlight: #c8b618;
   --highlight-bg: rgb(146, 133, 17);

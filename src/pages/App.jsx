@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 
+import { Route, Routes } from 'react-router-dom';
+
+import { useNavigate } from 'react-router-dom';
+
 import Game from '../components/Game';
 import Welcome from '../components/Welcome';
 import GameHistory from '../components/GameHistory';
@@ -13,6 +17,7 @@ import ScrollToTop from '../components/ScrollToTop';
 
 import ResetHistoryModal from '../components/modals/ResetHistoryModal';
 import UnlockedAchievementsModal from '../components/modals/UnlockedAchievementsModal';
+import NotFoundPage from './404-page';
 
 export const pages = {
     landingPage: "Landing Page",
@@ -60,24 +65,6 @@ export class App extends Component {
   toggleShowUnlockedAchievementsModal(){
     this.setState({
         showUnlockedAchievementsModal: !this.state.showUnlockedAchievementsModal
-    })
-  }
-
-  goToPage(page){
-    if (page === pages.landingPage){
-        this.setState({            
-            mainButtonConfig: this.defaultMainButtonConfig
-        })
-    }
-
-    this.setState({
-        activePage: page
-    })
-  }
-
-  startGame(){
-    this.setState({
-        activePage: pages.gamePage
     })
   }
 
@@ -136,70 +123,67 @@ export class App extends Component {
   }
 
   render() {
-    let app_body = "";
-
-    switch (this.state.activePage){
-        case pages.gamePage:
-            app_body = (
-                <Game 
-                    goToPage={(page) => {this.goToPage(page)}}
-                    setMainButton={(display, label, onClick) => {this.setMainButton(display, label, onClick)}}
-                    addGameToGameHistory={(gameResult) => this.addGameToGameHistory(gameResult)}
-                    gameIsRunning={true}
-                 />
-              )
-              break
-        
-        default:
-            app_body = (
-                <div>
-                    <ResetHistoryModal 
-                        showModal={this.state.showDeleteHistoryModal}
-                        cancelButtonOnClick={() => this.toggleResetHistoryModal()}
-                        deleteButtonOnClick={() => this.deleteHistory()}
-                    />
-
-                    <UnlockedAchievementsModal 
-                        showModal={this.state.showUnlockedAchievementsModal}
-                        cancelButtonOnClick={() => this.toggleShowUnlockedAchievementsModal()}
-                        newlyUnlockedAchievements={this.state.newlyUnlockedAchievements}
-                    />
-
-                    <Welcome
-                        setMainButton={(display, label, onClick) => {this.setMainButton(display, label, onClick)}} 
-                        onClick={() => {this.startGame()}}
-                    />
-
-                    <Card>
-                        <AchievementsBar 
-                            achievementsManager={this.achievementsManager}
-                            goToPage={(page) => {this.goToPage(page)}}
-                        />
-                    </Card>
-
-                    <Card>
-                        <GameHistory 
-                            gameHistory={this.state.gameHistory}
-                            deleteHistoryOnClick={() => this.toggleResetHistoryModal()}
-                        />
-                    </Card>
-
-                    <Card>
-                        <About />
-                    </Card>
-                </div>
-            )
-    }
-
     return (
         <div className="App container">
             <ScrollToTop />
             <Navigation
                 mainButtonConfig={this.state.mainButtonConfig}
              />
-            <div className="main-card">
-                {app_body}
-            </div>
+
+            <Routes>
+                <Route path='/'
+                    element={
+                        <div className="main-card">
+                            <ResetHistoryModal 
+                                showModal={this.state.showDeleteHistoryModal}
+                                cancelButtonOnClick={() => this.toggleResetHistoryModal()}
+                                deleteButtonOnClick={() => this.deleteHistory()}
+                            />
+
+                            <UnlockedAchievementsModal 
+                                showModal={this.state.showUnlockedAchievementsModal}
+                                cancelButtonOnClick={() => this.toggleShowUnlockedAchievementsModal()}
+                                newlyUnlockedAchievements={this.state.newlyUnlockedAchievements}
+                            />
+
+                            <Welcome
+                                setMainButton={(display, label, onClick) => {this.setMainButton(display, label, onClick)}} 
+                                onClick={() => {this.startGame()}}
+                            />
+
+                            <Card>
+                                <AchievementsBar 
+                                    achievementsManager={this.achievementsManager}
+                                    goToPage={(page) => {this.goToPage(page)}}
+                                />
+                            </Card>
+
+                            <Card>
+                                <GameHistory 
+                                    gameHistory={this.state.gameHistory}
+                                    deleteHistoryOnClick={() => this.toggleResetHistoryModal()}
+                                />
+                            </Card>
+
+                            <Card>
+                                <About />
+                            </Card>
+                        </div>
+                    }
+                />
+                <Route path='/game/'
+                    element={
+                        <div className="main-card">
+                            <Game 
+                                setMainButton={(display, label, onClick) => {this.setMainButton(display, label, onClick)}}
+                                addGameToGameHistory={(gameResult) => this.addGameToGameHistory(gameResult)}
+                                gameIsRunning={true}
+                            />
+                        </div>
+                    }
+                />
+                <Route path="*" element={<NotFoundPage />} />
+            </Routes>
         </div>
     )
   }

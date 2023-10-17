@@ -118,7 +118,7 @@ const TemperatureChart = () => {
         <Card className='w-full my-0'>
                         
             <div className="grid grid-cols-2 mb-2 border-b-2 border-gray-200 py-1 items-center">
-                <div className="game--chart-label"><ExclamationTriangleIcon className='small-icon'/><span>Reactor Temperature</span></div>
+                <div className="flex items-center gap-1"><ExclamationTriangleIcon className='small-icon'/><span>Reactor Temperature</span></div>
                 <div className={`${temperature_indication_bg} 
                     w-full text-right px-2 flex justify-end`}
                 >

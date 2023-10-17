@@ -28,7 +28,7 @@ export default function TopBar() {
     if (gameData.gameIsLost){
         pauseButton = (
             <div className=" border-gray-900 rounded bg-red-500  px-2 py-1">
-                <h4>You have lost.</h4>
+                You have lost.
             </div>
         )
     } else {

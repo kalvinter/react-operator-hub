@@ -1,7 +1,12 @@
 
 import React from 'react'
 
-function Welcome(props) {
+import { useNavigate } from 'react-router-dom'
+
+
+function Welcome() {
+  const navigate = useNavigate()
+
   return (
     <div>
         <h1>Welcome to the Grid</h1>
@@ -23,14 +28,16 @@ function Welcome(props) {
         </ul>
 
         <div className='w-full mt-6 flex align-middle'>
-        <h4 className='mx-auto'>Have fun playing!</h4>
+          <h4 className='mx-auto'>Have fun playing!</h4>
         </div>
         
 
         <div className='w-full flex align-middle'>
-            <button className='bg-gray-500 px-4 py-2 rounded mt-4 mb-4 mx-auto'
-                onClick={() => {props.onClick()}}
+            <button 
+              className='bg-gray-500 hover:bg-gray-600 px-4 py-2 rounded mt-4 mb-4 mx-auto'
+              onClick={() => {navigate("/react-reactor-game/game/", { replace: true })}}
             >Start your Shift</button>
+
         </div>
     </div>
   )

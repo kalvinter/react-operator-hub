@@ -22,7 +22,7 @@ const achievementsManager = new AchievementsManager()
 
 const router = createBrowserRouter([
   {
-    path: "/react-reactor-game/",
+    path: "/react-reactor-game/*",
     element: <App 
       achievementsManager={achievementsManager}
       gameHistoryStorage={gameHistoryStorage}
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <NotFoundPage />,
+    element: <div ><h1>Hello</h1><NotFoundPage /></div>,
     errorElement: <ErrorPage />,
   },
 ]);
