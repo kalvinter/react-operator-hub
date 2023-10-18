@@ -168,7 +168,6 @@ export class App extends Component {
                 <Route path='/game/'
                     element={
                             <Game 
-                                setMainButton={(display, label, onClick) => {this.setMainButton(display, label, onClick)}}
                                 addGameToGameHistory={(gameResult) => this.addGameToGameHistory(gameResult)}
                                 gameIsRunning={true}
                             />

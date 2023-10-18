@@ -6,7 +6,7 @@ import {GameConfig, GameEndTypes} from '../game/Config.js'
 import {Reactor} from '../game/Reactor.js'
 import {ElectricityGrid} from '../game/ElectricityGrid.js'
 
-import { useNavigate } from 'react-router-dom';
+import withNavigation from '../hocs/withNavigation.jsx';
 
 import ShiftProgressBar from './gameui/ShiftProgressBar.jsx';
 import TopBar from './gameui/TopBar.jsx';
@@ -24,19 +24,10 @@ export const GameDataContext = React.createContext()
 export const EventDataContext = React.createContext()
 
 
-function withNavigation(WrappedComponent) {
-  return function(props) {
-    const navigate = useNavigate();
-    return <WrappedComponent {...props} navigate={navigate} />;
-  };
-}
-
-
 class Game extends React.Component {
 
   constructor(props){
     super(props);
-    props.setMainButton(true, "Stop Game", () => {this.stopGame({gameEndType: GameEndTypes.aborted})})
     
     this.addGameToGameHistory = props.addGameToGameHistory
 
@@ -397,22 +388,20 @@ class Game extends React.Component {
                 shiftDurationInSeconds={this.shiftDurationInSeconds}
               />
               
-              <div className="w-full h-full mt-1">
-                    <TopBar
-                      stopGame={() => {this.stopGame({gameEndType: GameEndTypes.aborted})}}
-                    />
+              <TopBar
+                  stopGame={() => {this.stopGame({gameEndType: GameEndTypes.aborted})}}
+              />
 
-                    <ShiftProgressBar />
-            
-                    <EventsBar />
+              <ShiftProgressBar />
+      
+              <EventsBar />
 
-                    <div className='flex gap-1 my-1 mx-0 flex-col md:flex-row'>
-                        <TemperatureChart />
-                        <OutputChart />
-                    </div>
+              <div className='flex gap-1 my-1 mx-0 flex-col md:flex-row'>
+                  <TemperatureChart />
+                  <OutputChart />
+              </div>
 
-                    <InputBar/>
-                </div>
+              <InputBar/>
               
             </EventDataContext.Provider>
           </GameDataContext.Provider>

@@ -11,7 +11,7 @@ function getButtonClasses(buttonType){
 
     switch (buttonType){
         case buttonTypes.successButton:
-            buttonClasses = "bg-green-600 text-white hover:bg-green-700"
+            buttonClasses = "success-bg text-white"
             break
 
         case buttonTypes.neutralButton:

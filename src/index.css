@@ -8,6 +8,17 @@
   font-weight: 400;
 
   --dark-bg: #242424;
+  --medium-bg: rgb(64 64 64 / 90%);
+  --light-bg: rgb(133 133 133 / 90%);
+
+  --success-bg: rgba(22, 163, 74, 1);
+  --warning-bg: rgb(202 138 4);
+  --strong-warning-bg: rgb(249 115 22);
+  --danger-bg: rgb(239 68 68);
+
+  --success-text: white;
+  --warning-text: black;
+  --danger-text: white;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -18,8 +29,27 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
 
-  }
+body {
+  background: linear-gradient(180deg, rgba(36,36,36,1) 0%, rgba(35,41,53,1) 6%, rgba(35,42,57,1) 55%, rgba(34,46,67,1) 69%, rgba(32,52,86,1) 80%, rgba(35,81,159,1) 100%);
+}
+
+.dark-bg {
+  background: var(--dark-bg);
+}
+
+.medium-bg {
+  background: var(--medium-bg);
+}
+
+.light-bg {
+  background: var(--light-bg);
+}
+
+.success-bg {
+  background: var(--success-bg);
+}
 
 h1 {
   font-weight: bolder;
@@ -49,22 +79,6 @@ a {
 
 a:hover {
   color: gray;
-}
-
-.main-card {
-  min-height: 60vh;
-  height: 100%;
-  width: 100%;
-  padding: 1rem;
-  border: 2px solid rgb(75 85 99);
-  border-radius: 0.25rem;
-  margin-top: 0.25rem;
-}
-
-.container {
-  max-width: 70rem;
-  padding: 4rem;
-  margin: auto;
 }
 
 .small-icon {
@@ -132,25 +146,4 @@ a:hover {
 .modal.show .modal--body{
   transform: translateY(0);
   transition: all 0.3s ease-in-out;
-}
-
-.modal--content {
-  min-width: fit-content;
-  min-height: fit-content;
-}
-
-
-@media (max-width: 750px) {
-
-  
-  .modal--content {
-    min-width: 100vw;
-    min-height: 100vh;
-  }
-
-  .container {
-    padding: 0;
-    margin: auto;
-  }
-
 }
