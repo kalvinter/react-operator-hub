@@ -1,4 +1,5 @@
 import { GameEndTypes } from "./Config";
+import { defaultTheme } from "./ThemeManager";
 
 export const storedDataTypes = {
     // Finished Games
@@ -136,5 +137,45 @@ export class GameHistoryStorage {
         
         // parse saved objects
         return gameHistory
+    }
+}
+
+export class PreferencesStorage{
+    constructor(){
+        this.storageManager = new LocalStorageManager()
+        this.storedDataType = storedDataTypes.preferences
+    }
+    
+    save({theme}){
+        console.log(theme)
+
+        return this.storageManager.save({
+            storedDataType: this.storedDataType,
+            data: {
+                theme: theme
+            }
+        })
+    }
+
+    deleteAllEntries(){
+        this.storageManager.delete({storedDataType: this.storedDataType})
+    }
+
+    load(){
+        let preferencesData = this.storageManager.load({
+            storedDataType: this.storedDataType,
+        })
+
+        console.log(preferencesData)
+        
+        if (preferencesData === null || preferencesData === undefined){
+            // return an empty list, if no gameHistory was saved yet
+            return {
+                theme: defaultTheme
+            }
+        }
+        
+        // parse saved objects
+        return preferencesData
     }
 }

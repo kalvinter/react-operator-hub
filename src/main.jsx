@@ -16,13 +16,14 @@ import AchievementsPage from './pages/Achievements';
 
 import { AchievementsManager } from './game/Achievements';
 import { GameHistoryStorage } from './game/Storage';
-import ThemeManager, { defaultTheme } from './game/ThemeManager';
+import ThemeManager from './game/ThemeManager';
 
 import MainLayout from './pages/MainLayout';
 
 const gameHistoryStorage = new GameHistoryStorage()
 const achievementsManager = new AchievementsManager()
-const themeManager = new ThemeManager({activeTheme: defaultTheme})
+
+const themeManager = new ThemeManager()
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
