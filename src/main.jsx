@@ -16,34 +16,14 @@ import AchievementsPage from './pages/Achievements';
 
 import { AchievementsManager } from './game/Achievements';
 import { GameHistoryStorage } from './game/Storage';
+import ThemeManager, { defaultTheme } from './game/ThemeManager';
 
-import ScrollToTop from './components/ScrollToTop';
 import MainLayout from './pages/MainLayout';
 
 const gameHistoryStorage = new GameHistoryStorage()
 const achievementsManager = new AchievementsManager()
+const themeManager = new ThemeManager({activeTheme: defaultTheme})
 
-const router = createBrowserRouter([
-  {
-    path: "/react-reactor-game/*",
-    element: <App 
-      achievementsManager={achievementsManager}
-      gameHistoryStorage={gameHistoryStorage}
-    />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/react-reactor-game/achievements/",
-    element: <AchievementsPage
-      achievementsManager={achievementsManager}
-     />
-  },
-  {
-    path: "*",
-    element: <div ><h1>Hello</h1><NotFoundPage /></div>,
-    errorElement: <ErrorPage />,
-  },
-]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>            
@@ -55,6 +35,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route index element={<App 
             achievementsManager={achievementsManager}
             gameHistoryStorage={gameHistoryStorage}
+            themeManager={themeManager}
           />} />
           <Route path="achievements" element={<AchievementsPage 
             achievementsManager={achievementsManager}

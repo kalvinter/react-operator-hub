@@ -3,6 +3,9 @@ import React from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
+import { buttonTypes } from './common/Button'
+import Button from './common/Button'
+
 
 function Welcome() {
   const navigate = useNavigate()
@@ -32,12 +35,13 @@ function Welcome() {
         </div>
         
 
-        <div className='w-full flex align-middle'>
-            <button 
-              className='bg-gray-500 hover:bg-gray-600 px-4 py-2 rounded mt-4 mb-4 mx-auto'
-              onClick={() => {navigate("/react-reactor-game/game/", { replace: true })}}
-            >Start your Shift</button>
-
+        <div className='w-full py-5 text-center'>
+                <Button
+                    buttonType={buttonTypes.successButton}
+                    onClick={() => {navigate("/react-reactor-game/game/", { replace: true })}}
+                >
+                    Start your Shift
+                </Button>
         </div>
     </div>
   )

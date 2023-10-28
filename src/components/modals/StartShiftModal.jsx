@@ -14,7 +14,7 @@ export default function StartShiftModal(props) {
             title={"Welcome, Operator!"}
         >
             <div className="relative p-6 flex-auto">
-                <div className="text-white text-lg leading-relaxed">
+                <div className="text-lg leading-relaxed">
                     <p>Your shift is about to start and will last {props.shiftDurationInSeconds} seconds.</p>
 
 

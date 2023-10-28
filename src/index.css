@@ -7,23 +7,25 @@
   line-height: 1.5;
   font-weight: 400;
 
-  --dark-bg: #242424;
-  --medium-bg: rgb(64 64 64 / 90%);
-  --light-bg: rgb(133 133 133 / 90%);
+  --background-light: rgba(32,52,86,1);
 
-  --success-bg: rgba(22, 163, 74, 1);
-  --warning-bg: rgb(202 138 4);
-  --strong-warning-bg: rgb(249 115 22);
-  --danger-bg: rgb(239 68 68);
+  --bg-dark: #242424;
+  --bg-medium: rgb(64 64 64 / 90%);
+  --bg-light: rgb(133 133 133 / 90%);
+
+  --bg-neutral: rgb(31 41 55);
+  --bg-success: rgba(22, 163, 74, 1);
+  --bg-warning: rgb(202 138 4);
+  --bg-strong-warning: rgb(249 115 22);
+  --bg-danger: rgb(239 68 68);
 
   --success-text: white;
   --warning-text: black;
   --danger-text: white;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: var(--dark-bg);
-
+  --text-color: rgba(255, 255, 255, 0.87);
+  --text-color-light: var(var(--text-color));
+  
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -31,25 +33,65 @@
   -webkit-text-size-adjust: 100%;
 }
 
-body {
-  background: linear-gradient(180deg, rgba(36,36,36,1) 0%, rgba(35,41,53,1) 6%, rgba(35,42,57,1) 55%, rgba(34,46,67,1) 69%, rgba(32,52,86,1) 80%, rgba(35,81,159,1) 100%);
+body.light-theme {
+  --bg-dark: rgb(201, 201, 201);
+  --bg-medium: rgb(177, 177, 177);
+  --text-color: rgb(59, 59, 59);
+  --text-color-inverted: rgba(255, 255, 255, 0.87);
+
+  --text-color-light: var(--text-color-inverted);
+
+  --background-light: rgb(59, 59, 59);
 }
 
-.dark-bg {
-  background: var(--dark-bg);
+body {  
+  color: var(--text-color);
+  background-color: var(--dark-bg);
+
+  background: linear-gradient(180deg, var(--bg-dark) 0%, rgba(35,41,53,1) 36%, rgba(35,42,57,1) 55%, rgba(34,46,67,1) 69%, rgba(32,52,86,1) 100%);
+  background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-dark) 10%, var(--background-light) 100%);
 }
 
-.medium-bg {
-  background: var(--medium-bg);
+.text-color--main {
+  color: var(--text-color)
 }
 
-.light-bg {
-  background: var(--light-bg);
+.text-color--inverted {
+  color: var(--text-color-inverted)
 }
 
-.success-bg {
-  background: var(--success-bg);
+.text-color--light {
+  color: var(--text-color-light)
 }
+
+.bg-dark {
+  background: var(--bg-dark);
+}
+
+.bg-medium {
+  background: var(--bg-medium);
+}
+
+.bg-light {
+  background: var(--bg-light);
+}
+
+.bg-success {
+  background: var(--bg-success);
+}
+
+.bg-neutral {
+  background: var(--bg-neutral);
+}
+
+.bg-danger {
+  background: var(--bg-danger);
+}
+
+button:is(.bg-success,.bg-neutral,.bg-danger):hover {
+  filter: brightness(1.2);
+}
+
 
 h1 {
   font-weight: bolder;
@@ -73,12 +115,12 @@ p {
 }
 
 a {
-  color: white;
+  color: var(--text-color-light);
   text-decoration: underline;
 }
 
 a:hover {
-  color: gray;
+  color: var(--text-color-inverted);
 }
 
 .small-icon {
@@ -89,8 +131,8 @@ a:hover {
   --highlight: #c8b618;
   --highlight-bg: rgb(146, 133, 17);
 
-  background: var(--dark-bg);
-  border: solid 1px rgb(64, 64, 64);
+  background: var(--bg-dark);
+  border: solid 1px var(--bg-medium);
 }
 
 .achievementBadge svg {
@@ -99,18 +141,18 @@ a:hover {
 }
 
 .achievementBadge.negative {
-  --highlight: red;
+  --highlight: rgb(236, 4, 4);
   --highlight-bg: #bf0101
 }
 
 .achievementBadge.neutral {
-  --highlight: #f1f1f1;
-  --highlight-bg: #f1f1f1
+  --highlight: var(--text-color);
+  --highlight-bg: var(--text-color);
 }
 
 .achievementBadge.unlocked {
   border: solid 1px var(--highlight-bg);
-  background: linear-gradient(175deg, rgba(36,36,36,1) 68%, var(--highlight-bg) 80%, rgba(36,36,36,1) 93%);
+  background: linear-gradient(175deg, var(--bg-dark) 68%, var(--highlight-bg) 80%, var(--bg-dark) 93%);
 }
 
 .achievementBadge.unlocked svg, .achievementBadge.unlocked .label {

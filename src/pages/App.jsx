@@ -2,22 +2,18 @@ import React, { Component } from 'react'
 
 import { Route, Routes } from 'react-router-dom';
 
-import { useNavigate } from 'react-router-dom';
-
 import Game from '../components/Game';
 import Welcome from '../components/Welcome';
 import GameHistory from '../components/GameHistory';
 import About from '../components/About';
-import Navigation from '../components/Navigation';
 import {AchievementsBar} from '../components/Achievements';
 
 import Card from '../components/common/Card';
 
-import ScrollToTop from '../components/ScrollToTop';
-
 import ResetHistoryModal from '../components/modals/ResetHistoryModal';
 import UnlockedAchievementsModal from '../components/modals/UnlockedAchievementsModal';
 import NotFoundPage from './404-page';
+import Settings from '../components/Settings';
 
 export const pages = {
     landingPage: "Landing Page",
@@ -30,8 +26,8 @@ export class App extends Component {
     super(props);
 
     this.gameHistoryStorage = props.gameHistoryStorage
-
     this.achievementsManager = props.achievementsManager
+    this.themeManager = props.themeManager
 
     let gameHistory = this.gameHistoryStorage.load()
     console.log("gameHistory ", gameHistory)
@@ -160,6 +156,12 @@ export class App extends Component {
                             </Card>
 
                             <Card>
+                                <Settings 
+                                    themeManager={this.themeManager}
+                                />
+                            </Card>
+
+                            <Card>
                                 <About />
                             </Card>
                         </div>
@@ -173,7 +175,7 @@ export class App extends Component {
                             />
                     }
                 />
-                <Route path="*" element={<NotFoundPage />} />
+                <Route path="/*" element={<NotFoundPage />} />
             </Routes>
     )
   }

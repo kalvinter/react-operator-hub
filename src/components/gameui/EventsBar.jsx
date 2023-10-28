@@ -29,7 +29,7 @@ export default function EventsBar() {
     return (
         <Card className="w-full">
             <div className='w-full my-2 flex justify-between items-center'>
-                <div className='w-full my-1 border-solid border-2 rounded border-gray-900 bg-black p-2 flex items-center min-h-[3rem]'>
+                <div className='w-full my-1 border-solid border-2 text-color--light rounded border-gray-900 bg-black p-2 flex items-center min-h-[3rem]'>
                     <span>{eventPrefixLabel} {eventData.displayedEventText}</span>
                 </div>
             </div>

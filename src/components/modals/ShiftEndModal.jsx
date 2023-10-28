@@ -30,7 +30,7 @@ export default function ShiftEndModal(props) {
             showModal={props.showModal}
         >
             <div className="relative p-6 flex-auto">
-                <div className="my-4 text-white text-lg leading-relaxed">
+                <div className="my-4  text-lg leading-relaxed">
                     {/* Main Modal Text */}
                     Congratulations! You have successfully finished your shift as Operater!
 
