@@ -5,7 +5,7 @@ import { GameDataContext } from '../Game.jsx';
 import Card from '../common/Card.jsx';
 
 import { PauseIcon, PlayIcon, XMarkIcon } from '@heroicons/react/20/solid';
-import { ButtonSmall, buttonTypes } from '../common/Button.jsx';
+import Button, { buttonSizes, buttonTypes } from '../common/Button.jsx';
 
 function ButtonLabel (props) {
 
@@ -27,19 +27,20 @@ export default function TopBar(props) {
     let pauseButton;
     if (gameData.gameIsLost){
         pauseButton = (
-            <div className=" border-gray-900 rounded bg-red-500  px-2 py-1">
+            <div className=" border-gray-900 rounded bg-danger  px-2 py-1">
                 You have lost
             </div>
         )
     } else {
 
         pauseButton = (
-            <ButtonSmall
+            <Button
                 onClick={(event) => {gameData.toggleGamePauseOnClick(event)}}
                 buttonType={(gameData.gameIsPaused ? buttonTypes.successButton : buttonTypes.neutralButton)}
+                buttonSize={buttonSizes.small}
             >
                 <ButtonLabel gameData={gameData} />
-            </ButtonSmall>
+            </Button>
         )
     }
 
@@ -48,14 +49,15 @@ export default function TopBar(props) {
             <div>Time until shift ends: {shiftTimeLeftInSeconds} seconds</div>
             <div className='flex gap-1'>
                 {pauseButton}
-                <ButtonSmall
+                <Button
                     onClick={() => props.stopGame()}
                     buttonType={buttonTypes.neutralButton}
+                    buttonSize={buttonSizes.small}
                 >
                     <span className='flex items-center'>
                         <XMarkIcon className='small-icon' /> Quit
                     </span>
-                </ButtonSmall>
+                </Button>
             </div>
         </Card>
     )

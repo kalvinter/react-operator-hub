@@ -63,37 +63,37 @@ const TemperatureChart = () => {
     let display_temperature_text;
             
     if (reactorData.currentTemperature <= GameConfig.minimumTemperature) {
-        temperature_indication_bg = "bg-blue-600"
+        temperature_indication_bg = "bg-dark text-color--light"
         temperature_text = (
             <h5>Temperature is not high enough </h5>
         )
         display_temperature_text = true
     } else if (reactorData.currentTemperature <= 150){
-        temperature_indication_bg = "bg-green-600"
+        temperature_indication_bg = "bg-light"
         temperature_text = (
             <h5>Temperature is normal</h5>
         )
-        display_temperature_text = false
+        display_temperature_text = true
     } else if (reactorData.currentTemperature <= 200){
-        temperature_indication_bg = "bg-yellow-600"
+        temperature_indication_bg = "bg-warning"
         temperature_text = (
             <h5>Temperature is above normal</h5>
         )
-        display_temperature_text = false
+        display_temperature_text = true
     } else if (reactorData.currentTemperature < 250){
-        temperature_indication_bg = "bg-orange-500"
+        temperature_indication_bg = "bg-strong-warning"
         temperature_text = (
             <h5>Temperature is high!</h5>
         )
         display_temperature_text = true
     } else if (reactorData.currentTemperature < GameConfig.maximumTemperature) {
-        temperature_indication_bg = "bg-red-500"
+        temperature_indication_bg = "bg-danger"
         temperature_text = (
             <h5>Temperature is critical! <br></br>Reactor breakdown occures above {GameConfig.maximumTemperature}°C!</h5>
         )
         display_temperature_text = true
     } else {
-        temperature_indication_bg = "bg-red-500"
+        temperature_indication_bg = "bg-danger"
         temperature_text = (
             <h5>The reactor exceeded critical temperature</h5>
         )

@@ -10,13 +10,16 @@
   --background-light: rgba(32,52,86,1);
 
   --bg-dark: #242424;
-  --bg-medium: rgb(64 64 64 / 90%);
-  --bg-light: rgb(133 133 133 / 90%);
+  --bg-light: rgb(133 133 133 / 100%);
+
+  --bg-back: #242424;
+  --bg-medium: rgb(64 64 64 / 100%);
+  --bg-front: rgb(133 133 133 / 100%);
 
   --bg-neutral: rgb(31 41 55);
-  --bg-success: rgba(22, 163, 74, 1);
+  --bg-success: rgb(14, 158, 67);
   --bg-warning: rgb(202 138 4);
-  --bg-strong-warning: rgb(249 115 22);
+  --bg-strong-warning: rgb(219, 91, 0);
   --bg-danger: rgb(239 68 68);
 
   --success-text: white;
@@ -24,6 +27,7 @@
   --danger-text: white;
 
   --text-color: rgba(255, 255, 255, 0.87);
+  --text-color-hover: rgba(218, 218, 218, 0.87);
   --text-color-light: var(--text-color);
   
   font-synthesis: none;
@@ -34,10 +38,17 @@
 }
 
 body.light-theme {
-  --bg-dark: rgb(201, 201, 201);
+  --bg-back: rgb(201, 201, 201);
   --bg-medium: rgb(177, 177, 177);
+  --bg-front: rgb(143, 143, 143);
+
+  --bg-warning: rgb(240, 167, 11);
+  --bg-strong-warning: rgb(235, 98, 0);
+  --bg-danger: rgb(216, 18, 18);
+
   --text-color: rgb(59, 59, 59);
   --text-color-inverted: rgba(255, 255, 255, 0.87);
+  --text-color-hover: rgb(90, 90, 90);
 
   --text-color-light: var(--text-color-inverted);
 
@@ -54,7 +65,7 @@ body {
   background-color: var(--dark-bg);
 
   /*background: linear-gradient(180deg, var(--bg-dark) 0%, rgba(35,41,53,1) 36%, rgba(35,42,57,1) 55%, rgba(34,46,67,1) 69%, rgba(32,52,86,1) 100%);*/
-  background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-dark) 10%, var(--background-light) 100%);
+  background: linear-gradient(180deg, var(--bg-back) 0%, var(--bg-back) 10%, var(--background-light) 100%);
 
   transition-property: color, background;
   transition-duration: 1s;
@@ -80,8 +91,16 @@ body {
   background: var(--bg-dark);
 }
 
+.bg-back {
+  background: var(--bg-back);
+}
+
 .bg-medium {
   background: var(--bg-medium);
+}
+
+.bg-front {
+  background: var(--bg-front);
 }
 
 .bg-light {
@@ -90,14 +109,26 @@ body {
 
 .bg-success {
   background: var(--bg-success);
+  color: var(--text-color-light);
 }
 
 .bg-neutral {
   background: var(--bg-neutral);
+  color: var(--text-color-light);
+}
+
+.bg-warning {
+  background: var(--bg-warning);
+}
+
+.bg-strong-warning {
+  background: var(--bg-strong-warning);
+  color: var(--text-color-light);
 }
 
 .bg-danger {
   background: var(--bg-danger);
+  color: var(--text-color-light);
 }
 
 button:is(.bg-success,.bg-neutral,.bg-danger):hover {
@@ -127,12 +158,14 @@ p {
 }
 
 a {
-  color: var(--text-color-light);
+  color: var(--text-color);
   text-decoration: underline;
+  transition: color 0.1s ease-in-out;
 }
 
 a:hover {
-  color: var(--text-color-inverted);
+  color: var(--text-color-hover);
+  transition: color 0.1s ease-in-out;
 }
 
 .small-icon {
@@ -142,6 +175,8 @@ a:hover {
 .achievementBadge {
   --highlight: #c8b618;
   --highlight-bg: rgb(146, 133, 17);
+
+  color: var(--text-color-light);
 
   background: var(--bg-dark);
   border: solid 1px var(--bg-medium);
@@ -158,8 +193,8 @@ a:hover {
 }
 
 .achievementBadge.neutral {
-  --highlight: var(--text-color);
-  --highlight-bg: var(--text-color);
+  --highlight: var(--text-color-light);
+  --highlight-bg: var(--text-color-light);
 }
 
 .achievementBadge.unlocked {

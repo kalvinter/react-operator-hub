@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import Game from '../components/Game';
 import Welcome from '../components/Welcome';
-import GameHistory from '../components/GameHistory';
+import GameHistorySummary from '../components/GameHistory';
 import About from '../components/About';
 import {AchievementsBar} from '../components/Achievements';
 
@@ -24,13 +24,13 @@ export class App extends Component {
     
   constructor(props){
     super(props);
+    console.log("props ", props)
 
     this.gameHistoryStorage = props.gameHistoryStorage
     this.achievementsManager = props.achievementsManager
     this.themeManager = props.themeManager
 
     let gameHistory = this.gameHistoryStorage.load()
-    console.log("gameHistory ", gameHistory)
 
     gameHistory = (gameHistory !== undefined)? gameHistory : []
 
@@ -119,6 +119,7 @@ export class App extends Component {
   }
 
   render() {
+    console.log("this.themeManager, ", this.themeManager)
     return (
             <Routes>
                 <Route path='/'
@@ -149,7 +150,7 @@ export class App extends Component {
                             </Card>
 
                             <Card>
-                                <GameHistory 
+                                <GameHistorySummary 
                                     gameHistory={this.state.gameHistory}
                                     deleteHistoryOnClick={() => this.toggleResetHistoryModal()}
                                 />
@@ -159,6 +160,7 @@ export class App extends Component {
                                 <Card>
                                     <Settings 
                                         themeManager={this.themeManager}
+                                        deleteHistoryOnClick={() => this.toggleResetHistoryModal()}
                                     />
                                 </Card>
 

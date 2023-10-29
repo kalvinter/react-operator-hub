@@ -67,8 +67,6 @@ export class gameHistoryEntry{
 
     static loadFromJson({parsedData}){
         try {
-            console.log(parsedData)
-
             let date = new Date(parsedData.date)
             
             let gameStatus = parsedData.gameStatus
@@ -127,7 +125,6 @@ export class GameHistoryStorage {
         let gameHistory = []
         
         for (let entry of gameHistoryData){
-            console.log(entry)
             let parsedGameHistoryEntry = gameHistoryEntry.loadFromJson({parsedData: entry})
             
             if (parsedGameHistoryEntry !== null){

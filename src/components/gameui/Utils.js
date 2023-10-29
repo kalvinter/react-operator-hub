@@ -1,7 +1,6 @@
-import { greenBg, orangeBg } from "../Utils";
 
-export const productionMatchedBg = greenBg
-export const productionMisMatchBg = orangeBg
+export const productionMatchedBg = "bg-success"
+export const productionMisMatchBg = "bg-warning"
 
 export function getProductionLabelBg(props){
     let deltaLabel = "";

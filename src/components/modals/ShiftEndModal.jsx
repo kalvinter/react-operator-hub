@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import React from 'react'
 
-import { GameDataContext } from '../Game.jsx';
+import Percentage from '../common/Percentage.jsx';
 
-import { greenBg, orangeBg, redBg } from '../Utils.js';
+import { GameDataContext } from '../Game.jsx';
 
 import ModalLayout from './ModalLayout.jsx';
 import ModalFooter from './ModalFooter.jsx';
@@ -17,11 +17,11 @@ export default function ShiftEndModal(props) {
 
     console.log(gameData.achievedMatchedRate)
     if (gameData.achievedMatchedRate > 0.75){
-        matchRateBg = greenBg
+        matchRateBg = "bg-success"
     } else if (gameData.achievedMatchedRate > 0.4) {
-        matchRateBg = orangeBg
+        matchRateBg = "bg-warning"
     } else {
-        matchRateBg = redBg
+        matchRateBg = "bg-danger"
     }
 
     return (
@@ -36,7 +36,7 @@ export default function ShiftEndModal(props) {
 
                     <div className='w-full text-center my-4 font-bold justify-center flex'>
                         <span className='py-1'>Your Demand-Matched-Rate was </span>
-                        <span className={`${matchRateBg} ml-4 py-1 px-2`}>{(gameData.achievedMatchedRate * 100).toFixed(2)} %</span>
+                        <span className={`${matchRateBg} rounded ml-4 py-1 px-2`}><Percentage decimalFigure={gameData.achievedMatchedRate} /> %</span>
                     </div>
                     
                 </div>

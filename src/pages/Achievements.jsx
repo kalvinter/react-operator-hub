@@ -10,16 +10,14 @@ export default function AchievementsPage(props){
     let unlockedAchievements = props.achievementsManager.getUnlockedAchievements()
   
     return (
-            <div className='w-full'>
-                <Card className="align-center flex">
-                    <Link to={`/react-reactor-game/`}>
-                        <button 
-                        className='underline hover:text-gray-300 flex items-center gap-2'
-                        ><ArrowLeftIcon className="small-icon"></ArrowLeftIcon>Go Back</button>
-                    </Link>
-                </Card>
+        <div className='w-full'>
+            <Card className="align-center flex">
+                <Link to={`/react-reactor-game/`} className='flex items-center gap-2 no-underline'>
+                    <ArrowLeftIcon className="small-icon"></ArrowLeftIcon>Go Back
+                </Link>
+            </Card>
 
-                <Card>
+            <Card>
                 <h4>Achievements</h4>
                 <p className='mb-6'><small className='w-full'>{unlockedAchievements.length} / {props.achievementsManager.availableAchievements.length} unlocked</small></p>
                 
@@ -55,8 +53,8 @@ export default function AchievementsPage(props){
                     />
                 })}
                 </div>
-         
             </Card>
+
         </div>
     )
   }
