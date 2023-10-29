@@ -15,15 +15,16 @@ import NotFoundPage from './pages/404-page';
 import AchievementsPage from './pages/Achievements';
 
 import { AchievementsManager } from './game/Achievements';
-import { GameHistoryStorage } from './game/Storage';
+import { GameHistoryStorage, PreferencesStorage } from './game/Storage';
 import ThemeManager from './game/ThemeManager';
 
 import MainLayout from './pages/MainLayout';
 
 const gameHistoryStorage = new GameHistoryStorage()
 const achievementsManager = new AchievementsManager()
+const preferencesStorage = new PreferencesStorage()
 
-const themeManager = new ThemeManager()
+const themeManager = new ThemeManager({preferencesStorage: preferencesStorage})
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(

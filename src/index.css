@@ -24,7 +24,7 @@
   --danger-text: white;
 
   --text-color: rgba(255, 255, 255, 0.87);
-  --text-color-light: var(var(--text-color));
+  --text-color-light: var(--text-color);
   
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -44,12 +44,24 @@ body.light-theme {
   --background-light: rgb(59, 59, 59);
 }
 
+body.theme-is-changing {
+  opacity: 0.1;
+  transition: opacity 0.2s ease-in-out;
+}
+
 body {  
   color: var(--text-color);
   background-color: var(--dark-bg);
 
-  background: linear-gradient(180deg, var(--bg-dark) 0%, rgba(35,41,53,1) 36%, rgba(35,42,57,1) 55%, rgba(34,46,67,1) 69%, rgba(32,52,86,1) 100%);
+  /*background: linear-gradient(180deg, var(--bg-dark) 0%, rgba(35,41,53,1) 36%, rgba(35,42,57,1) 55%, rgba(34,46,67,1) 69%, rgba(32,52,86,1) 100%);*/
   background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-dark) 10%, var(--background-light) 100%);
+
+  transition-property: color, background;
+  transition-duration: 1s;
+  transition-timing-function: ease-out;
+
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .text-color--main {

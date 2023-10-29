@@ -146,14 +146,12 @@ export class PreferencesStorage{
         this.storedDataType = storedDataTypes.preferences
     }
     
-    save({theme}){
-        console.log(theme)
+    save({data}){
+        console.log(data)
 
         return this.storageManager.save({
             storedDataType: this.storedDataType,
-            data: {
-                theme: theme
-            }
+            data: data
         })
     }
 

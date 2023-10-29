@@ -155,15 +155,17 @@ export class App extends Component {
                                 />
                             </Card>
 
-                            <Card>
-                                <Settings 
-                                    themeManager={this.themeManager}
-                                />
-                            </Card>
+                            <div className='md:grid md:grid-cols-3 md:gap-2 flex flex-col'>
+                                <Card>
+                                    <Settings 
+                                        themeManager={this.themeManager}
+                                    />
+                                </Card>
 
-                            <Card>
-                                <About />
-                            </Card>
+                                <Card className='col-span-2'>
+                                    <About />
+                                </Card>
+                            </div>
                         </div>
                     }
                 />
