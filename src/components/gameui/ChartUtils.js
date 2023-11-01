@@ -7,7 +7,7 @@ export const lineChartBaseOptions = {
             easing: 'linear',
             duration: 2,
             }
-    },
+    }    
 };
 
 export function generateChartLabels(timeRunning){

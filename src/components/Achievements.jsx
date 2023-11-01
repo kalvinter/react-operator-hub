@@ -21,24 +21,15 @@ export function AchievementGroup(props) {
 
 export function AchievementBadge(props){
   return (
-    <div 
-        className={`${props.achievement.isUnlocked ? 'unlocked flex' : 'md:flex hidden'} 
-                    ${props.achievement.achievementType} group achievementBadge 
-                    relative bg-medium p-2 w-full flex-col align-middle items-center`}>
-        {(props.achievement.isUnlocked ? <StarIcon className='unlocked' /> : <StarIconOutlin />)}
-        <span className='label'>{props.achievement.label} </span>
-    </div>
-  )
-}
-
-export function AchievementBadgeFull(props){
-  return (
-    <div className={`${props.achievement.isUnlocked ? 'unlocked' : ''} ${props.achievement.achievementType} flex group achievementBadge relative bg-medium p-2 w-full`}>
+    <div className={`${props.achievement.isUnlocked ? 'unlocked' : ''} ${props.achievement.achievementType} ${(props.showDescription ? 'justify-start' : 'justify-center')}	flex group achievementBadge relative p-2 w-full`}>
       <div className='flex flex-col align-middle items-center md:min-w-[10rem] min-w-[40%]'>
         {(props.achievement.isUnlocked ? <StarIcon className='unlocked' /> : <StarIconOutlin />)}
         <span className='label'>{props.achievement.label} </span>
       </div>
-      {(props.showDescription) ? <p><small>{props.achievement.description}</small></p> : null}
+      {(props.showDescription) ? 
+        <div>
+          <p><small>{props.achievement.description}</small></p>
+        </div> : null}
     </div>
   )
 }

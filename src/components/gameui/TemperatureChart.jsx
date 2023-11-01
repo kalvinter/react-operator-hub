@@ -39,6 +39,9 @@ const temperatureChartOptions = {
             display: false,
             text: 'Reactor Temperature',
         },
+        tooltip: {
+            enabled: false
+        }
     },
     scales: {
         y: {

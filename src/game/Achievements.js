@@ -3,13 +3,14 @@ import { GameEndTypes } from "./Config"
 
 
 export const AchievementGroups = {
-    achievedMatchedRate: "achievedMatchedRate",
+    achievedMatchedRate: "Achieved Matched Rate",
     numberOfGames: "numberOfGames",
     numberOfGameEnds: "numberOfGameEnds",
 }
 
 
-const NumberAchievementTypes = {
+const AchievementMetricTypes = {
+    achievedMatchedRate: "achievedMatchedRate",
     numberOfGames: "numberOfGames",
     lostGames: "lostGames",
     abortedGames: "abortedGames"
@@ -73,20 +74,20 @@ class GameHistoryNumberAchievement extends Achievement {
         let filteredGameHistory;
 
         switch (this.targetMetric) {
-            case NumberAchievementTypes.numberOfGames:
+            case AchievementMetricTypes.numberOfGames:
                 filteredGameHistory = gameHistoryEntries.filter((gameHistoryEntry) => {
                     return gameHistoryEntry.gameStatus === GameEndTypes.shiftWasFinished
                 })
                 break;
 
-            case NumberAchievementTypes.lostGames:
+            case AchievementMetricTypes.lostGames:
                 filteredGameHistory = gameHistoryEntries.filter((gameHistoryEntry) => {
                     return gameHistoryEntry.gameStatus === GameEndTypes.lost
                 })
                 console.log(filteredGameHistory)
                 break;
 
-            case NumberAchievementTypes.abortedGames:
+            case AchievementMetricTypes.abortedGames:
                 filteredGameHistory = gameHistoryEntries.filter((gameHistoryEntry) => {
                     return gameHistoryEntry.gameStatus === GameEndTypes.aborted
                 })
@@ -108,7 +109,7 @@ const getInitialAvailabelAchievements = () => {
         order: 1,
         description: "Achieve a matched rate of 10 %. Not really impressive but at least you did not blow anything up ...",
         achievementGroup: AchievementGroups.achievedMatchedRate,
-        targetMetric: "achievedMatchedRate",
+        targetMetric: AchievementMetricTypes.achievedMatchedRate,
         targetValue: 0.1
     }),
     new Achievement({
@@ -116,7 +117,7 @@ const getInitialAvailabelAchievements = () => {
         order: 2,
         description: "Achieve a matched rate of 50 % and prove that you are somewhat capable for this job ...",
         achievementGroup: AchievementGroups.achievedMatchedRate,
-        targetMetric: "achievedMatchedRate",
+        targetMetric: AchievementMetricTypes.achievedMatchedRate,
         targetValue: 0.2
     }),
     new Achievement({
@@ -124,7 +125,7 @@ const getInitialAvailabelAchievements = () => {
         order: 3,
         description: "Achieve a matched rate of 70 % and prove that you are an expert in your field!",
         achievementGroup: AchievementGroups.achievedMatchedRate,
-        targetMetric: "achievedMatchedRate",
+        targetMetric: AchievementMetricTypes.achievedMatchedRate,
         targetValue: 0.2
     }),
     new Achievement({
@@ -132,7 +133,7 @@ const getInitialAvailabelAchievements = () => {
         order: 4,
         description: "Achieve a matched rate of 80 % and become the hero of the grid!",
         achievementGroup: AchievementGroups.achievedMatchedRate,
-        targetMetric: "achievedMatchedRate",
+        targetMetric: AchievementMetricTypes.achievedMatchedRate,
         targetValue: 1
     }),
     new Achievement({
@@ -140,7 +141,7 @@ const getInitialAvailabelAchievements = () => {
         order: 5,
         description: "Achieve a matched rate of 90 % and become the GOD of the grid! We thought this was impossible ... ",
         achievementGroup: AchievementGroups.achievedMatchedRate,
-        targetMetric: "achievedMatchedRate",
+        targetMetric: AchievementMetricTypes.achievedMatchedRate,
         targetValue: 1
     }),
     new GameHistoryNumberAchievement({
@@ -148,7 +149,7 @@ const getInitialAvailabelAchievements = () => {
         order: 1,
         description: "Finish your first shift!",
         achievementGroup: AchievementGroups.numberOfGames,
-        targetMetric:  NumberAchievementTypes.numberOfGames,
+        targetMetric:  AchievementMetricTypes.numberOfGames,
         targetValue: 1
     }),
     new GameHistoryNumberAchievement({
@@ -156,7 +157,7 @@ const getInitialAvailabelAchievements = () => {
         order: 2,
         description: "Finish your second shift and show that you are a member of our operator team!",
         achievementGroup: AchievementGroups.numberOfGames,
-        targetMetric:  NumberAchievementTypes.numberOfGames,
+        targetMetric:  AchievementMetricTypes.numberOfGames,
         targetValue: 2
     }),
     new GameHistoryNumberAchievement({
@@ -164,7 +165,7 @@ const getInitialAvailabelAchievements = () => {
         order: 3,
         description: "Finish five shifts and become a senior member the team!",
         achievementGroup: AchievementGroups.numberOfGames,
-        targetMetric:  NumberAchievementTypes.numberOfGames,
+        targetMetric:  AchievementMetricTypes.numberOfGames,
         targetValue: 5
     }),
     new GameHistoryNumberAchievement({
@@ -172,7 +173,7 @@ const getInitialAvailabelAchievements = () => {
         order: 3,
         description: "Finish ten shifts and show your dedication to our power grid!",
         achievementGroup: AchievementGroups.numberOfGames,
-        targetMetric: NumberAchievementTypes.numberOfGames,
+        targetMetric: AchievementMetricTypes.numberOfGames,
         targetValue: 10
     }),
     new GameHistoryNumberAchievement({
@@ -180,7 +181,7 @@ const getInitialAvailabelAchievements = () => {
         order: 1,
         description: "We said, just do your best but don't blow anything up ...",
         achievementGroup: AchievementGroups.numberOfGameEnds,
-        targetMetric: NumberAchievementTypes.lostGames,
+        targetMetric: AchievementMetricTypes.lostGames,
         targetValue: 1,
         achievementType: AchievementTypes.negative
     }),
@@ -189,7 +190,7 @@ const getInitialAvailabelAchievements = () => {
         order: 2,
         description: "You are leaving already?",
         achievementGroup: AchievementGroups.numberOfGameEnds,
-        targetMetric: NumberAchievementTypes.abortedGames,
+        targetMetric: AchievementMetricTypes.abortedGames,
         targetValue: 1,
         achievementType: AchievementTypes.neutral
     }),

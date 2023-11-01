@@ -9,7 +9,7 @@ export default function ModalLayout(props) {
                 >
                     <div className="relative w-auto my-6 mx-auto max-w-3xl">
                     {/*content*/}
-                        <div className="md:min-h-fit md:min-w-fit min-h-[100vh] min-w-[100vw] shadow-lg relative flex flex-col w-full bg-medium border-solid border-2 border-gray-900 outline-none focus:outline-none">
+                        <div className="md:min-h-fit md:min-w-fit min-h-[100vh] min-w-[100vw] shadow-lg relative flex flex-col w-full bg-back border-solid border-2 border-gray-900 outline-none focus:outline-none">
                             {/*header*/}
                             <div className="flex items-start justify-between p-5 border-b-2 border-solid border-gray-900 rounded-t">
                                 <h3 className="text-3xl font-semibold">

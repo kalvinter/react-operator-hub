@@ -40,6 +40,9 @@ const outputChartOptions = {
             display: false,
             text: 'Energy Output',
         },
+        tooltip: {
+            enabled: false
+        }
     },
     scales: {
         y: {

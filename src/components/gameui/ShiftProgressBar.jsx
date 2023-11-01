@@ -30,7 +30,7 @@ function ShiftProgressBar() {
                 })}
                 <div key="remaining-time" className="bg-gray-500" style={{width: `${gameData.shiftTimeLeft / 50}%`, height: "100%"}}></div>
             </div>
-            <h4 className={`${delta.deltaBg} border-4 border-l-0 border-rounded border-black px-2 my-0 whitespace-nowrap`}><Percentage decimalFigure={gameData.achievedMatchedRate} /> %</h4>
+            <h4 className={`${delta.deltaBg} w-[10ch] text-right border-4 border-l-0 border-rounded border-black px-2 my-0 whitespace-nowrap`}><Percentage decimalFigure={gameData.achievedMatchedRate} /> %</h4>
         </div>
     </Card>
   )

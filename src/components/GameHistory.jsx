@@ -19,7 +19,7 @@ function GameHistorySection(props){
 export function GameHistoryCard(props){
     let entry = props.gameHistoryEntry
     return (
-        <div className='flex justify-between w-full py-1 px-3 my-1 mx-auto flex-wrap border-solid border-2 rounded border-neutral-400' key={entry.date}>
+        <div className='bg-element hover:shadow-xl flex justify-between w-full py-1 px-3 my-1 mx-auto flex-wrap border-solid border-2 rounded border-neutral-400' key={entry.date}>
             <GameHistorySection 
                 label={"Date"}
                 value={`${entry.date.toLocaleDateString("de-DE")} ${entry.date.getUTCHours()}:${entry.date.getUTCMinutes()}`}

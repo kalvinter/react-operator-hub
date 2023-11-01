@@ -12,9 +12,12 @@
   --bg-dark: #242424;
   --bg-light: rgb(133 133 133 / 100%);
 
-  --bg-back: #242424;
-  --bg-medium: rgb(64 64 64 / 100%);
-  --bg-front: rgb(133 133 133 / 100%);
+  --bg-back: var(--bg-dark);
+  --bg-card: rgb(64 64 64 / 100%);
+  --bg-element: rgb(133 133 133 / 100%);
+
+  --border-color-back: var(--bg-card);
+  --border-color-card: black;
 
   --bg-neutral: rgb(31 41 55);
   --bg-success: rgb(14, 158, 67);
@@ -39,12 +42,15 @@
 
 body.light-theme {
   --bg-back: rgb(201, 201, 201);
-  --bg-medium: rgb(177, 177, 177);
-  --bg-front: rgb(143, 143, 143);
+  --bg-card: rgb(177, 177, 177);
+  --bg-element: rgb(201, 201, 201);
 
   --bg-warning: rgb(240, 167, 11);
   --bg-strong-warning: rgb(235, 98, 0);
   --bg-danger: rgb(216, 18, 18);
+
+  --border-color-back: var(--bg-dark);
+  --border-color-card: var(--bg-dark);
 
   --text-color: rgb(59, 59, 59);
   --text-color-inverted: rgba(255, 255, 255, 0.87);
@@ -66,6 +72,7 @@ body {
 
   /*background: linear-gradient(180deg, var(--bg-dark) 0%, rgba(35,41,53,1) 36%, rgba(35,42,57,1) 55%, rgba(34,46,67,1) 69%, rgba(32,52,86,1) 100%);*/
   background: linear-gradient(180deg, var(--bg-back) 0%, var(--bg-back) 10%, var(--background-light) 100%);
+  background: radial-gradient(circle, var(--background-light) 0%, var(--bg-back) 90%);
 
   transition-property: color, background;
   transition-duration: 1s;
@@ -87,6 +94,18 @@ body {
   color: var(--text-color-light)
 }
 
+.border-color-back {
+  border-color: var(--border-color-back);
+}
+
+.border-color-card {
+  border-color: var(--border-color-card);
+}
+
+.border-color-element {
+  border-color: var(--bg-element);
+}
+
 .bg-dark {
   background: var(--bg-dark);
 }
@@ -95,12 +114,12 @@ body {
   background: var(--bg-back);
 }
 
-.bg-medium {
-  background: var(--bg-medium);
+.bg-card {
+  background: var(--bg-card);
 }
 
-.bg-front {
-  background: var(--bg-front);
+.bg-element {
+  background: var(--bg-element);
 }
 
 .bg-light {
@@ -235,4 +254,15 @@ a:hover {
 .modal.show .modal--body{
   transform: translateY(0);
   transition: all 0.3s ease-in-out;
+}
+
+
+/* Transition Classes */
+.fade-enter, .fade-exit {
+  opacity: 0;
+}
+
+.fade-enter-active, .fade-exit-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in-out;
 }

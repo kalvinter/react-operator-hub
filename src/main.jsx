@@ -4,7 +4,6 @@ import App from './pages/App'
 import './index.css'
 
 import {
-  createBrowserRouter,
   BrowserRouter,
   Routes,
   Route

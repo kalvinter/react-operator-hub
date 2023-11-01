@@ -5,7 +5,7 @@ import Button from '../common/Button'
 import ModalLayout from './ModalLayout'
 import { buttonTypes } from '../common/Button'
 
-import { AchievementBadgeFull } from '../Achievements'
+import { AchievementBadge } from '../Achievements'
 
 export default function unlockedAchievementsModal(props) {
     
@@ -16,7 +16,7 @@ export default function unlockedAchievementsModal(props) {
         >
             <div className="relative p-6 gap-2 flex flex-col">
                 {props.newlyUnlockedAchievements.map((achievement) => {
-                    return <AchievementBadgeFull 
+                    return <AchievementBadge 
                         key={achievement.label} 
                         achievement={achievement}
                         showDescription={true}
