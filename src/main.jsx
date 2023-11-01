@@ -39,7 +39,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             achievementsManager={achievementsManager}
             gameHistoryStorage={gameHistoryStorage}
             themeManager={themeManager}
-          />} />
+          />} /> 
           <Route path="achievements" element={<AchievementsPage 
             achievementsManager={achievementsManager}
           />} />
