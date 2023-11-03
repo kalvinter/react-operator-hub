@@ -5,12 +5,11 @@ import { ArrowLeftIcon } from "@heroicons/react/20/solid"
 import Card from '../components/common/Card'
 
 import { GameHistoryCard } from '../components/GameHistory'
-import { useGameHistory } from '../hooks/useGameHistory'
 
+import { gameHistoryManager } from '../game/GameHistoryManager'
 
-export default function GameHistoryPage(props) {
-  const [addGameHistoryEntry, deleteGameHistory, gameHistory] = useGameHistory()
-
+export default function GameHistoryPage() {
+  
   return (
     <div className='w-full'>
         <Card className="align-center flex">
@@ -26,7 +25,7 @@ export default function GameHistoryPage(props) {
                 <small>{gameHistory.length} Entries</small>
             </div>
 
-            {gameHistory.map((gameHistoryEntry) => {
+            {gameHistoryManager.gameHistory.map((gameHistoryEntry) => {
                 return <GameHistoryCard gameHistoryEntry={gameHistoryEntry} key={gameHistoryEntry.date}/>
             })}
 

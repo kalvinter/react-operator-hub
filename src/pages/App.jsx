@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { Route, Routes } from 'react-router-dom';
 
@@ -17,15 +17,13 @@ import ResetHistoryModal from '../components/modals/ResetHistoryModal';
 import UnlockedAchievementsModal from '../components/modals/UnlockedAchievementsModal';
 import NotFoundPage from './404Page';
 import Settings from '../components/Settings';
-import { useGameHistory } from '../hooks/useGameHistory';
-import { useAchievementsManager } from '../hooks/useAchievementsManager';
-import { useThemeManager } from '../hooks/useThemeManager';
 
+import ThemeManager from '../game/ThemeManager';
+
+import { gameHistoryManager } from '../game/GameHistoryManager';
+import { achievementsManager } from '../game/Achievements';
 
 function App() {
-    const gameHistoryManager = useGameHistory()
-    const achievementsManager = useAchievementsManager()
-
     achievementsManager.checkGameHistoryEntries({
         gameHistoryEntries: gameHistoryManager.gameHistory,
         unlockAchievements: true
@@ -39,7 +37,7 @@ function App() {
         setShowDeleteHistoryModal(false)
     }
 
-    useThemeManager()
+    const themeManager = new ThemeManager()
     const [newlyUnlockedAchievements, setNewlyUnlockedAchievements] = useState([])
 
     const endGame = ({gameHistoryEntry, gameStatus}) => {
@@ -89,6 +87,7 @@ function App() {
                         <div className='md:grid md:grid-cols-3 md:gap-2 flex flex-col'>
                             <Card>
                                 <Settings 
+                                    themeManager={themeManager}
                                     showDeleteHistoryModal={() => setShowDeleteHistoryModal(true)}
                                 />
                             </Card>

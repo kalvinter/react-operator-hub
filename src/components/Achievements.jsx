@@ -6,8 +6,7 @@ import { AchievementGroups } from '../game/Achievements'
 import {StarIcon} from '@heroicons/react/20/solid'
 import {StarIcon as StarIconOutlin} from '@heroicons/react/24/outline'
 
-import { useAchievementsManager } from '../hooks/useAchievementsManager'
-
+import { achievementsManager } from '../game/Achievements'
 
 export function AchievementGroup(props) {
   let achievements = props.achievements.sort((a, b) => a.order - b.order);
@@ -38,10 +37,6 @@ export function AchievementBadge(props){
 
 
 export function AchievementsBar() {
-  // const achievementsManager = useAchievementsManager()
-  const achievementsManager = useAchievementsManager()
-
-  // let achievementsManager = props.achievementsManager
   let unlockedAchievements = achievementsManager.getUnlockedAchievements()
 
   return (

@@ -3,7 +3,6 @@
 import React from 'react'
 
 import { Link } from 'react-router-dom'
-import { useGameHistory } from '../hooks/useGameHistory'
 import { gameHistoryManager } from '../game/GameHistoryManager'
 
 
@@ -49,7 +48,7 @@ export default function GameHistorySummary(props) {
     // const [addGameHistoryEntry, deleteGameHistory, gameHistory] = useGameHistory()
 
     // console.warn("gameHistory in history summary, ", gameHistory)
-    const gameHistoryManager = useGameHistory()
+    // const gameHistoryManager = useGameHistory()
     let gameHistory = gameHistoryManager.gameHistory
     let gameHistoryList = (
         <div>You have not played any games yet. Finished games and highscores will appear here.</div>

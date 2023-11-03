@@ -4,15 +4,13 @@ import { AchievementGroups } from '../game/Achievements'
 
 import { ArrowLeftIcon } from "@heroicons/react/20/solid"
 
-import { useAchievementsManager } from "../hooks/useAchievementsManager"
+import { achievementsManager } from "../game/Achievements"
 
 import Card from "../components/common/Card"
 
 export default function AchievementsPage(){
-    const achievementsManager = useAchievementsManager()
     let unlockedAchievements = achievementsManager.getUnlockedAchievements()
-    console.log(unlockedAchievements)
-  
+    
     return (
         <div className='w-full'>
             <Card className="align-center flex">

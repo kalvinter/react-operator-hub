@@ -5,21 +5,18 @@ import { useState, useEffect } from 'react'
 import Button, {buttonSizes, buttonTypes} from './common/Button'
 
 import { themes } from '../game/ThemeManager'
-import { useThemeManager } from '../hooks/useThemeManager'
 
-function Settings(props) {
-    const themeManager = useThemeManager()
-    
-    const [activeTheme, setActiveTheme] = useState(themeManager.activeTheme)
+function Settings(props) {    
+    const [activeTheme, setActiveTheme] = useState(props.themeManager.activeTheme)
 
     useEffect(() => {
-        if (activeTheme === themeManager.activeTheme){
+        if (activeTheme === props.themeManager.activeTheme){
             return
         }
 
-        themeManager.setThemeChangeEffect()
+        props.themeManager.setThemeChangeEffect()
         let timeout = setTimeout(() => {
-            themeManager.setActiveTheme({activeTheme: activeTheme})
+            props.themeManager.setActiveTheme({activeTheme: activeTheme})
         }, 200);
         return () => clearTimeout(timeout);
     }, [activeTheme])
