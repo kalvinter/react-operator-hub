@@ -26,6 +26,7 @@ import { achievementsManager } from '../game/Achievements';
 import ErrorPage from './ErrorPage';
 import MainLayout from './MainLayout';
 
+
 function App() {
     const location = useLocation();
 
@@ -61,7 +62,7 @@ function App() {
     const [showUnlockedAchievementsModal, setShowUnlockedAchievementsModal] = useState(false)
 
     return (
-        <AnimatePresence mode='wait'>
+        <AnimatePresence initial={false} mode='wait'>
             <Routes location={location} key={location.pathname}>
                 <Route path="/react-reactor-game/*" element={<MainLayout />} errorElement={<ErrorPage />}>
 
