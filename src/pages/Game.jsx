@@ -209,9 +209,6 @@ class Game extends React.Component {
       }
     }
 
-    console.log("matchedDuration, ", matchedDuration)
-    console.log("totalDuration, ", totalDuration)
-
     return matchedDuration / totalDuration
   }
 
@@ -236,7 +233,6 @@ class Game extends React.Component {
     demandMatchedStatusHistory = this.addToMatchedStatusHistory(demandMatchedStatusHistory, this.electricityGrid.productionDemandMatch)
 
     let achievedMatchedRate = this.calculateMatchedRate(demandMatchedStatusHistory)
-    console.log("achievedMatchedRate, ", achievedMatchedRate)
 
     let shiftTimeLeft = this.shiftDuration - this.state.timeRunning * 50
 
@@ -368,8 +364,6 @@ class Game extends React.Component {
 
       activeEvents: [...this.state.activeIncreaseEvents, ...this.state.activeDecreaseEvents]
     }
-
-    console.log("showShiftStartModal, ", this.state.showShiftStartModal)
 
     return (
       <div>

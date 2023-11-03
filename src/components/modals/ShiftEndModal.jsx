@@ -15,7 +15,6 @@ export default function ShiftEndModal(props) {
 
     let matchRateBg = ""
 
-    console.log(gameData.achievedMatchedRate)
     if (gameData.achievedMatchedRate > 0.75){
         matchRateBg = "bg-success"
     } else if (gameData.achievedMatchedRate > 0.4) {

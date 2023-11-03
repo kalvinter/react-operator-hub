@@ -1,3 +1,4 @@
+import { GameConfig } from './Config.js'
 import {AvailableEventHandler, effectDirection, noEventText} from './Events.js'
 
 
@@ -23,6 +24,9 @@ export class ElectricityGrid {
         this.activeDecreaseEvents = []
         
         this.upcomingEventChange = []
+
+        this.appliedDemandChange = 0
+
         this.displayedEventText = noEventText
     }
 
@@ -59,9 +63,7 @@ export class ElectricityGrid {
       console.log(upDownFactor)
       console.log(this.upcomingEventChange[0].addedElectricityDemand)
 
-      this.currentElectricityDemand += this.upcomingEventChange[0].addedElectricityDemand * upDownFactor
-
-      this.currentElectricityDemand = (this.currentElectricityDemand <= 0) ? 0 : this.currentElectricityDemand
+      this.appliedDemandChange = this.upcomingEventChange[0].addedElectricityDemand * upDownFactor
       
       console.log(this.activeIncreaseEvents)
       this.upcomingEventChange = []
@@ -151,6 +153,23 @@ export class ElectricityGrid {
         if (this.upcomingEventChange.length > 0 && timeRunning % 100 === 0){
           this.performScheduledEventChange()
         }
+
+        /* Apply any further demand changes.
+        Electricity demand changes that stem from events are not fulle added at once to make it
+        easier for players to follow the change.
+        Instead it is added gradually
+        */
+        if (this.appliedDemandChange > 0){
+          let change = (this.appliedDemandChange > GameConfig.demandChangeStepSize) ? GameConfig.demandChangeStepSize : this.appliedDemandChange
+          
+          this.currentElectricityDemand += change
+          this.appliedDemandChange -= change
+
+          console.log(this.appliedDemandChange)
+
+          this.currentElectricityDemand = (this.currentElectricityDemand <= 0) ? 0 : this.currentElectricityDemand
+        }
+        
     
         /* Initialize a minimum demand at the beginning of the game  */
         if (timeRunning === 0){

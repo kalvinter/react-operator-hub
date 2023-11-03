@@ -20,7 +20,6 @@ export default function ModalLayout(props) {
           hasBeenRendered.current = false;
         }
       }, [props.showModal]);
-    console.log("showModal ", showModal)
 
     return (
             <div className={`modal ${showModal ? 'show' : ''}`}>
