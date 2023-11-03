@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 
 import Card from '../common/Card.jsx';
 
-import { GameDataContext } from '../Game.jsx';
+import { GameDataContext } from '../../pages/Game.jsx';
 
 import Percentage from '../common/Percentage.jsx';
 

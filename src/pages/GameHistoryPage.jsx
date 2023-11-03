@@ -5,10 +5,11 @@ import { ArrowLeftIcon } from "@heroicons/react/20/solid"
 import Card from '../components/common/Card'
 
 import { GameHistoryCard } from '../components/GameHistory'
+import { useGameHistory } from '../hooks/useGameHistory'
 
 
 export default function GameHistoryPage(props) {
-  let gameHistory = props.gameHistoryStorage.load()
+  const [addGameHistoryEntry, deleteGameHistory, gameHistory] = useGameHistory()
 
   return (
     <div className='w-full'>

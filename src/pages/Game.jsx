@@ -8,15 +8,15 @@ import {ElectricityGrid} from '../game/ElectricityGrid.js'
 
 import withNavigation from '../hocs/withNavigation.jsx';
 
-import ShiftProgressBar from './gameui/ShiftProgressBar.jsx';
-import TopBar from './gameui/TopBar.jsx';
-import EventsBar from './gameui/EventsBar.jsx';
-import InputBar from './gameui/InputBar.jsx';
-import OutputChart from './gameui/OutputChart.jsx';
-import TemperatureChart from './gameui/TemperatureChart.jsx';
+import ShiftProgressBar from '../components/gameui/ShiftProgressBar.jsx';
+import TopBar from '../components/gameui/TopBar.jsx';
+import EventsBar from '../components/gameui/EventsBar.jsx';
+import InputBar from '../components/gameui/InputBar.jsx';
+import OutputChart from '../components/gameui/OutputChart.jsx';
+import TemperatureChart from '../components/gameui/TemperatureChart.jsx';
 
-import ShiftEndModal from './modals/ShiftEndModal.jsx';
-import StartShiftModal from './modals/StartShiftModal.jsx';
+import ShiftEndModal from '../components/modals/ShiftEndModal.jsx';
+import StartShiftModal from '../components/modals/StartShiftModal.jsx';
 import { gameHistoryEntry } from '../game/Storage.js';
 
 export const ReactorDataContext = React.createContext()
@@ -141,7 +141,7 @@ class Game extends React.Component {
 
     console.log(gameStatus)
 
-    this.props.addGameToGameHistory({
+    this.props.endGame({
       gameHistoryEntry: new gameHistoryEntry({
         date: new Date(),
         timeRunningInSeconds: this.state.timeRunning / 20,
@@ -149,7 +149,8 @@ class Game extends React.Component {
         achievedMatchedRate: this.state.achievedMatchedRate,
         averageProductionIntensity: this.state.averageProductionIntensity,
         gameStatus: gameStatus
-      })
+      }),
+      gameStatus: gameStatus
     })
 
     this.setState({

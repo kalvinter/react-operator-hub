@@ -8,8 +8,8 @@ export const storedDataTypes = {
     // Saved Games that can be resumed
     savedGames: "savedGames",
 
-    // Preferences such as dark mode
-    preferences: "preferences"
+    
+    theme: "theme"
 }
 
 export class LocalStorageManager {
@@ -98,7 +98,7 @@ export class GameHistoryStorage {
     }
 
     save({gameHistory}){
-        console.log(gameHistory)
+        // console.log(gameHistory)
 
         return this.storageManager.save({
             storedDataType: this.storedDataType,
@@ -115,7 +115,7 @@ export class GameHistoryStorage {
             storedDataType: this.storedDataType,
         })
 
-        console.log(gameHistoryData)
+        // console.log(gameHistoryData)
         
         if (gameHistoryData === null || gameHistoryData === undefined){
             // return an empty list, if no gameHistory was saved yet
@@ -131,20 +131,19 @@ export class GameHistoryStorage {
                 gameHistory.push(parsedGameHistoryEntry)
             }
         }
-        
         // parse saved objects
         return gameHistory
     }
 }
 
-export class PreferencesStorage{
+export class ThemeStorage{
     constructor(){
         this.storageManager = new LocalStorageManager()
-        this.storedDataType = storedDataTypes.preferences
+        this.storedDataType = storedDataTypes.theme
     }
     
     save({data}){
-        console.log(data)
+        // console.log(data)
 
         return this.storageManager.save({
             storedDataType: this.storedDataType,
@@ -157,13 +156,13 @@ export class PreferencesStorage{
     }
 
     load(){
-        let preferencesData = this.storageManager.load({
+        let themeData = this.storageManager.load({
             storedDataType: this.storedDataType,
         })
 
-        console.log(preferencesData)
+        // console.log(themeData)
         
-        if (preferencesData === null || preferencesData === undefined){
+        if (themeData === null || themeData === undefined){
             // return an empty list, if no gameHistory was saved yet
             return {
                 theme: defaultTheme
@@ -171,6 +170,9 @@ export class PreferencesStorage{
         }
         
         // parse saved objects
-        return preferencesData
+        return themeData
     }
 }
+
+
+export const gameHistoryStorage = new GameHistoryStorage()

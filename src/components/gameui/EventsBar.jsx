@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 
 import { effectDirection } from '../../game/Events.js';
 import {ArrowDownCircleIcon, ArrowUpCircleIcon} from '@heroicons/react/20/solid'
-import { EventDataContext } from '../Game';
+import { EventDataContext } from '../../pages/Game.jsx';
 import Card from '../common/Card.jsx';
 
 export default function EventsBar() {

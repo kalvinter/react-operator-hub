@@ -6,7 +6,7 @@ import { Line } from 'react-chartjs-2';
 
 import {ExclamationTriangleIcon} from '@heroicons/react/20/solid'
 
-import { GameDataContext, ReactorDataContext } from '../Game.jsx';
+import { GameDataContext, ReactorDataContext } from '../../pages/Game.jsx';
 
 import {
     Chart as ChartJS,

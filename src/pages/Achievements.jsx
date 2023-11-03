@@ -4,10 +4,14 @@ import { AchievementGroups } from '../game/Achievements'
 
 import { ArrowLeftIcon } from "@heroicons/react/20/solid"
 
+import { useAchievementsManager } from "../hooks/useAchievementsManager"
+
 import Card from "../components/common/Card"
 
-export default function AchievementsPage(props){
-    let unlockedAchievements = props.achievementsManager.getUnlockedAchievements()
+export default function AchievementsPage(){
+    const achievementsManager = useAchievementsManager()
+    let unlockedAchievements = achievementsManager.getUnlockedAchievements()
+    console.log(unlockedAchievements)
   
     return (
         <div className='w-full'>
@@ -19,11 +23,11 @@ export default function AchievementsPage(props){
 
             <Card>
                 <h4>Achievements</h4>
-                <p className='mb-6'><small className='w-full'>{unlockedAchievements.length} / {props.achievementsManager.availableAchievements.length} unlocked</small></p>
+                <p className='mb-6'><small className='w-full'>{unlockedAchievements.length} / {achievementsManager.availableAchievements.length} unlocked</small></p>
                 
                 <h4>Achievements related to the Achieved Mathed Rate</h4>
                 <div className='mb-6 flex gap-2 flex-col'>
-                {props.achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.achievedMatchedRate}).map((achievement) => {
+                {achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.achievedMatchedRate}).map((achievement) => {
                     return <AchievementBadge
                         key={achievement.label} 
                         achievement={achievement}         
@@ -34,7 +38,7 @@ export default function AchievementsPage(props){
         
                 <h4>Achievements related to finished Shifts</h4>
                 <div className='mb-6 flex gap-2 flex-col'>
-                {props.achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.numberOfGames}).map((achievement) => {
+                {achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.numberOfGames}).map((achievement) => {
                     return <AchievementBadge
                         key={achievement.label}   
                         achievement={achievement}         
@@ -45,7 +49,7 @@ export default function AchievementsPage(props){
         
                 <h4>Other Achievements</h4>
                 <div className='mb-1 flex gap-2 flex-col'>
-                {props.achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.numberOfGameEnds}).map((achievement) => {
+                {achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.numberOfGameEnds}).map((achievement) => {
                     return <AchievementBadge
                         key={achievement.label} 
                         achievement={achievement}         

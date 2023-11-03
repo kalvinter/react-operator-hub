@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 
 import Card from '../common/Card'
 
-import { ReactorDataContext } from '../Game'
+import { ReactorDataContext } from '../../pages/Game.jsx';
 
 const inputLevelList = Array.from({ length: 100 }, (_, i) => <option key={i} value={i}>{i}</option>)
 
@@ -36,7 +36,6 @@ export default function InputBar() {
                         value={reactorData.currentCoolingLevel}
                     ></input>
                 </div>
-            
         </Card>
     )
 }

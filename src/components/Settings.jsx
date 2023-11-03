@@ -5,18 +5,21 @@ import { useState, useEffect } from 'react'
 import Button, {buttonSizes, buttonTypes} from './common/Button'
 
 import { themes } from '../game/ThemeManager'
+import { useThemeManager } from '../hooks/useThemeManager'
 
 function Settings(props) {
-    const [activeTheme, setActiveTheme] = useState(props.themeManager.activeTheme)
+    const themeManager = useThemeManager()
+    
+    const [activeTheme, setActiveTheme] = useState(themeManager.activeTheme)
 
     useEffect(() => {
-        if (activeTheme === props.themeManager.activeTheme){
+        if (activeTheme === themeManager.activeTheme){
             return
         }
 
-        props.themeManager.setThemeChangeEffect()
+        themeManager.setThemeChangeEffect()
         let timeout = setTimeout(() => {
-            props.themeManager.setActiveTheme({activeTheme: activeTheme})
+            themeManager.setActiveTheme({activeTheme: activeTheme})
         }, 200);
         return () => clearTimeout(timeout);
     }, [activeTheme])
@@ -41,7 +44,7 @@ function Settings(props) {
                 <Button 
                     buttonType={buttonTypes.neutralButton}
                     buttonSize={buttonSizes.small}
-                    onClick={() => props.deleteHistoryOnClick()}>
+                    onClick={() => props.showDeleteHistoryModal()}>
                     Delete History
                 </Button>
             </div>

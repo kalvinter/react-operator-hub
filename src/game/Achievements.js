@@ -84,7 +84,6 @@ class GameHistoryNumberAchievement extends Achievement {
                 filteredGameHistory = gameHistoryEntries.filter((gameHistoryEntry) => {
                     return gameHistoryEntry.gameStatus === GameEndTypes.lost
                 })
-                console.log(filteredGameHistory)
                 break;
 
             case AchievementMetricTypes.abortedGames:
@@ -234,3 +233,5 @@ export class AchievementsManager {
         return newUnlockedAchievements
     }
 }
+
+export const achievementsManager = new AchievementsManager()

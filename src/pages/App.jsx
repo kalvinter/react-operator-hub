@@ -1,9 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 
 import { Route, Routes } from 'react-router-dom';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import Game from '../components/Game';
+import AchievementsPage from './Achievements';
+import GameHistoryPage from './GameHistoryPage';
+
+import Game from './Game';
 import Welcome from '../components/Welcome';
 import GameHistorySummary from '../components/GameHistory';
 import About from '../components/About';
@@ -13,128 +15,81 @@ import Card from '../components/common/Card';
 
 import ResetHistoryModal from '../components/modals/ResetHistoryModal';
 import UnlockedAchievementsModal from '../components/modals/UnlockedAchievementsModal';
-import NotFoundPage from './404-page';
+import NotFoundPage from './404Page';
 import Settings from '../components/Settings';
+import { useGameHistory } from '../hooks/useGameHistory';
+import { useAchievementsManager } from '../hooks/useAchievementsManager';
+import { useThemeManager } from '../hooks/useThemeManager';
 
 
-export class App extends Component {
-    
-  constructor(props){
-    super(props);
-    console.log("props ", props)
+function App() {
+    const gameHistoryManager = useGameHistory()
+    const achievementsManager = useAchievementsManager()
 
-    this.gameHistoryStorage = props.gameHistoryStorage
-    this.achievementsManager = props.achievementsManager
-    this.themeManager = props.themeManager
-
-    let gameHistory = this.gameHistoryStorage.load()
-
-    gameHistory = (gameHistory !== undefined)? gameHistory : []
-
-    this.achievementsManager.checkGameHistoryEntries({gameHistoryEntries: gameHistory, unlockAchievements: true})
-
-    this.state = {
-        gameHistory: gameHistory,
-        showDeleteHistoryModal: false,
-        showUnlockedAchievementsModal: false,
-    }
-  }
-
-  toggleResetHistoryModal(){
-    this.setState({
-        showDeleteHistoryModal: !this.state.showDeleteHistoryModal
-    })
-  }
-
-  toggleShowUnlockedAchievementsModal(){
-    this.setState({
-        showUnlockedAchievementsModal: !this.state.showUnlockedAchievementsModal
-    })
-  }
-
-  deleteHistory(){
-    this.gameHistoryStorage.deleteAllEntries()
-    this.achievementsManager.resetAchievements()
-    this.toggleResetHistoryModal()
-
-    this.setState({
-        gameHistory: []
-    })
-  }
-
-  addGameToGameHistory({gameHistoryEntry}){
-    let gameHistory = this.state.gameHistory.slice()
-
-    gameHistory.push(gameHistoryEntry)
-    
-    let newlyUnlockedAchievements = this.achievementsManager.checkGameHistoryEntries({
-        gameHistoryEntries: gameHistory,
+    achievementsManager.checkGameHistoryEntries({
+        gameHistoryEntries: gameHistoryManager.gameHistory,
         unlockAchievements: true
     })
 
-    console.log("newlyUnlocked ", newlyUnlockedAchievements)
+    const [showDeleteHistoryModal, setShowDeleteHistoryModal] = useState(false);
 
-    this.gameHistoryStorage.save({
-        gameHistory: gameHistory
-    })
-
-    this.setState({
-        gameHistory: gameHistory,
-    })
-
-    if (newlyUnlockedAchievements.length){
-        this.showUnlockedAchievementsModalTimer = setTimeout(() => {
-            this.setState({ showUnlockedAchievementsModal: true });
-        }, 10);
-    } else {
-        this.setState({ showUnlockedAchievementsModal: false });
+    const deleteHistory = () => {
+        gameHistoryManager.deleteGameHistory()
+        achievementsManager.resetAchievements()
+        setShowDeleteHistoryModal(false)
     }
-  }
 
-  componentWillUnmount(){
-    clearTimeout(this.showUnlockedAchievementsModalTimer)
-  }
+    useThemeManager()
+    const [newlyUnlockedAchievements, setNewlyUnlockedAchievements] = useState([])
 
-  render() {
+    const endGame = ({gameHistoryEntry, gameStatus}) => {
+        gameHistoryManager.addNewEntry(gameHistoryEntry)
+
+        let newlyUnlockedAchievements = achievementsManager.checkGameHistoryEntries({
+            gameHistoryEntries: gameHistoryManager.gameHistory,
+            unlockAchievements: true
+        })
+
+        setNewlyUnlockedAchievements(newlyUnlockedAchievements)
+
+        setShowUnlockedAchievementsModal(newlyUnlockedAchievements.length > 0)
+    }
+
+    const [showUnlockedAchievementsModal, setShowUnlockedAchievementsModal] = useState(false)
+
     return (
         <Routes>
             <Route path='/'
                 element={
                     <div>
                         <ResetHistoryModal 
-                            showModal={this.state.showDeleteHistoryModal}
-                            cancelButtonOnClick={() => this.toggleResetHistoryModal()}
-                            deleteButtonOnClick={() => this.deleteHistory()}
+                            showModal={showDeleteHistoryModal}
+                            cancelButtonOnClick={() => setShowDeleteHistoryModal(false)}
+                            deleteButtonOnClick={() => deleteHistory()}
                         />
 
                         <UnlockedAchievementsModal 
-                            showModal={this.state.showUnlockedAchievementsModal}
-                            cancelButtonOnClick={() => this.toggleShowUnlockedAchievementsModal()}
-                            newlyUnlockedAchievements={this.state.newlyUnlockedAchievements}
+                            showModal={showUnlockedAchievementsModal}
+                            cancelButtonOnClick={() => setShowUnlockedAchievementsModal(false)}
+                            newlyUnlockedAchievements={newlyUnlockedAchievements}
                         />
 
-                        <Welcome
-                            onClick={() => {this.startGame()}}
-                        />
+                        <Welcome />
 
                         <Card>
-                            <AchievementsBar 
-                                achievementsManager={this.achievementsManager}
-                            />
+                            <AchievementsBar
+                                achievementsManager={achievementsManager}
+                             />
                         </Card>
 
                         <Card>
-                            <GameHistorySummary 
-                                gameHistory={this.state.gameHistory}
-                                deleteHistoryOnClick={() => this.toggleResetHistoryModal()}
-                            />
+                            <GameHistorySummary />
                         </Card>
 
                         <div className='md:grid md:grid-cols-3 md:gap-2 flex flex-col'>
                             <Card>
                                 <Settings 
-                                    themeManager={this.themeManager}
-                                    deleteHistoryOnClick={() => this.toggleResetHistoryModal()}
+                                    showDeleteHistoryModal={() => setShowDeleteHistoryModal(true)}
                                 />
                             </Card>
 
@@ -148,15 +103,16 @@ export class App extends Component {
             <Route path='/game/'
                 element={
                         <Game 
-                            addGameToGameHistory={(gameResult) => this.addGameToGameHistory(gameResult)}
+                        endGame={(gameResult, gameStatus) => endGame(gameResult, gameStatus)}
                             gameIsRunning={true}
                         />
                 }
-            />
+            />  
+            <Route path="achievements/" element={<AchievementsPage />} />
+            <Route path="game-history/" element={<GameHistoryPage />} />
             <Route path="/*" element={<NotFoundPage />} />
         </Routes>
     )
-  }
 }
 
 export default App

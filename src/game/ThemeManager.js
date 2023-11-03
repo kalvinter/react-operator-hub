@@ -1,3 +1,4 @@
+import { ThemeStorage } from "./Storage"
 
 export const themes = {
     "dark-theme": "Dark",
@@ -7,10 +8,10 @@ export const themes = {
 export const defaultTheme = themes.dark
 
 export default class ThemeManager {
-    constructor({preferencesStorage}){
-        this.preferencesStorage = preferencesStorage
+    constructor(){
+        this.themeStorage = new ThemeStorage()
 
-        this.activeTheme = this.preferencesStorage.load().theme
+        this.activeTheme = this.themeStorage.load().theme
         this.setActiveTheme({activeTheme: this.activeTheme})
 
         this.themeChangingEffectClass = "theme-is-changing"
@@ -22,14 +23,14 @@ export default class ThemeManager {
     }
 
     setActiveTheme({activeTheme}){
-        console.log(activeTheme)
+        // console.log(activeTheme)
         let node = document.querySelector("body")
         node.classList.remove(this.activeTheme)
 
         this.activeTheme = activeTheme
-        let preferencesData = this.preferencesStorage.load()
-        preferencesData.theme = this.activeTheme
-        this.preferencesStorage.save({data: preferencesData})
+        let themeData = this.themeStorage.load()
+        themeData.theme = this.activeTheme
+        this.themeStorage.save({data: themeData})
 
         node.classList.add(this.activeTheme)
         node.classList.remove(this.themeChangingEffectClass)

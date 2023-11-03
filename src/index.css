@@ -258,11 +258,14 @@ a:hover {
 
 
 /* Transition Classes */
-.fade-enter, .fade-exit {
+.fade-enter, .fade-exit-active {
   opacity: 0;
 }
 
-.fade-enter-active, .fade-exit-active {
+.fade-enter-active, .fade-exit {
   opacity: 1;
+}
+
+.fade-enter-active, .fade-exit-active {
   transition: opacity 300ms ease-in-out;
 }

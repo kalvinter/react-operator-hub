@@ -6,6 +6,8 @@ import { AchievementGroups } from '../game/Achievements'
 import {StarIcon} from '@heroicons/react/20/solid'
 import {StarIcon as StarIconOutlin} from '@heroicons/react/24/outline'
 
+import { useAchievementsManager } from '../hooks/useAchievementsManager'
+
 
 export function AchievementGroup(props) {
   let achievements = props.achievements.sort((a, b) => a.order - b.order);
@@ -35,10 +37,12 @@ export function AchievementBadge(props){
 }
 
 
-export function AchievementsBar(props) {
-  let unlockedAchievements = props.achievementsManager.availableAchievements.filter((achievement) => {
-    return achievement.isUnlocked
-  })
+export function AchievementsBar() {
+  // const achievementsManager = useAchievementsManager()
+  const achievementsManager = useAchievementsManager()
+
+  // let achievementsManager = props.achievementsManager
+  let unlockedAchievements = achievementsManager.getUnlockedAchievements()
 
   return (
     <div className='w-full'>
@@ -49,20 +53,20 @@ export function AchievementsBar(props) {
             >More Information</button></Link>
         </div>
         
-        <p><small className='mb-5 w-full'>{unlockedAchievements.length} / {props.achievementsManager.availableAchievements.length} unlocked</small></p>
+        <p><small className='mb-5 w-full'>{unlockedAchievements.length} / {achievementsManager.availableAchievements.length} unlocked</small></p>
         <AchievementGroup 
             achievementGroup={AchievementGroups.achievedMatchedRate}
-            achievements={props.achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.achievedMatchedRate})}
+            achievements={achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.achievedMatchedRate})}
         />
 
         <AchievementGroup 
             achievementGroup={AchievementGroups.numberOfGames}
-            achievements={props.achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.numberOfGames})}
+            achievements={achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.numberOfGames})}
         />
 
         <AchievementGroup 
             achievementGroup={AchievementGroups.numberOfGameEnds}
-            achievements={props.achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.numberOfGameEnds})}
+            achievements={achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.numberOfGameEnds})}
         />
     </div>
   )

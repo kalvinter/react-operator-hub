@@ -3,7 +3,7 @@ import React from 'react'
 
 import Percentage from '../common/Percentage.jsx';
 
-import { GameDataContext } from '../Game.jsx';
+import { GameDataContext } from '../../pages/Game.jsx';
 
 import ModalLayout from './ModalLayout.jsx';
 import ModalFooter from './ModalFooter.jsx';

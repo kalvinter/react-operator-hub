@@ -2,9 +2,9 @@
 
 import React from 'react'
 
-import Button, { buttonTypes } from './common/Button'
-import { gameHistoryEntry } from '../game/Storage'
 import { Link } from 'react-router-dom'
+import { useGameHistory } from '../hooks/useGameHistory'
+import { gameHistoryManager } from '../game/GameHistoryManager'
 
 
 function GameHistorySection(props){
@@ -46,13 +46,18 @@ export function GameHistoryCard(props){
 const displayedHistoryEntriesLimit = 5
 
 export default function GameHistorySummary(props) {
+    // const [addGameHistoryEntry, deleteGameHistory, gameHistory] = useGameHistory()
+
+    // console.warn("gameHistory in history summary, ", gameHistory)
+    const gameHistoryManager = useGameHistory()
+    let gameHistory = gameHistoryManager.gameHistory
     let gameHistoryList = (
         <div>You have not played any games yet. Finished games and highscores will appear here.</div>
     )
 
-    if (props.gameHistory.length > 0) {
+    if (gameHistory.length > 0) {
         gameHistoryList = (
-            props.gameHistory.slice(0, displayedHistoryEntriesLimit).map((gameHistoryEntry) => (
+            gameHistory.slice(0, displayedHistoryEntriesLimit).map((gameHistoryEntry) => (
                 <GameHistoryCard gameHistoryEntry={gameHistoryEntry} key={gameHistoryEntry.date}/>
             ))
         )
@@ -60,7 +65,7 @@ export default function GameHistorySummary(props) {
 
     let showMoreButton = ""
 
-    if (props.gameHistory.length > displayedHistoryEntriesLimit) {
+    if (gameHistory.length > displayedHistoryEntriesLimit) {
         showMoreButton = (
             <Link
                 to={`/react-reactor-game/game-history/`}
@@ -69,12 +74,12 @@ export default function GameHistorySummary(props) {
     }
 
     let displayedEntriesSummary = (
-        <small>{props.gameHistory.length} Entries</small>
+        <small>{gameHistory.length} Entries</small>
     )
     
-    if (props.gameHistory.length > displayedHistoryEntriesLimit) {
+    if (gameHistory.length > displayedHistoryEntriesLimit) {
         displayedEntriesSummary = (
-            <small>Showing {displayedHistoryEntriesLimit} of {props.gameHistory.length} Entries </small>
+            <small>Showing {displayedHistoryEntriesLimit} of {gameHistory.length} Entries </small>
         )
     }
 

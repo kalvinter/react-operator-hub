@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 
-import { GameDataContext } from '../Game.jsx';
+import { GameDataContext } from '../../pages/Game.jsx';
 
 import Card from '../common/Card.jsx';
 
