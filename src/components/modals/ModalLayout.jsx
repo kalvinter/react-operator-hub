@@ -1,9 +1,29 @@
-import React from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 
 
 export default function ModalLayout(props) {
+    const [showModal, setshowModal] = useState(false);
+    const hasBeenRendered = useRef(false);
+
+    useEffect(() => {
+        if (props.showModal && !hasBeenRendered.current) {
+          // Use a setTimeout to delay setting the show class.
+          // this way, if the page is rendered and the modal is already set to be shown
+          // the hidden modal is rendered and only a few milliseconds after that 
+          // the class is applied. This way any fade-in effect can be applied
+          setTimeout(() => {
+            setshowModal(true);
+          }, 10);
+          hasBeenRendered.current = true;
+        } else if (!props.showModal) {
+            setshowModal(false);
+          hasBeenRendered.current = false;
+        }
+      }, [props.showModal]);
+    console.log("showModal ", showModal)
+
     return (
-            <div className={`modal ${props.showModal ? 'show' : ''}`}>
+            <div className={`modal ${showModal ? 'show' : ''}`}>
                 <div
                     className="justify-center modal--body items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
                 >
