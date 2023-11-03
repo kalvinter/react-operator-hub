@@ -56,6 +56,11 @@ class Achievement {
 
     canBeUnlocked({gameHistoryEntries}){
         for (let gameHistoryEntry of gameHistoryEntries){
+            
+            if (gameHistoryEntry.gameStatus !== GameEndTypes.shiftWasFinished){
+                return false
+            }
+
             if (gameHistoryEntry.hasOwnProperty(this.targetMetric)){
                 return gameHistoryEntry[this.targetMetric] > this.targetValue
                 
