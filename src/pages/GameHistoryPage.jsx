@@ -22,7 +22,7 @@ export default function GameHistoryPage() {
             <h4>Game History</h4>
             
             <div className='mb-3'>
-                <small>{gameHistory.length} Entries</small>
+                <small>{gameHistoryManager.gameHistory.length} Entries</small>
             </div>
 
             {gameHistoryManager.gameHistory.map((gameHistoryEntry) => {

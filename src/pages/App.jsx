@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion';
 
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 
 import AchievementsPage from './Achievements';
 import GameHistoryPage from './GameHistoryPage';
@@ -22,8 +23,12 @@ import ThemeManager from '../game/ThemeManager';
 
 import { gameHistoryManager } from '../game/GameHistoryManager';
 import { achievementsManager } from '../game/Achievements';
+import ErrorPage from './ErrorPage';
+import MainLayout from './MainLayout';
 
 function App() {
+    const location = useLocation();
+
     achievementsManager.checkGameHistoryEntries({
         gameHistoryEntries: gameHistoryManager.gameHistory,
         unlockAchievements: true
@@ -56,61 +61,67 @@ function App() {
     const [showUnlockedAchievementsModal, setShowUnlockedAchievementsModal] = useState(false)
 
     return (
-        <Routes>
-            <Route path='/'
-                element={
-                    <div>
-                        <ResetHistoryModal 
-                            showModal={showDeleteHistoryModal}
-                            cancelButtonOnClick={() => setShowDeleteHistoryModal(false)}
-                            deleteButtonOnClick={() => deleteHistory()}
-                        />
+        <AnimatePresence mode='wait'>
+            <Routes location={location} key={location.pathname}>
+                <Route path="/react-reactor-game/*" element={<MainLayout />} errorElement={<ErrorPage />}>
 
-                        <UnlockedAchievementsModal 
-                            showModal={showUnlockedAchievementsModal}
-                            cancelButtonOnClick={() => setShowUnlockedAchievementsModal(false)}
-                            newlyUnlockedAchievements={newlyUnlockedAchievements}
-                        />
-
-                        <Welcome />
-
-                        <Card>
-                            <AchievementsBar
-                                achievementsManager={achievementsManager}
-                             />
-                        </Card>
-
-                        <Card>
-                            <GameHistorySummary />
-                        </Card>
-
-                        <div className='md:grid md:grid-cols-3 md:gap-2 flex flex-col'>
-                            <Card>
-                                <Settings 
-                                    themeManager={themeManager}
-                                    showDeleteHistoryModal={() => setShowDeleteHistoryModal(true)}
+                    <Route index
+                        element={
+                            <div>
+                                <ResetHistoryModal 
+                                    showModal={showDeleteHistoryModal}
+                                    cancelButtonOnClick={() => setShowDeleteHistoryModal(false)}
+                                    deleteButtonOnClick={() => deleteHistory()}
                                 />
-                            </Card>
 
-                            <Card className='col-span-2'>
-                                <About />
-                            </Card>
-                        </div>
-                    </div>
-                }
-            />
-            <Route path='/game/'
-                element={
-                        <Game 
-                        endGame={(gameResult, gameStatus) => endGame(gameResult, gameStatus)}
-                            gameIsRunning={true}
-                        />
-                }
-            />  
-            <Route path="achievements/" element={<AchievementsPage />} />
-            <Route path="game-history/" element={<GameHistoryPage />} />
-            <Route path="/*" element={<NotFoundPage />} />
-        </Routes>
+                                <UnlockedAchievementsModal 
+                                    showModal={showUnlockedAchievementsModal}
+                                    cancelButtonOnClick={() => setShowUnlockedAchievementsModal(false)}
+                                    newlyUnlockedAchievements={newlyUnlockedAchievements}
+                                />
+
+                                <Welcome />
+
+                                <Card>
+                                    <AchievementsBar
+                                        achievementsManager={achievementsManager}
+                                    />
+                                </Card>
+
+                                <Card>
+                                    <GameHistorySummary />
+                                </Card>
+
+                                <div className='md:grid md:grid-cols-3 md:gap-2 flex flex-col'>
+                                    <Card>
+                                        <Settings 
+                                            themeManager={themeManager}
+                                            showDeleteHistoryModal={() => setShowDeleteHistoryModal(true)}
+                                        />
+                                    </Card>
+
+                                    <Card className='col-span-2'>
+                                        <About />
+                                    </Card>
+                                </div>
+                            </div>
+                        }
+                    />
+                    <Route path='game/'
+                        element={
+                                <Game 
+                                endGame={(gameResult, gameStatus) => endGame(gameResult, gameStatus)}
+                                    gameIsRunning={true}
+                                />
+                        }
+                    />  
+                    <Route path="achievements/" element={<AchievementsPage />} />
+                    <Route path="game-history/" element={<GameHistoryPage />} />
+                    <Route path="*" element={<NotFoundPage />} />
+                </Route>
+                <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+        </AnimatePresence>
     )
 }
 

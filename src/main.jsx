@@ -16,16 +16,9 @@ import MainLayout from './pages/MainLayout';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>            
-    <BrowserRouter>
-      <Routes>
-        <Route path="/react-reactor-game/*" element={<MainLayout />} errorElement={<ErrorPage />}>
-          {/* Your individual routes */}
-          <Route path='*' element={<App />} />
-          {/* ... other routes ... */}
-        </Route>
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+  <React.StrictMode>
+    <BrowserRouter> 
+      <App />
     </BrowserRouter>
   </React.StrictMode>,
 )

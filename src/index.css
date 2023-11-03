@@ -255,17 +255,3 @@ a:hover {
   transform: translateY(0);
   transition: all 0.3s ease-in-out;
 }
-
-
-/* Transition Classes */
-.fade-enter, .fade-exit-active {
-  opacity: 0;
-}
-
-.fade-enter-active, .fade-exit {
-  opacity: 1;
-}
-
-.fade-enter-active, .fade-exit-active {
-  transition: opacity 300ms ease-in-out;
-}
