@@ -16,10 +16,6 @@ import UnlockedAchievementsModal from '../components/modals/UnlockedAchievements
 import NotFoundPage from './404-page';
 import Settings from '../components/Settings';
 
-export const pages = {
-    landingPage: "Landing Page",
-    gamePage: "Game",
-}
 
 export class App extends Component {
     
@@ -38,11 +34,9 @@ export class App extends Component {
     this.achievementsManager.checkGameHistoryEntries({gameHistoryEntries: gameHistory, unlockAchievements: true})
 
     this.state = {
-        activePage: pages.landingPage,
         gameHistory: gameHistory,
         showDeleteHistoryModal: false,
         showUnlockedAchievementsModal: false,
-        newlyUnlockedAchievements: []
     }
   }
 
@@ -86,7 +80,6 @@ export class App extends Component {
 
     this.setState({
         gameHistory: gameHistory,
-        newlyUnlockedAchievements: newlyUnlockedAchievements,
     })
 
     if (newlyUnlockedAchievements.length){
