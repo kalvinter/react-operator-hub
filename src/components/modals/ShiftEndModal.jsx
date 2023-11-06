@@ -28,14 +28,14 @@ export default function ShiftEndModal(props) {
             title={"You have finished your Shift"}
             showModal={props.showModal}
         >
-            <div className="relative p-6 flex-auto">
-                <div className="my-4  text-lg leading-relaxed">
-                    {/* Main Modal Text */}
-                    Congratulations! You have successfully finished your shift as Operater!
+            <div className="relative p-6 flex-auto flex items-center flex-col">
+                <div className="text-lg mt-10 md:mt-2">
+                
+                    <p>Congratulations! You have successfully finished your shift as Operater!</p>
 
-                    <div className='w-full text-center my-4 font-bold justify-center flex'>
+                    <div className='w-full text-center my-4 font-bold justify-center flex flex-col md:flex-row md:gap-5 gap-2'>
                         <span className='py-1'>Your Demand-Matched-Rate was </span>
-                        <span className={`${matchRateBg} rounded ml-4 py-1 px-2`}><Percentage decimalFigure={gameData.achievedMatchedRate} /> %</span>
+                        <span className={`${matchRateBg} text-center rounded py-1 px-5`}><Percentage decimalFigure={gameData.achievedMatchedRate} /> %</span>
                     </div>
                     
                 </div>

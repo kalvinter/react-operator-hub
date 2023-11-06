@@ -120,10 +120,10 @@ const TemperatureChart = () => {
     return (
         <Card className='w-full my-0'>
                         
-            <div className="grid grid-cols-2 mb-2 border-b-2 border-gray-200 py-1 items-center">
-                <div className="flex items-center gap-1"><ExclamationTriangleIcon className='small-icon'/><span>Reactor Temperature</span></div>
+            <div className="grid grid-cols-4 mb-2 border-b-2 border-gray-200 py-1 items-center">
+                <div className="flex items-center md:col-span-2 col-span-3 gap-1"><ExclamationTriangleIcon className='small-icon'/><span>Reactor Temperature</span></div>
                 <div className={`${temperature_indication_bg} 
-                    w-full text-right px-2 flex justify-end`}
+                    px-2 gap-2 flex justify-end w-full md:col-span-2 col-span-1`}
                 >
                     <div>{reactorData.currentTemperature.toFixed(2)}</div> 
                     <div className="w-[40px]">°C</div>

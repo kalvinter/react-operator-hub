@@ -90,6 +90,10 @@ body {
   color: var(--text-color-inverted)
 }
 
+.text-color--strong-warning {
+  color: var(--bg-strong-warning)
+}
+
 .text-color--light {
   color: var(--text-color-light)
 }
