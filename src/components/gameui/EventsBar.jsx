@@ -15,7 +15,7 @@ function EventTag(props){
     }
 
     return (
-        <div className='mx-3 border-2 px-2 py-1 md:w-fit w-full border-solid rounded border-gray-700' key={props.element.id}>
+        <div className='mx-3 border-2 px-2 py-1 md:w-fit w-full border-solid rounded border-color-element' key={props.element.id}>
             <span className='flex items-center'><span className='mr-2'>{icon}</span>{props.element.title}</span>
         </div>
     )
@@ -50,7 +50,7 @@ export default function EventsBar() {
     return (
         <Card className="w-full">
             <div className='w-full my-2 flex justify-between items-center'>
-                <div className='w-full my-1 border-solid border-2 text-color--light rounded border-gray-900 bg-black p-2 flex items-center min-h-[3rem]'>
+                <div className='w-full my-1 border-solid border-2 text-color--light rounded border-color-card bg-black p-2 flex items-center min-h-[3rem]'>
                     <span>{eventPrefixLabel} {eventData.displayedEventText}</span>
                 </div>
             </div>

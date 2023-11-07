@@ -12,7 +12,7 @@ export function AchievementGroup(props) {
   let achievements = props.achievements.sort((a, b) => a.order - b.order);
 
   return (
-    <div className='w-full flex gap-2 md:mb-5 justify-around md:flex-row flex-col' key={props.achievementGroup}>
+    <div className='w-full flex gap-2 justify-around md:flex-row flex-col' key={props.achievementGroup}>
           {achievements.map((achievement) => {
               return <AchievementBadge key={achievement.label} achievement={achievement} />
           })}
@@ -49,20 +49,23 @@ export function AchievementsBar() {
         </div>
         
         <p><small className='mb-5 w-full'>{unlockedAchievements.length} / {achievementsManager.availableAchievements.length} unlocked</small></p>
-        <AchievementGroup 
-            achievementGroup={AchievementGroups.achievedMatchedRate}
-            achievements={achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.achievedMatchedRate})}
-        />
+        
+        <div className='flex flex-col gap-2'>
+          <AchievementGroup 
+              achievementGroup={AchievementGroups.achievedMatchedRate}
+              achievements={achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.achievedMatchedRate})}
+          />
 
-        <AchievementGroup 
-            achievementGroup={AchievementGroups.numberOfGames}
-            achievements={achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.numberOfGames})}
-        />
+          <AchievementGroup 
+              achievementGroup={AchievementGroups.numberOfGames}
+              achievements={achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.numberOfGames})}
+          />
 
-        <AchievementGroup 
-            achievementGroup={AchievementGroups.numberOfGameEnds}
-            achievements={achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.numberOfGameEnds})}
-        />
+          <AchievementGroup 
+              achievementGroup={AchievementGroups.numberOfGameEnds}
+              achievements={achievementsManager.getAchievementsByGroup({achievementGroup: AchievementGroups.numberOfGameEnds})}
+          />
+        </div>
     </div>
   )
 }

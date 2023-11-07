@@ -19,9 +19,10 @@ export default function InputBar() {
                     <label>Fuel</label>
                     <span className='text-right'>{reactorData.currentFuelInputLevel}</span>
                     <input type='range' min="0" max="100" step="1" 
-                        className="bg-neutral-600 text-right col-span-6"
+                        className="col-span-6"
                         onChange={(event) => {reactorData.fuelInputOnChange(event)}}
                         placeholder="0"
+                        id='fuel-input-range'
                         list="input-level-list"
                         value={reactorData.currentFuelInputLevel}
                     ></input>
@@ -30,9 +31,10 @@ export default function InputBar() {
                     <label>Cooling</label>
                     <span className='text-right'>{reactorData.currentCoolingLevel}</span>
                     <input type='range' min="0" max="100" step="1" 
-                        className="bg-neutral-600 text-right col-span-6" 
+                        className="col-span-6" 
                         onChange={(event) => {reactorData.coolingLevelOnChange(event)}}
                         list="input-level-list"
+                        id="cooling-input-range"
                         value={reactorData.currentCoolingLevel}
                     ></input>
                 </div>
