@@ -108,16 +108,11 @@ export default function OutputChart() {
     let deltaComponent;
     if (gameData.overProduction || gameData.underProduction) {
         deltaComponent = (
-            <div className={`w-full my-2 border-solid border-2 rounded border-gray-900 flex justify-between p-2 items-center ${delta.deltaBg}`}>
-                <h5>{delta.deltaLabel}</h5> 
-                <div>{gameData.productionDemandDelta.toFixed(0)} Watt</div>
-            </div>    
+            <span>{delta.deltaLabel} {gameData.productionDemandDelta.toFixed(0)} Watt</span>            
         )
     } else {
         deltaComponent = (
-            <div className={`w-full border-solid border-2 rounded border-gray-900 my-2 flex justify-between p-2 items-center ${delta.deltaBg}`}>
-                <h5>Perfect Production / Demand Match</h5>
-            </div>    
+            <span>Perfect Production / Demand Match</span>
         )
     }
 
@@ -131,7 +126,9 @@ export default function OutputChart() {
                 </div>
             </div>
             <Line options={outputChartOptions} data={outputChartData} />
-            {deltaComponent}
+            <div className={`w-full border-solid border-2 rounded border-gray-900 my-1 flex justify-between px-2 py-1 items-center ${delta.deltaBg}`}>
+                {deltaComponent}
+            </div>
         </Card>
     )
 }

@@ -68,37 +68,37 @@ const TemperatureChart = () => {
     if (reactorData.currentTemperature <= GameConfig.minimumTemperature) {
         temperature_indication_bg = "bg-dark text-color--light"
         temperature_text = (
-            <h5>Temperature is not high enough </h5>
+            <span>Temperature is not high enough</span>
         )
         display_temperature_text = true
     } else if (reactorData.currentTemperature <= 150){
         temperature_indication_bg = "bg-light"
         temperature_text = (
-            <h5>Temperature is normal</h5>
+            <span>Temperature is normal</span>
         )
         display_temperature_text = true
     } else if (reactorData.currentTemperature <= 200){
         temperature_indication_bg = "bg-warning"
         temperature_text = (
-            <h5>Temperature is above normal</h5>
+            <span>Temperature is above normal</span>
         )
         display_temperature_text = true
     } else if (reactorData.currentTemperature < 250){
         temperature_indication_bg = "bg-strong-warning"
         temperature_text = (
-            <h5>Temperature is high!</h5>
+            <span>Temperature is high!</span>
         )
         display_temperature_text = true
     } else if (reactorData.currentTemperature < GameConfig.maximumTemperature) {
         temperature_indication_bg = "bg-danger"
         temperature_text = (
-            <h5>Temperature is critical! <br></br>Reactor breakdown occures above {GameConfig.maximumTemperature}°C!</h5>
+            <span>Temperature is critical! Reactor breakdown occures above {GameConfig.maximumTemperature}°C!</span>
         )
         display_temperature_text = true
     } else {
         temperature_indication_bg = "bg-danger"
         temperature_text = (
-            <h5>The reactor exceeded critical temperature</h5>
+            <span>The reactor exceeded critical temperature</span>
         )
         display_temperature_text = true
     }
@@ -120,20 +120,20 @@ const TemperatureChart = () => {
     return (
         <Card className='w-full my-0'>
                         
-            <div className="grid grid-cols-4 mb-2 border-b-2 border-gray-200 py-1 items-center">
-                <div className="flex items-center md:col-span-2 col-span-3 gap-1"><ExclamationTriangleIcon className='small-icon'/><span>Reactor Temperature</span></div>
+            <div className="grid grid-cols-8 mb-2 border-b-2 border-gray-200 py-1 items-center">
+                <div className="flex items-center md:col-span-4 col-span-5 gap-1"><ExclamationTriangleIcon className='small-icon'/><span>Reactor Temperature</span></div>
                 <div className={`${temperature_indication_bg} 
-                    px-2 gap-2 flex justify-end w-full md:col-span-2 col-span-1`}
+                    px-2 gap-2 flex justify-end md:col-span-4 col-span-3 w-full`}
                 >
                     <div>{reactorData.currentTemperature.toFixed(2)}</div> 
-                    <div className="w-[40px]">°C</div>
+                    <div>°C</div>
                 </div>    
             </div>
             <div className='hidden md:flex'>
                 <Line options={temperatureChartOptions} data={temperature_line_chart_data} />
             </div>
             <div className={`${display_temperature_text? '' : 'invisible'} w-full border-solid border-2 rounded border-gray-900
-            ${temperature_indication_bg} p-2 my-2`}>
+            ${temperature_indication_bg} px-2 py-1 my-1`}>
                 {temperature_text}
             </div>
             

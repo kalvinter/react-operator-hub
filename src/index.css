@@ -70,20 +70,19 @@ body.theme-is-changing {
   transition: opacity 0.2s ease-in-out;
 }
 
-body {  
+body {
   color: var(--text-color);
-  background-color: var(--dark-bg);
-
-  /*background: linear-gradient(180deg, var(--bg-dark) 0%, rgba(35,41,53,1) 36%, rgba(35,42,57,1) 55%, rgba(34,46,67,1) 69%, rgba(32,52,86,1) 100%);*/
-  background: linear-gradient(180deg, var(--bg-back) 0%, var(--bg-back) 10%, var(--background-light) 100%);
-  background: radial-gradient(circle, var(--background-light) 0%, var(--bg-back) 90%);
-
-  transition-property: color, background;
-  transition-duration: 1s;
-  transition-timing-function: ease-out;
+  background: var(--bg-back);
 
   opacity: 1;
   transition: opacity 0.2s ease-in-out;
+}
+
+@media (min-width: 768px) {
+  body {
+    /*background: linear-gradient(180deg, var(--bg-back) 0%, var(--bg-back) 10%, var(--background-light) 100%);*/
+    background: radial-gradient(circle, var(--background-light) 0%, var(--bg-back) 90%);
+  }    
 }
 
 .text-color--main {
@@ -169,7 +168,7 @@ button:is(.bg-success,.bg-neutral,.bg-danger):hover {
 
 h1 {
   font-weight: bolder;
-  font-size: larger;
+  font-size: x-large;
 }
 
 h2 {

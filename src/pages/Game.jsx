@@ -388,8 +388,13 @@ class Game extends React.Component {
               />
 
               <ShiftProgressBar />
-      
-              <EventsBar />
+
+              <div className='md:block hidden'>
+                /* The event bar should be at the top in desktop mode since it is the main 
+                 * indication for changes
+                 */
+                <EventsBar />
+              </div>
 
               <div className='flex gap-1 my-1 mx-0 flex-col md:flex-row'>
                   <TemperatureChart />
@@ -397,6 +402,14 @@ class Game extends React.Component {
               </div>
 
               <InputBar/>
+
+              <div className='md:hidden block'>
+                /* The event bar is only visible at the bottom in mobile displays since it changes height with every 
+                 * added or removed event. At the bottom it does not move the interface so much and the main indicators and 
+                 * input controls are visible without scrolling
+                 */
+                <EventsBar />
+              </div>
               
             </EventDataContext.Provider>
           </GameDataContext.Provider>

@@ -6,11 +6,11 @@ import { MotionWrapper } from '../hocs/MotionWrapper'
 
 function MainLayout() {
   const location = useLocation()
-
+/*border-solid border-color-back bg-back rounded border-[2px] shadow-xl */
   return (
     <MotionWrapper location={location}>
       <div className="min-h-[100vh] md:max-w-[70rem] md:p-[4rem] md:m-auto p-0">
-          <div className="min-h-[60vh] h-full w-full p-4 rounded border-[2px] shadow-xl border-solid border-color-back bg-back">
+          <div className="min-h-[60vh] h-full w-full p-4 shadow-2xl">
               <ScrollToTop />
 
               <Outlet />

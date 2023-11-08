@@ -81,7 +81,9 @@ function App() {
                                     newlyUnlockedAchievements={newlyUnlockedAchievements}
                                 />
 
-                                <Welcome />
+                                <Card>
+                                    <Welcome />
+                                </Card>
 
                                 <Card>
                                     <AchievementsBar
@@ -111,7 +113,7 @@ function App() {
                     <Route path='game/'
                         element={
                                 <Game 
-                                endGame={(gameResult, gameStatus) => endGame(gameResult, gameStatus)}
+                                    endGame={(gameResult, gameStatus) => endGame(gameResult, gameStatus)}
                                     gameIsRunning={true}
                                 />
                         }
