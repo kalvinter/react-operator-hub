@@ -161,7 +161,7 @@ export class ElectricityGrid {
         easier for players to follow the change.
         Instead it is added gradually
         */
-        if (this.appliedDemandChange > 0){
+        if (this.appliedDemandChange !== 0){
           let change = (this.appliedDemandChange > GameConfig.demandChangeStepSize) ? GameConfig.demandChangeStepSize : this.appliedDemandChange
           
           this.currentElectricityDemand += change
