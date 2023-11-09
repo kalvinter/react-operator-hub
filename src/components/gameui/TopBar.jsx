@@ -11,7 +11,7 @@ function ButtonLabel (props) {
 
 
     return (
-        <span className='flex items-center'>
+        <span className='flex justify-center'>
             {props.gameData.gameIsPaused ? <PlayIcon className='small-icon'></PlayIcon> : <PauseIcon className='small-icon'></PauseIcon>}
             {props.gameData.gameIsPaused ? <span>&nbsp;Unpause</span> : <span>&nbsp;Pause</span>}
         </span>
@@ -38,6 +38,7 @@ export default function TopBar(props) {
                 onClick={(event) => {gameData.toggleGamePauseOnClick(event)}}
                 buttonType={(gameData.gameIsPaused ? buttonTypes.successButton : buttonTypes.neutralButton)}
                 buttonSize={buttonSizes.small}
+                className={"w-full md:w-fit"}
             >
                 <ButtonLabel gameData={gameData} />
             </Button>
@@ -47,12 +48,13 @@ export default function TopBar(props) {
     return (
         <Card className="w-full flex justify-between items-center mt-0 flex-col md:flex-row gap-2">
             <div>Time until shift ends: {shiftTimeLeftInSeconds} seconds</div>
-            <div className='flex gap-1'>
+            <div className='flex gap-1 w-full md:w-fit'>
                 {pauseButton}
                 <Button
                     onClick={() => props.stopGame()}
                     buttonType={buttonTypes.neutralButton}
                     buttonSize={buttonSizes.small}
+                    className={"w-full md:w-fit"}
                 >
                     <span className='flex items-center'>
                         <XMarkIcon className='small-icon' /> Quit

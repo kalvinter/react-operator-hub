@@ -32,7 +32,7 @@ export default function EventsBar() {
         />)
     })
     
-    let eventPrefixLabel = (eventData.upcomingEventChange)? (<span className='text-orange-600'>WARNING:</span>) : (<span>STATUS:</span>)
+    let eventPrefixLabel = (eventData.upcomingEventChange)? (<span className='text-orange-600'>WARNING:</span>) : null
 
     let activeEventsSection = ""
 

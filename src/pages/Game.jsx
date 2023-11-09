@@ -390,9 +390,9 @@ class Game extends React.Component {
               <ShiftProgressBar />
 
               <div className='md:block hidden'>
-                /* The event bar should be at the top in desktop mode since it is the main 
+                {/* The event bar should be at the top in desktop mode since it is the main 
                  * indication for changes
-                 */
+                 */}
                 <EventsBar />
               </div>
 
@@ -404,10 +404,10 @@ class Game extends React.Component {
               <InputBar/>
 
               <div className='md:hidden block'>
-                /* The event bar is only visible at the bottom in mobile displays since it changes height with every 
+                {/* The event bar is only visible at the bottom in mobile displays since it changes height with every 
                  * added or removed event. At the bottom it does not move the interface so much and the main indicators and 
                  * input controls are visible without scrolling
-                 */
+                 */}
                 <EventsBar />
               </div>
               
