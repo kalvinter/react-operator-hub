@@ -11,7 +11,7 @@ function StartShiftCTA() {
   const navigate = useNavigate()
 
   return (
-    <div className='w-full py-5 flex justify-between mb-2 items-center border-2 border-solid border-color-back rounded px-5'>
+    <div className='w-full py-5 flex justify-between mb-2 gap-2 md:flex-row flex-col items-center border-2 border-solid border-color-back rounded px-5'>
         <div className='flex items-center'>
             <CubeTransparentIcon className='large-icon mr-5' />
             <h2 className='mb-0'>Reactor is ready</h2>

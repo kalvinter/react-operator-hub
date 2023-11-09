@@ -17,7 +17,7 @@ export default function InputBar() {
                 </datalist>
                 <div className="grid grid-cols-8 gap-2 mb-2 items-center">
                     <label>Fuel</label>
-                    <span className='text-right'>{reactorData.currentFuelInputLevel}</span>
+                    <span className='text-right mr-2'>{reactorData.currentFuelInputLevel}</span>
                     <input type='range' min="0" max="100" step="1" 
                         className="col-span-6"
                         onChange={(event) => {reactorData.fuelInputOnChange(event)}}
@@ -29,7 +29,7 @@ export default function InputBar() {
                 </div>
                 <div className="grid grid-cols-8 gap-2 items-center">
                     <label>Cooling</label>
-                    <span className='text-right'>{reactorData.currentCoolingLevel}</span>
+                    <span className='text-right mr-2'>{reactorData.currentCoolingLevel}</span>
                     <input type='range' min="0" max="100" step="1" 
                         className="col-span-6" 
                         onChange={(event) => {reactorData.coolingLevelOnChange(event)}}

@@ -56,7 +56,7 @@ export default function TopBar(props) {
                     buttonSize={buttonSizes.small}
                     className={"w-full md:w-fit"}
                 >
-                    <span className='flex items-center'>
+                    <span className='flex items-center justify-center'>
                         <XMarkIcon className='small-icon' /> Quit
                     </span>
                 </Button>
