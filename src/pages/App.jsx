@@ -25,6 +25,8 @@ import { gameHistoryManager } from '../game/GameHistoryManager';
 import { achievementsManager } from '../game/Achievements';
 import ErrorPage from './ErrorPage';
 import MainLayout from './MainLayout';
+import ReactorConnectionBar from '../components/ReactorConnectionBar';
+import StartShiftCTA from '../components/StartShiftCTA';
 
 
 function App() {
@@ -81,6 +83,10 @@ function App() {
                                     newlyUnlockedAchievements={newlyUnlockedAchievements}
                                 />
 
+                                <ReactorConnectionBar />
+
+                                <StartShiftCTA />
+                                
                                 <Card>
                                     <Welcome />
                                 </Card>

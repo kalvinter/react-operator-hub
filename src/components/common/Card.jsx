@@ -2,8 +2,8 @@ import React from 'react'
 
 function Card(props) {
   return (
-    <div className={`${props.className} mb-2 
-    shadow-2xl rounded-md border-solid border-2 border-color-card p-2 bg-card`}>
+    <div className={`${(props.className !== undefined) ? props.className : ''} mb-2 
+    rounded-md border-solid border-2 border-color-card p-2 md:p-3 bg-card`}>
         {props.children}
     </div>
   )

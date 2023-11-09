@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeftIcon } from "@heroicons/react/20/solid"
 
+import {ListBulletIcon} from '@heroicons/react/20/solid'
+
 import Card from '../components/common/Card'
 
 import { GameHistoryCard } from '../components/GameHistory'
@@ -19,8 +21,10 @@ export default function GameHistoryPage() {
         </Card>
 
         <Card>
-            <h4>Game History</h4>
-            
+            <h2 className='flex items-center'>
+                <ListBulletIcon className='small-icon mr-2'></ListBulletIcon> Game History
+            </h2>
+
             <div className='mb-3'>
                 <small>{gameHistoryManager.gameHistory.length} Entries</small>
             </div>

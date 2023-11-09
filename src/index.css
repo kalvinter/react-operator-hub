@@ -19,11 +19,11 @@
   --border-color-back: var(--bg-card);
   --border-color-card: black;
 
-  --bg-neutral: rgb(31 41 55);
-  --bg-success: rgb(14, 158, 67);
-  --bg-warning: rgb(202 138 4);
-  --bg-strong-warning: rgb(219, 91, 0);
-  --bg-danger: rgb(239 68 68);
+  --bg-neutral: rgb(86, 98, 116);
+  --bg-success: rgb(49, 170, 94);
+  --bg-warning: rgb(226 172 54);
+  --bg-strong-warning: rgb(207, 120, 58);
+  --bg-danger: rgb(243, 90, 90);
 
   --success-text: white;
   --warning-text: black;
@@ -44,20 +44,22 @@
 }
 
 body.light-theme {
-  --bg-back: rgb(201, 201, 201);
-  --bg-card: rgb(177, 177, 177);
+  --bg-back: rgba(216, 223, 228, 0.6);
+  --bg-card: rgba(213, 217, 219, 0.95);
   --bg-element: rgb(201, 201, 201);
 
-  --bg-warning: rgb(240, 167, 11);
-  --bg-strong-warning: rgb(235, 98, 0);
-  --bg-danger: rgb(216, 18, 18);
+  --bg-neutral: rgb(86, 98, 116);
+  --bg-success: rgb(70, 172, 107);
+  --bg-warning: rgb(226 172 54);
+  --bg-strong-warning: rgb(207, 120, 58);
+  --bg-danger: rgb(243, 90, 90);
 
   --border-color-back: var(--bg-dark);
   --border-color-card: var(--bg-dark);
 
-  --text-color: rgb(59, 59, 59);
+  --text-color: rgb(51, 51, 51);
   --text-color-inverted: rgba(255, 255, 255, 0.87);
-  --text-color-hover: rgb(90, 90, 90);
+  --text-color-hover: rgb(104, 104, 104);
 
   --text-color-light: var(--text-color-inverted);
 
@@ -82,7 +84,13 @@ body {
   body {
     /*background: linear-gradient(180deg, var(--bg-back) 0%, var(--bg-back) 10%, var(--background-light) 100%);*/
     background: radial-gradient(circle, var(--background-light) 0%, var(--bg-back) 90%);
+    background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-back) 100%);
+
   }    
+}
+
+#main-hub-banner {
+  background: linear-gradient(22deg, var(--bg-back) 70%, var(--background-light) 100%);
 }
 
 .text-color--main {
@@ -99,6 +107,10 @@ body {
 
 .text-color--light {
   color: var(--text-color-light)
+}
+
+.text-color--hover{
+  color: var(--text-color-hover);
 }
 
 .border-color-text {
@@ -200,6 +212,10 @@ a:hover {
 
 .small-icon {
   height: 1.2rem;
+}
+
+.large-icon {
+  height: 2rem;
 }
 
 .achievementBadge {

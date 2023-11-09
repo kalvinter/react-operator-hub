@@ -4,6 +4,7 @@ import React from 'react'
 
 import { Link } from 'react-router-dom'
 import { gameHistoryManager } from '../game/GameHistoryManager'
+import { ListBulletIcon, QueueListIcon } from '@heroicons/react/20/solid'
 
 
 function GameHistorySection(props){
@@ -86,7 +87,9 @@ export default function GameHistorySummary(props) {
         <div className='w-full'>
             
             <div className='flex flex-row justify-between'>
-                <h2>Game History</h2>
+                <h2 className='flex items-center'>
+                    <ListBulletIcon className='small-icon mr-2'></ListBulletIcon> Game History
+                </h2>
                 {showMoreButton}
             </div>
 

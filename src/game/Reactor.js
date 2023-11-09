@@ -30,10 +30,14 @@ export class Reactor {
             currentTemperature -= this.naturalCoolingFactor
         }
 
-        /* Add randomness to temperature to avoid that the user hits a perfect spot
-        * where the temperature and output stay exactly constant
+        /* Add randomness to temperature when to avoid that the user hits a perfect spot
+        * where the temperature and output stay exactly constant.
+        * The temperature should only stay constant if the user hits the base temperature
+        * In this state random changes do not make sense (no fuel input)
         */
-        currentTemperature += 0.5 - Math.random()
+        if (currentTemperature !== this.baseTemperature){
+            currentTemperature += 0.5 - Math.random()
+        }
 
         return currentTemperature >= 0 ? currentTemperature : 0
     }

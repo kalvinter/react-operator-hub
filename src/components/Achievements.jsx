@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { AchievementGroups } from '../game/Achievements'
 import {StarIcon} from '@heroicons/react/20/solid'
-import {StarIcon as StarIconOutlin} from '@heroicons/react/24/outline'
+import {StarIcon as StarIconOutline} from '@heroicons/react/24/outline'
 
 import { achievementsManager } from '../game/Achievements'
 
@@ -24,7 +24,7 @@ export function AchievementBadge(props){
   return (
     <div className={`${props.achievement.isUnlocked ? 'unlocked' : ''} ${props.achievement.achievementType} ${(props.showDescription ? 'justify-start' : 'justify-center')}	flex group achievementBadge relative p-2 w-full`}>
       <div className='flex flex-col align-middle items-center md:min-w-[10rem] min-w-[40%]'>
-        {(props.achievement.isUnlocked ? <StarIcon className='unlocked' /> : <StarIconOutlin />)}
+        {(props.achievement.isUnlocked ? <StarIcon className='unlocked' /> : <StarIconOutline />)}
         <span className='label'>{props.achievement.label} </span>
       </div>
       {(props.showDescription) ? 
@@ -42,9 +42,12 @@ export function AchievementsBar() {
   return (
     <div className='w-full'>
         <div className='w-full flex justify-between items-center'>
-          <h2>Achievements</h2>
+          <h2 className='flex items-center'>
+            <StarIcon className='small-icon mr-2'></StarIcon> Achievements
+          </h2>
+
           <Link to={`/react-reactor-game/achievements/`}><button 
-            className='underline hover:text-gray-300'
+            className='underline '
             >More Information</button></Link>
         </div>
         

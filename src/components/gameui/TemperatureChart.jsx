@@ -92,7 +92,7 @@ const TemperatureChart = () => {
     } else if (reactorData.currentTemperature < GameConfig.maximumTemperature) {
         temperature_indication_bg = "bg-danger"
         temperature_text = (
-            <span>Temperature is critical! Reactor breakdown occures above {GameConfig.maximumTemperature}°C!</span>
+            <span>Temperature is critical! Breakdown at {GameConfig.maximumTemperature}°C!</span>
         )
         display_temperature_text = true
     } else {

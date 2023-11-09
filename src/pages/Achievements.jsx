@@ -20,7 +20,10 @@ export default function AchievementsPage(){
             </Card>
 
             <Card>
-                <h4>Achievements</h4>
+                <h2 className='flex items-center'>
+                    <StarIcon className='small-icon mr-2'></StarIcon> Achievements
+                </h2>
+
                 <p className='mb-6'><small className='w-full'>{unlockedAchievements.length} / {achievementsManager.availableAchievements.length} unlocked</small></p>
                 
                 <h4>Achievements related to the Achieved Mathed Rate</h4>
