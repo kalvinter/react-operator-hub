@@ -20,8 +20,8 @@ function ShiftProgressBar() {
   return (
     <Card className="w-full items-center">
         <div className='w-full flex justify-between'>
-            <span>Demand Matched History</span>
-            <span className='pr-2'>Demand Matched Rate: </span>
+            <span className='hidden md:block'>Demand Matched History</span>
+            <span className='pr-2'>Demand Matched Rate</span>
         </div>
         <div className='w-full flex justify-between py-2'>
             <div className='flex p-1 bg-black whitespace-nowrap w-full mr-0'>
