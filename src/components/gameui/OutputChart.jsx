@@ -18,6 +18,7 @@ import {
     Title,
     Tooltip,
     Legend,
+    Filler
   } from 'chart.js';
 import { GameDataContext, ReactorDataContext } from '../../pages/Game.jsx';
   ChartJS.register(
@@ -27,7 +28,8 @@ import { GameDataContext, ReactorDataContext } from '../../pages/Game.jsx';
     LineElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    Filler
   );
 
 const outputChartOptions = {
@@ -42,6 +44,9 @@ const outputChartOptions = {
         },
         tooltip: {
             enabled: false
+        },
+        filler: {
+            propagate: true
         }
     },
     scales: {
@@ -70,32 +75,34 @@ export default function OutputChart() {
 
     let labels = generateChartLabels(gameData.timeRunning)
 
+    let a = 
+    {
+        label: 'Electricity Demand',
+        data: reactorData.displayedElectricityDemandHistory,
+        borderColor: '#68b3c8',
+        backgroundColor: '#68b3c8',
+    }
+
     let outputChartData = {
         labels,
         datasets: [
             {
               label: 'Electricity Output',
               data: reactorData.displayedElectricityOutputHistory,
-              borderColor: 'blue',
-              backgroundColor: 'blue',
-            },
-            {
-                label: 'Electricity Demand',
-                data: reactorData.displayedElectricityDemandHistory,
-                borderColor: 'lime',
-                backgroundColor: 'lime',
+              borderColor: '#5169e9',
+              borderWidth: 5
             },
             {
                 label: 'Electricity Demand Upper Limit',
                 data: displayedUpperElectricityDemandLimit,
-                borderColor: 'lightgreen',
-                borderWidth: 2
             },
             {
                 label: 'Electricity Demand Lower Limit',
                 data: displayedLowerElectricityDemandLimit,
-                borderColor: 'lightgreen',
-                borderWidth: 2
+                fill: {
+                    target: "-1",
+                    below: "rgb(86, 98, 116)"
+                },
             },
           ],
     }
