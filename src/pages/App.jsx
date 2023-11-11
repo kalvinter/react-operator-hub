@@ -27,6 +27,7 @@ import ErrorPage from './ErrorPage';
 import MainLayout from './MainLayout';
 import ReactorConnectionBar from '../components/ReactorConnectionBar';
 import StartShiftCTA from '../components/StartShiftCTA';
+import SwitchReactorModal from '../components/modals/SwitchReactorModal';
 
 
 function App() {
@@ -63,6 +64,8 @@ function App() {
 
     const [showUnlockedAchievementsModal, setShowUnlockedAchievementsModal] = useState(false)
 
+    const [showSwitchReactorModal, setShowSwitchReactorModal] = useState(false)
+
     return (
         <AnimatePresence initial={false} mode='wait'>
             <Routes location={location} key={location.pathname}>
@@ -71,6 +74,10 @@ function App() {
                     <Route index
                         element={
                             <div>
+                                <SwitchReactorModal
+                                    showModal={showSwitchReactorModal}
+                                    cancelButtonOnClick={() => setShowSwitchReactorModal(false)} 
+                                />
                                 <ResetHistoryModal 
                                     showModal={showDeleteHistoryModal}
                                     cancelButtonOnClick={() => setShowDeleteHistoryModal(false)}
@@ -83,7 +90,9 @@ function App() {
                                     newlyUnlockedAchievements={newlyUnlockedAchievements}
                                 />
 
-                                <ReactorConnectionBar />
+                                <ReactorConnectionBar
+                                    setShowSwitchReactorModal={setShowSwitchReactorModal}
+                                />
 
                                 <StartShiftCTA />
                                 
