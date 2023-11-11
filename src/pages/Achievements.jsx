@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
 import { AchievementBadge } from "../components/Achievements"
 import { AchievementGroups } from '../game/Achievements'
+import {StarIcon} from '@heroicons/react/20/solid'
+import {StarIcon as StarIconOutline} from '@heroicons/react/24/outline'
 
 import { ArrowLeftIcon } from "@heroicons/react/20/solid"
 
