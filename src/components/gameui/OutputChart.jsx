@@ -90,7 +90,7 @@ export default function OutputChart() {
               label: 'Electricity Output',
               data: reactorData.displayedElectricityOutputHistory,
               borderColor: '#5169e9',
-              borderWidth: 5
+              borderWidth: 4
             },
             {
                 label: 'Electricity Demand Upper Limit',

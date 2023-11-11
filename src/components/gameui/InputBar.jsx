@@ -16,10 +16,10 @@ export default function InputBar() {
                     {inputLevelList}
                 </datalist>
                 <div className="grid grid-cols-8 gap-2 mb-2 items-center">
-                    <label>Fuel</label>
+                    <label className='md:col-span-1 col-span-2'>Fuel</label>
                     <span className='text-right mr-2'>{reactorData.currentFuelInputLevel}</span>
                     <input type='range' min="0" max="100" step="1" 
-                        className="col-span-6"
+                        className="md:col-span-6 col-span-5"
                         onChange={(event) => {reactorData.fuelInputOnChange(event)}}
                         placeholder="0"
                         id='fuel-input-range'
@@ -28,10 +28,10 @@ export default function InputBar() {
                     ></input>
                 </div>
                 <div className="grid grid-cols-8 gap-2 items-center">
-                    <label>Cooling</label>
+                    <label className='md:col-span-1 col-span-2'>Cooling</label>
                     <span className='text-right mr-2'>{reactorData.currentCoolingLevel}</span>
                     <input type='range' min="0" max="100" step="1" 
-                        className="col-span-6" 
+                        className="md:col-span-6 col-span-5" 
                         onChange={(event) => {reactorData.coolingLevelOnChange(event)}}
                         list="input-level-list"
                         id="cooling-input-range"
