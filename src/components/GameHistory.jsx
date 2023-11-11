@@ -4,7 +4,9 @@ import React from 'react'
 
 import { Link } from 'react-router-dom'
 import { gameHistoryManager } from '../game/GameHistoryManager'
-import { ListBulletIcon, QueueListIcon } from '@heroicons/react/20/solid'
+import { ArrowLeftOnRectangleIcon, BoltIcon, CheckIcon, ListBulletIcon, QueueListIcon, XMarkIcon } from '@heroicons/react/20/solid'
+import { GameEndTypes } from '../game/Config'
+import ShiftProgressGraph from './ShiftProgressGraph'
 
 
 function GameHistorySection(props){
@@ -18,27 +20,53 @@ function GameHistorySection(props){
 
 export function GameHistoryCard(props){
     let entry = props.gameHistoryEntry
+
+    let statusColor = "";
+    let icon = '';
+
+    switch (entry.gameStatus){
+        case GameEndTypes.shiftWasFinished:
+            statusColor = "text-color--success"    
+            icon = (
+                
+                <CheckIcon className={`small-icon ${statusColor}`} />
+            )
+            break
+        case GameEndTypes.aborted:
+            statusColor = ""
+            icon = (
+                <ArrowLeftOnRectangleIcon className={`small-icon ${statusColor}`} />
+            )
+            break
+        case GameEndTypes.lost:
+            statusColor = "text-color--danger"    
+            icon = (
+                <XMarkIcon className={`small-icon ${statusColor}`} />
+            )
+            break
+    }
+
+    
     return (
-        <div className='bg-element hover:shadow-xl flex justify-between w-full py-1 px-3 my-1 mx-auto flex-wrap border-solid border-2 rounded border-neutral-400' key={entry.date}>
-            <GameHistorySection 
-                label={"Date"}
-                value={`${entry.date.toLocaleDateString("de-DE")} ${entry.date.getUTCHours()}:${entry.date.getUTCMinutes()}`}
-            />
-
-            <GameHistorySection 
-                label={"Game Duration"}
-                value={`${entry.timeRunningInSeconds.toFixed(0)} seconds`}
-            />
-            
-            <GameHistorySection 
-                label={"Achieved Matched Rate"}
-                value={`${(entry.achievedMatchedRate * 100).toFixed(2)} %`}
-            />
-
-            <GameHistorySection 
-                label={"Status"}
-                value={entry.gameStatus}
-            />
+        <div className='bg-element w-full p-2 rounded'>
+            <div className='grid grid-cols-12 items-center gap-2'>
+                <div className='flex flex-col col-span-2 md:col-span-1 min-h-[2rem] min-w-[2rem] justify-center'>
+                    {icon}
+                    <small className={`${statusColor} text-center`}>{entry.gameStatus}</small>
+                </div>
+                <div className='flex gap-2 col-span-10 md:col-span-4 justify-around'>
+                    <span>{entry.date.toLocaleDateString("de-DE")} {entry.date.getUTCHours()}:{entry.date.getUTCMinutes()}</span>
+                    <span>{entry.timeRunningInSeconds.toFixed(0)} seconds</span>
+                </div>
+                <div className='col-span-12 md:col-span-7'>
+                    <ShiftProgressGraph
+                        demandMatchedStatusHistory={entry.demandMatchedStatusHistory}
+                        achievedMatchedRate={entry.achievedMatchedRate}
+                        shiftTimeLeft={entry.shiftTimeLeft}
+                        rateBg={""}
+                    />
+                </div>
+            </div>
         </div>
     )
 }
@@ -96,8 +124,10 @@ export default function GameHistorySummary(props) {
             <div className='mb-3'>
                 {displayedEntriesSummary}
             </div>
+            <div className='flex gap-2 flex-col'>
+                {gameHistoryList}
+            </div>
             
-            {gameHistoryList}
         </div>
     )
 }

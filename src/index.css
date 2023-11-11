@@ -14,7 +14,8 @@
 
   --bg-back: var(--bg-dark);
   --bg-card: rgb(64 64 64 / 100%);
-  --bg-element: rgb(133 133 133 / 100%);
+  /*--bg-element: rgb(133 133 133 / 100%);*/
+  --bg-element: var(--bg-dark);
 
   --border-color-back: var(--bg-card);
   --border-color-card: black;
@@ -34,7 +35,7 @@
   --text-color-inverted: rgb(59, 59, 59);
   --text-color-light: var(--text-color);
 
-  --border-color-element: var(--text-color-inverted)
+  --border-color-element: var(--bg-back);
   
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -103,6 +104,14 @@ body {
 
 .text-color--strong-warning {
   color: var(--bg-strong-warning)
+}
+
+.text-color--danger {
+  color: var(--bg-danger);
+}
+
+.text-color--success {
+  color: var(--bg-success)
 }
 
 .text-color--light {

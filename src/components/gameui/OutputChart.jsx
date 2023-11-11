@@ -5,7 +5,7 @@ import Card from '../common/Card.jsx';
 import { Line } from 'react-chartjs-2';
 import { GameConfig } from '../../game/Config.js';
 import {lineChartBaseOptions, generateChartLabels} from './ChartUtils.js'
-import { getProductionLabelBg } from './Utils.js';
+import { getProductionLabelBg } from '../Utils.js';
 
 import {BoltIcon} from '@heroicons/react/20/solid'
 

@@ -29,9 +29,11 @@ export default function GameHistoryPage() {
                 <small>{gameHistoryManager.gameHistory.length} Entries</small>
             </div>
 
-            {gameHistoryManager.gameHistory.map((gameHistoryEntry) => {
-                return <GameHistoryCard gameHistoryEntry={gameHistoryEntry} key={gameHistoryEntry.date}/>
-            })}
+            <div className='gap-2 flex flex-col'>
+                {gameHistoryManager.gameHistory.map((gameHistoryEntry) => {
+                    return <GameHistoryCard gameHistoryEntry={gameHistoryEntry} key={gameHistoryEntry.date}/>
+                })}
+            </div>
 
         </Card>
     </div>

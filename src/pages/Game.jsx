@@ -145,9 +145,10 @@ class Game extends React.Component {
       gameHistoryEntry: new gameHistoryEntry({
         date: new Date(),
         timeRunningInSeconds: this.state.timeRunning / 20,
+        shiftTimeLeft: this.state.shiftTimeLeft,
         producedEnergy: this.state.producedEnergy,
         achievedMatchedRate: this.state.achievedMatchedRate,
-        averageProductionIntensity: this.state.averageProductionIntensity,
+        demandMatchedStatusHistory: this.state.demandMatchedStatusHistory.slice(),
         gameStatus: gameStatus
       }),
       gameStatus: gameStatus

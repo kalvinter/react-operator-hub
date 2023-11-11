@@ -45,12 +45,13 @@ export class LocalStorageManager {
 }
 
 export class gameHistoryEntry{
-    constructor({date, timeRunningInSeconds, producedEnergy, achievedMatchedRate, averageProductionIntensity, gameStatus}){
+    constructor({date, timeRunningInSeconds, shiftTimeLeft, producedEnergy, achievedMatchedRate, demandMatchedStatusHistory, gameStatus}){
         this.date = date
         this.timeRunningInSeconds = timeRunningInSeconds
+        this.shiftTimeLeft = shiftTimeLeft
         this.producedEnergy = producedEnergy
         this.achievedMatchedRate = achievedMatchedRate
-        this.averageProductionIntensity = averageProductionIntensity
+        this.demandMatchedStatusHistory = demandMatchedStatusHistory
         this.gameStatus = gameStatus
     }
 
@@ -58,9 +59,10 @@ export class gameHistoryEntry{
         return {
             date: this.date.toISOString(),
             timeRunningInSeconds: this.timeRunningInSeconds,
+            shiftTimeLeft: this.shiftTimeLeft,
             producedEnergy: this.producedEnergy,
             achievedMatchedRate: this.achievedMatchedRate,
-            averageProductionIntensity: this.averageProductionIntensity,
+            demandMatchedStatusHistory: this.demandMatchedStatusHistory,
             gameStatus: this.gameStatus
         }
     }
@@ -78,9 +80,10 @@ export class gameHistoryEntry{
             return new gameHistoryEntry({
                 date: date,
                 timeRunningInSeconds: parsedData.timeRunningInSeconds,
+                shiftTimeLeft: parsedData.shiftTimeLeft,
                 producedEnergy: parsedData.producedEnergy,
                 achievedMatchedRate: parsedData.achievedMatchedRate,
-                averageProductionIntensity: parsedData.averageProductionIntensity,
+                demandMatchedStatusHistory: parsedData.demandMatchedStatusHistory,
                 gameStatus: parsedData.gameStatus
             })
 
