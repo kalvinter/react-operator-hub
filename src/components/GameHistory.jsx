@@ -4,19 +4,10 @@ import React from 'react'
 
 import { Link } from 'react-router-dom'
 import { gameHistoryManager } from '../game/GameHistoryManager'
-import { ArrowLeftOnRectangleIcon, BoltIcon, CheckIcon, ListBulletIcon, QueueListIcon, XMarkIcon } from '@heroicons/react/20/solid'
+import { ArrowLeftOnRectangleIcon, CheckIcon, ListBulletIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import { GameEndTypes } from '../game/Config'
 import ShiftProgressGraph from './ShiftProgressGraph'
 
-
-function GameHistorySection(props){
-    return (
-        <div className='min-w-[10rem] py-1 px-0'>
-            <span className='font-bold'>{props.label}</span> <br></br>
-            {props.value}
-        </div>
-    )
-}
 
 export function GameHistoryCard(props){
     let entry = props.gameHistoryEntry

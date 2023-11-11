@@ -77,6 +77,23 @@ export class gameHistoryEntry{
                 throw Error(`ERROR: Received an invalid game status: '${gameStatus}'`)
             }
 
+            let requiredKeys = [
+                "date",
+                "timeRunningInSeconds",
+                "shiftTimeLeft",
+                "achievedMatchedRate",
+                "demandMatchedStatusHistory",
+                "gameStatus"
+            ]
+
+            requiredKeys.map((requiredKey) => {
+                if (!Object.keys(parsedData).includes(requiredKey)){
+                    console.error(`ERROR: Could not parse saved game history item: ${parsedData}. Missing 
+                    required Key '${requiredKey}'. Discarding history entry.`)
+                }
+                return null
+            })
+
             return new gameHistoryEntry({
                 date: date,
                 timeRunningInSeconds: parsedData.timeRunningInSeconds,
