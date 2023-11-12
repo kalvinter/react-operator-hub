@@ -88,7 +88,7 @@ export class gameHistoryEntry{
 
             requiredKeys.map((requiredKey) => {
                 if (!Object.keys(parsedData).includes(requiredKey)){
-                    console.error(`ERROR: Could not parse saved game history item: ${parsedData}. Missing 
+                    console.warn(`ERROR: Could not parse saved game history item: ${parsedData}. Missing 
                     required Key '${requiredKey}'. Discarding history entry.`)
                 }
                 return null
@@ -105,7 +105,7 @@ export class gameHistoryEntry{
             })
 
         } catch (error) {
-            console.error(`ERROR: Could not parse saved game history item: ${parsedData}. Error: ${error.message}`)
+            console.warn(`ERROR: Could not parse saved game history item: ${parsedData}. Error: ${error.message}`)
             return null
         }
     }

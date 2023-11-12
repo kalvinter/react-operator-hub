@@ -64,7 +64,7 @@ export function GameHistoryCard(props){
 
 const displayedHistoryEntriesLimit = 5
 
-export default function GameHistorySummary(props) {
+export default function GameHistorySummary() {
     // const [addGameHistoryEntry, deleteGameHistory, gameHistory] = useGameHistory()
 
     // console.warn("gameHistory in history summary, ", gameHistory)

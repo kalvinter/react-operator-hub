@@ -13,15 +13,18 @@ export default function unlockedAchievementsModal(props) {
         <ModalLayout
             showModal={props.showModal}
             title={"You have unlocked new Achievements!"}
-        >
-            <div className="relative p-6 gap-2 flex flex-col">
-                {props.newlyUnlockedAchievements.map((achievement) => {
-                    return <AchievementBadge 
-                        key={achievement.label} 
-                        achievement={achievement}
-                        showDescription={true}
-                     />
-                })}
+        >   
+            <div className='relative p-6 gap-2 flex flex-auto'>
+
+                <div className="w-full flex flex-col">
+                    {props.newlyUnlockedAchievements.map((achievement) => {
+                        return <AchievementBadge 
+                            key={achievement.label} 
+                            achievement={achievement}
+                            showDescription={true}
+                        />
+                    })}
+                </div>
             </div>
             <ModalFooter>
                 <Button
