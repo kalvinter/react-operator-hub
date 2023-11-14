@@ -17,6 +17,10 @@ class GameHistoryManager{
         this.gameHistoryStorage.deleteAllEntries()
         this.gameHistory = []
     }
+
+    reloadHistoryFromStorage(){
+        this.gameHistory = this.gameHistoryStorage.load()
+    }
 }
 
 export const gameHistoryManager = new GameHistoryManager()

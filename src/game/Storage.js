@@ -31,11 +31,14 @@ export class LocalStorageManager {
     }
 
     load({storedDataType}){
+        console.log("LOADING ", storedDataType)
         try {
             const serializedData = localStorage.getItem(storedDataType);
+            console.log("serializedData, ", serializedData)
             if (serializedData === null) {
               return null;
             }
+            
             return JSON.parse(serializedData);
         } catch (error) {
             console.error("Failed to load from local storage:", error);
@@ -135,7 +138,8 @@ export class GameHistoryStorage {
             storedDataType: this.storedDataType,
         })
 
-        // console.log(gameHistoryData)
+        console.log("gameHistoryData")
+        console.log(gameHistoryData)
         
         if (gameHistoryData === null || gameHistoryData === undefined){
             // return an empty list, if no gameHistory was saved yet

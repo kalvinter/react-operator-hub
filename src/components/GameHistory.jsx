@@ -9,6 +9,8 @@ import { GameEndTypes } from '../game/Config'
 import ShiftProgressGraph from './ShiftProgressGraph'
 
 
+export const gameHistoryCardTestId = "gameHistoryCardTestId"
+
 export function GameHistoryCard(props){
     let entry = props.gameHistoryEntry
 
@@ -39,7 +41,7 @@ export function GameHistoryCard(props){
 
     
     return (
-        <div className='bg-element w-full p-2 rounded'>
+        <div className='bg-element w-full p-2 rounded' data-testid={gameHistoryCardTestId}>
             <div className='grid grid-cols-12 items-center gap-2'>
                 <div className='flex flex-col col-span-2 md:col-span-1 min-h-[2rem] min-w-[2rem] justify-center'>
                     {icon}
