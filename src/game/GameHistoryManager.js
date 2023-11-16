@@ -1,24 +1,24 @@
-import { gameHistoryStorage } from "./Storage";
+import { gameHistoryStorage } from './Storage'
 
-class GameHistoryManager{
-    constructor(){
+class GameHistoryManager {
+    constructor() {
         this.gameHistoryStorage = gameHistoryStorage
         this.gameHistory = this.gameHistoryStorage.load()
     }
 
-    addNewEntry(newGameHistory){
+    addNewEntry(newGameHistory) {
         this.gameHistory = [newGameHistory, ...this.gameHistory]
         this.gameHistoryStorage.save({
-            gameHistory: this.gameHistory
-        });
+            gameHistory: this.gameHistory,
+        })
     }
 
-    deleteGameHistory(){
+    deleteGameHistory() {
         this.gameHistoryStorage.deleteAllEntries()
         this.gameHistory = []
     }
 
-    reloadHistoryFromStorage(){
+    reloadHistoryFromStorage() {
         this.gameHistory = this.gameHistoryStorage.load()
     }
 }

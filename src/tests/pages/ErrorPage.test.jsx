@@ -1,23 +1,21 @@
+import { render, screen } from '@testing-library/react'
 
-import { render, screen } from '@testing-library/react';
+import { test, expect, afterEach } from 'vitest'
 
-import { test, expect, afterEach } from 'vitest';
+import { createMemoryRouter } from 'react-router-dom'
 
-import { createMemoryRouter } from 'react-router-dom';
+import { routerConfiguration } from '../../Router'
 
-import { routerConfiguration } from '../../Router';
+import { RouterProvider } from 'react-router-dom'
 
-import { RouterProvider } from 'react-router-dom';
+import { links } from '../../Config'
+import { errorPageTestId } from '../../pages/ErrorPage'
 
-import { links } from '../../Config';
-import {errorPageTestId} from '../../pages/ErrorPage';
-
-
-import { gameHistoryManager } from '../../game/GameHistoryManager';
+import { gameHistoryManager } from '../../game/GameHistoryManager'
 
 afterEach(() => {
-  // reset loaded game history
-  gameHistoryManager.reloadHistoryFromStorage()
+    // reset loaded game history
+    gameHistoryManager.reloadHistoryFromStorage()
 })
 
 test('page loads without error', () => {
@@ -26,17 +24,15 @@ test('page loads without error', () => {
 
     let router = createMemoryRouter(routerConfiguration, { initialEntries: [links.rootUrl] })
 
-    render(
-      <RouterProvider router={router} />
-    );
-    
+    render(<RouterProvider router={router} />)
+
     // Make sure that the page renders
-    expect(screen.getByText(/ERROR/)).toBeInTheDocument();
+    expect(screen.getByText(/ERROR/)).toBeInTheDocument()
     expect(screen.getByTestId(errorPageTestId)).toBeInTheDocument()
 
     // Make sure that there is button that leads to github for creating an issue
-    let link = screen.getByRole("link")
+    let link = screen.getByRole('link')
 
     expect(link).toBeInTheDocument()
-    expect(link).toHaveAttribute("href", links.repositoryOnGithub)
-});
+    expect(link).toHaveAttribute('href', links.repositoryOnGithub)
+})

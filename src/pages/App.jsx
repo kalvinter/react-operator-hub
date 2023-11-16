@@ -1,37 +1,36 @@
 import { useState } from 'react'
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion'
 
-import Game from './Game';
-import Welcome from '../components/Welcome';
-import GameHistorySummary from '../components/GameHistory';
-import About from '../components/About';
-import {AchievementsBar} from '../components/Achievements';
+import Game from './Game'
+import Welcome from '../components/Welcome'
+import GameHistorySummary from '../components/GameHistory'
+import About from '../components/About'
+import { AchievementsBar } from '../components/Achievements'
 
-import Card from '../components/common/Card';
+import Card from '../components/common/Card'
 
-import ResetHistoryModal from '../components/modals/ResetHistoryModal';
-import UnlockedAchievementsModal from '../components/modals/UnlockedAchievementsModal';
+import ResetHistoryModal from '../components/modals/ResetHistoryModal'
+import UnlockedAchievementsModal from '../components/modals/UnlockedAchievementsModal'
 
-import Settings from '../components/Settings';
+import Settings from '../components/Settings'
 
-import ThemeManager from '../game/ThemeManager';
+import ThemeManager from '../game/ThemeManager'
 
-import { gameHistoryManager } from '../game/GameHistoryManager';
-import { achievementsManager } from '../game/Achievements';
+import { gameHistoryManager } from '../game/GameHistoryManager'
+import { achievementsManager } from '../game/Achievements'
 
-import ReactorConnectionBar from '../components/ReactorConnectionBar';
-import StartShiftCTA from '../components/StartShiftCTA';
-import SwitchReactorModal from '../components/modals/SwitchReactorModal';
-import { MotionWrapper } from '../hocs/MotionWrapper';
-
+import ReactorConnectionBar from '../components/ReactorConnectionBar'
+import StartShiftCTA from '../components/StartShiftCTA'
+import SwitchReactorModal from '../components/modals/SwitchReactorModal'
+import { MotionWrapper } from '../hocs/MotionWrapper'
 
 function App() {
     achievementsManager.checkGameHistoryEntries({
         gameHistoryEntries: gameHistoryManager.gameHistory,
-        unlockAchievements: true
+        unlockAchievements: true,
     })
 
-    const [showDeleteHistoryModal, setShowDeleteHistoryModal] = useState(false);
+    const [showDeleteHistoryModal, setShowDeleteHistoryModal] = useState(false)
 
     const deleteHistory = () => {
         gameHistoryManager.deleteGameHistory()
@@ -42,12 +41,12 @@ function App() {
     const themeManager = new ThemeManager()
     const [newlyUnlockedAchievements, setNewlyUnlockedAchievements] = useState([])
 
-    const endGame = ({gameHistoryEntry}) => {
+    const endGame = ({ gameHistoryEntry }) => {
         gameHistoryManager.addNewEntry(gameHistoryEntry)
 
         let newlyUnlockedAchievements = achievementsManager.checkGameHistoryEntries({
             gameHistoryEntries: gameHistoryManager.gameHistory,
-            unlockAchievements: true
+            unlockAchievements: true,
         })
 
         setNewlyUnlockedAchievements(newlyUnlockedAchievements)
@@ -62,72 +61,66 @@ function App() {
     const [showSwitchReactorModal, setShowSwitchReactorModal] = useState(false)
 
     const [gameIsRunning, setGameIsRunning] = useState(false)
-      
+
     return (
-        <AnimatePresence initial={false} mode='wait'>
-                {(gameIsRunning ? 
-                    <MotionWrapper locationKey={"Game"}>
-                        <Game 
-                            endGame={(gameResult) => endGame(gameResult)}
-                        />
-                    </MotionWrapper>
-                    :
-                    <MotionWrapper locationKey={"Menu"}>
-                        <SwitchReactorModal
-                            showModal={showSwitchReactorModal}
-                            cancelButtonOnClick={() => setShowSwitchReactorModal(false)} 
-                        />
-                        <ResetHistoryModal 
-                            showModal={showDeleteHistoryModal}
-                            cancelButtonOnClick={() => setShowDeleteHistoryModal(false)}
-                            deleteButtonOnClick={() => deleteHistory()}
-                        />
+        <AnimatePresence initial={false} mode="wait">
+            {gameIsRunning ? (
+                <MotionWrapper locationKey={'Game'}>
+                    <Game endGame={(gameResult) => endGame(gameResult)} />
+                </MotionWrapper>
+            ) : (
+                <MotionWrapper locationKey={'Menu'}>
+                    <SwitchReactorModal
+                        showModal={showSwitchReactorModal}
+                        cancelButtonOnClick={() => setShowSwitchReactorModal(false)}
+                    />
+                    <ResetHistoryModal
+                        showModal={showDeleteHistoryModal}
+                        cancelButtonOnClick={() => setShowDeleteHistoryModal(false)}
+                        deleteButtonOnClick={() => deleteHistory()}
+                    />
 
-                        <UnlockedAchievementsModal 
-                            showModal={showUnlockedAchievementsModal}
-                            cancelButtonOnClick={() => setShowUnlockedAchievementsModal(false)}
-                            newlyUnlockedAchievements={newlyUnlockedAchievements}
-                        />
+                    <UnlockedAchievementsModal
+                        showModal={showUnlockedAchievementsModal}
+                        cancelButtonOnClick={() => setShowUnlockedAchievementsModal(false)}
+                        newlyUnlockedAchievements={newlyUnlockedAchievements}
+                    />
 
-                        <ReactorConnectionBar
-                            setShowSwitchReactorModal={setShowSwitchReactorModal}
-                        />
+                    <ReactorConnectionBar setShowSwitchReactorModal={setShowSwitchReactorModal} />
 
-                        <StartShiftCTA 
-                            startGame={() => {setGameIsRunning(true)}}
-                        />
-                        
+                    <StartShiftCTA
+                        startGame={() => {
+                            setGameIsRunning(true)
+                        }}
+                    />
+
+                    <Card>
+                        <Welcome />
+                    </Card>
+
+                    <Card>
+                        <AchievementsBar achievementsManager={achievementsManager} />
+                    </Card>
+
+                    <Card>
+                        <GameHistorySummary />
+                    </Card>
+
+                    <div className="md:grid md:grid-cols-3 md:gap-2 flex flex-col">
                         <Card>
-                            <Welcome />
-                        </Card>
-
-                        <Card>
-                            <AchievementsBar
-                                achievementsManager={achievementsManager}
+                            <Settings
+                                themeManager={themeManager}
+                                showDeleteHistoryModal={() => setShowDeleteHistoryModal(true)}
                             />
                         </Card>
 
-                        <Card>
-                            <GameHistorySummary />
+                        <Card className="col-span-2">
+                            <About />
                         </Card>
-
-                        <div className='md:grid md:grid-cols-3 md:gap-2 flex flex-col'>
-                            <Card>
-                                <Settings 
-                                    themeManager={themeManager}
-                                    showDeleteHistoryModal={() => setShowDeleteHistoryModal(true)}
-                                />
-                            </Card>
-
-                            <Card className='col-span-2'>
-                                <About />
-                            </Card>
-                        </div>
-                    </MotionWrapper>
-                )}
-
+                    </div>
+                </MotionWrapper>
+            )}
         </AnimatePresence>
-            
     )
 }
 
