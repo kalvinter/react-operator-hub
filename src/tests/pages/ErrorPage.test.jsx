@@ -22,7 +22,7 @@ test('page loads without error', () => {
     // Set gameHistory to a non-sensical value to cause an error during app rendering
     gameHistoryManager.gameHistory = false
 
-    let router = createMemoryRouter(routerConfiguration, { initialEntries: [links.rootUrl] })
+    let router = createMemoryRouter(routerConfiguration, { initialEntries: ["/"] })
 
     render(<RouterProvider router={router} />)
 
