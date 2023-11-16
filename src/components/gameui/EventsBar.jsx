@@ -33,7 +33,7 @@ export default function EventsBar() {
     const activeEvents = eventData.activeEvents.map((activeEvent) => {
         let element = activeEvent.originalEvent
 
-        return <EventTag element={element} />
+        return <EventTag key={element.id} element={element} />
     })
 
     let eventPrefixLabel = eventData.upcomingEventChange ? <span className="text-orange-600">WARNING:</span> : null
