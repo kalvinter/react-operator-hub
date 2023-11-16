@@ -147,7 +147,6 @@ class Game extends React.Component {
         demandMatchedStatusHistory: this.state.demandMatchedStatusHistory.slice(),
         gameStatus: gameStatus
       }),
-      gameStatus: gameStatus
     })
 
     this.setState({

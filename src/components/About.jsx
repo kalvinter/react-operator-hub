@@ -21,7 +21,7 @@ function About() {
       
       <p>This app is a constant work-in-progress and things are changing. Additionally, it is currently thought to be used on desktop or a tablet. The mobile version is not yet optimal.</p>
       
-      <a className='flex item-center mb-2 mt-6' target='_blank' href={`${links.repositoryOnGithub}`}><Logo className="small-icon mr-2" /> Check out the full code on Github</a>
+      <a className='flex item-center mb-2 mt-6' target='_blank' rel='noreferrer' href={`${links.repositoryOnGithub}`}><Logo className="small-icon mr-2" /> Check out the full code on Github</a>
 
   </div>
 

@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import React from 'react'
 
 import Percentage from '../common/Percentage.jsx';
 

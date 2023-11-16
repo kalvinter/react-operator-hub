@@ -1,4 +1,3 @@
-import React from 'react'
 
 function Percentage(props) {
     let formattedMatchedRate = (props.decimalFigure * 100).toFixed(2)

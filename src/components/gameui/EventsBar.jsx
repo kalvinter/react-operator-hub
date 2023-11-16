@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import {useContext} from 'react'
 
 import { effectDirection } from '../../game/Events.js';
 import {ArrowDownCircleIcon, ArrowUpCircleIcon} from '@heroicons/react/20/solid'

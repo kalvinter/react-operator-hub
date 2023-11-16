@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 
 import { test, expect, afterEach } from 'vitest';
 
-import { MemoryRouter, Route, Routes, createMemoryRouter } from 'react-router-dom';
+import { createMemoryRouter } from 'react-router-dom';
 
 import { routerConfiguration } from '../../Router';
 

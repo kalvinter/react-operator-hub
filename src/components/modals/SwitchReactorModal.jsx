@@ -1,4 +1,3 @@
-import React from 'react'
 
 import ModalFooter from './ModalFooter'
 import Button from '../common/Button'

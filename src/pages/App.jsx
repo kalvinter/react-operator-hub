@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion';
 
 import Game from './Game';
@@ -42,7 +42,7 @@ function App() {
     const themeManager = new ThemeManager()
     const [newlyUnlockedAchievements, setNewlyUnlockedAchievements] = useState([])
 
-    const endGame = ({gameHistoryEntry, gameStatus}) => {
+    const endGame = ({gameHistoryEntry}) => {
         gameHistoryManager.addNewEntry(gameHistoryEntry)
 
         let newlyUnlockedAchievements = achievementsManager.checkGameHistoryEntries({
@@ -68,7 +68,7 @@ function App() {
                 {(gameIsRunning ? 
                     <MotionWrapper locationKey={"Game"}>
                         <Game 
-                            endGame={(gameResult, gameStatus) => endGame(gameResult, gameStatus)}
+                            endGame={(gameResult) => endGame(gameResult)}
                         />
                     </MotionWrapper>
                     :

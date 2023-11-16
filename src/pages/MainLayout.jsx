@@ -1,5 +1,4 @@
-import React from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 import ScrollToTop from '../components/ScrollToTop'
 import { MotionWrapper } from '../hocs/MotionWrapper'

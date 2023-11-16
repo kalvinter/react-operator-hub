@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import {useContext} from 'react'
 
 import { GameConfig } from '../../game/Config.js';
 import {lineChartBaseOptions, generateChartLabels} from './ChartUtils.js'
