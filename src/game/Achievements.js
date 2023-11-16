@@ -117,7 +117,7 @@ const getInitialAvailabelAchievements = () => {
             description: 'Achieve a matched rate of 50 % and prove that you are somewhat capable for this job ...',
             achievementGroup: AchievementGroups.achievedMatchedRate,
             targetMetric: AchievementMetricTypes.achievedMatchedRate,
-            targetValue: 0.2,
+            targetValue: 0.5,
         }),
         new Achievement({
             label: 'Expert',
@@ -125,7 +125,7 @@ const getInitialAvailabelAchievements = () => {
             description: 'Achieve a matched rate of 70 % and prove that you are an expert in your field!',
             achievementGroup: AchievementGroups.achievedMatchedRate,
             targetMetric: AchievementMetricTypes.achievedMatchedRate,
-            targetValue: 0.2,
+            targetValue: 0.7,
         }),
         new Achievement({
             label: 'Hero',
@@ -133,7 +133,7 @@ const getInitialAvailabelAchievements = () => {
             description: 'Achieve a matched rate of 80 % and become the hero of the grid!',
             achievementGroup: AchievementGroups.achievedMatchedRate,
             targetMetric: AchievementMetricTypes.achievedMatchedRate,
-            targetValue: 1,
+            targetValue: 0.8,
         }),
         new Achievement({
             label: 'God',
@@ -142,7 +142,7 @@ const getInitialAvailabelAchievements = () => {
                 'Achieve a matched rate of 90 % and become the GOD of the grid! We thought this was impossible ... ',
             achievementGroup: AchievementGroups.achievedMatchedRate,
             targetMetric: AchievementMetricTypes.achievedMatchedRate,
-            targetValue: 1,
+            targetValue: 0.9,
         }),
         new GameHistoryNumberAchievement({
             label: 'First Day',
