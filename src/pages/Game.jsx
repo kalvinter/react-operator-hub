@@ -6,8 +6,6 @@ import {GameConfig, GameEndTypes} from '../game/Config.js'
 import {Reactor} from '../game/Reactor.js'
 import {ElectricityGrid} from '../game/ElectricityGrid.js'
 
-import withNavigation from '../hocs/withNavigation.jsx';
-
 import ShiftProgressBar from '../components/gameui/ShiftProgressBar.jsx';
 import TopBar from '../components/gameui/TopBar.jsx';
 import EventsBar from '../components/gameui/EventsBar.jsx';
@@ -29,8 +27,6 @@ class Game extends React.Component {
   constructor(props){
     super(props);
     
-    this.addGameToGameHistory = props.addGameToGameHistory
-
     this.shiftDuration = GameConfig.shiftDuration
     this.shiftDurationInSeconds = this.shiftDuration / 20 / 50
 
@@ -158,7 +154,6 @@ class Game extends React.Component {
       ...this.newGameState
     })
 
-    this.props.navigate('/react-reactor-game/', { replace: true });
   }
 
   gameIsLost(){
@@ -420,4 +415,4 @@ class Game extends React.Component {
   }
 }
 
-export default withNavigation(Game);
+export default Game;

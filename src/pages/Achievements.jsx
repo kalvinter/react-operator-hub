@@ -2,7 +2,6 @@ import { Link } from "react-router-dom"
 import { AchievementBadge } from "../components/Achievements"
 import { AchievementGroups } from '../game/Achievements'
 import {StarIcon} from '@heroicons/react/20/solid'
-import {StarIcon as StarIconOutline} from '@heroicons/react/24/outline'
 
 import { ArrowLeftIcon } from "@heroicons/react/20/solid"
 
@@ -10,11 +9,13 @@ import { achievementsManager } from "../game/Achievements"
 
 import Card from "../components/common/Card"
 
+export const achievemenetsPageTestId = "game-history-page"
+
 export default function AchievementsPage(){
     let unlockedAchievements = achievementsManager.getUnlockedAchievements()
-    
+
     return (
-        <div className='w-full'>
+        <div className='w-full' data-testid={achievemenetsPageTestId}>
             <Card className="align-center flex">
                 <Link to={`/react-reactor-game/`} className='flex items-center gap-2 no-underline'>
                     <ArrowLeftIcon className="small-icon"></ArrowLeftIcon>Go Back

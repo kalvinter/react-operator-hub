@@ -20,9 +20,17 @@ export function AchievementGroup(props) {
   )
 }
 
+export const achievementBadgeTestId = "achievementBadge"
+export const unlockedAchievementBadgeTestId = "unlockedAchievementBadge"
+
 export function AchievementBadge(props){
   return (
-    <div className={`${props.achievement.isUnlocked ? 'unlocked' : ''} ${props.achievement.achievementType} ${(props.showDescription ? 'justify-start' : 'justify-center')}	flex group achievementBadge relative p-2 w-full`}>
+    <div 
+      data-testid={`${props.achievement.isUnlocked ? unlockedAchievementBadgeTestId : achievementBadgeTestId}`} 
+      className={`${props.achievement.isUnlocked ? 'unlocked' : ''} 
+          ${props.achievement.achievementType} ${(props.showDescription ? 'justify-start' : 'justify-center')}	
+          flex group achievementBadge relative p-2 w-full`}
+      >
       <div className='flex flex-col align-middle items-center md:min-w-[10rem] min-w-[40%]'>
         {(props.achievement.isUnlocked ? <StarIcon className='unlocked' /> : <StarIconOutline />)}
         <span className='label'>{props.achievement.label} </span>

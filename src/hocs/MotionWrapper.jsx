@@ -2,7 +2,7 @@ import {motion } from "framer-motion";
 
 /* This motionwrapper can be used to wrap the content of routes so that they 
 transition with a fade-in / fade-out effect  */
-export const MotionWrapper = ({ skipAnimation, children }) => {
+export const MotionWrapper = ({ locationKey, children }) => {
     const pageVariants = {
       initial: { opacity: 0 },
       in: { opacity: 1 },
@@ -11,13 +11,14 @@ export const MotionWrapper = ({ skipAnimation, children }) => {
   
     const pageTransition = {
       type: "tween",
-      ease: "easeOut",
-      duration: 0.2
+      ease: "easeInOut",
+      duration: 0.5
     };
   
     return (
         <motion.div
             initial="initial"
+            key={locationKey}
             animate="in"
             exit="out"
             variants={pageVariants}

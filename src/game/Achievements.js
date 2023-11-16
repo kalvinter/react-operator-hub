@@ -234,8 +234,10 @@ export class AchievementsManager {
                 newUnlockedAchievements.push(achievement)
         
             }
-        }        
-        return newUnlockedAchievements
+        }
+
+        this.newUnlockedAchievements = newUnlockedAchievements
+        return this.newUnlockedAchievements
     }
 }
 

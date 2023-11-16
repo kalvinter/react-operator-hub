@@ -1,15 +1,11 @@
 import React from 'react'
 
-import { useNavigate } from 'react-router-dom'
-
 import Button from './common/Button'
 
 import { buttonTypes } from './common/Button'
-import { BoltIcon, CubeTransparentIcon, PlayIcon } from '@heroicons/react/20/solid'
+import { BoltIcon, CubeTransparentIcon } from '@heroicons/react/20/solid'
 
-function StartShiftCTA() {
-  const navigate = useNavigate()
-
+function StartShiftCTA(props) {
   return (
     <div className='w-full py-5 flex justify-between mb-2 gap-2 md:flex-row flex-col items-center border-2 border-solid border-color-back rounded px-5'>
         <div className='flex items-center'>
@@ -18,7 +14,7 @@ function StartShiftCTA() {
         </div>
         <Button
             buttonType={buttonTypes.successButton}
-            onClick={() => {navigate("/react-reactor-game/game/", { replace: true })}}
+            onClick={() => {props.startGame()}}
         >
             <div className='flex items-center'>
                 <BoltIcon className='small-icon mr-2' />
