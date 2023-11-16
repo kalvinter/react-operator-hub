@@ -1,5 +1,3 @@
-import React from 'react'
-
 function Percentage(props) {
     let formattedMatchedRate = (props.decimalFigure * 100).toFixed(2)
 
@@ -7,7 +5,10 @@ function Percentage(props) {
         For some reason - probably because of the used font - an nbsp; sign has not the same width as a single number
     */
     return (
-        <span>{(formattedMatchedRate.length < 5) ? <span className='invisible'>1</span> : ''}{formattedMatchedRate}</span>
+        <span>
+            {formattedMatchedRate.length < 5 ? <span className="invisible">1</span> : ''}
+            {formattedMatchedRate}
+        </span>
     )
 }
 

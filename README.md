@@ -1,13 +1,16 @@
 # Welcome to the Grid
-Step into the role of a reactor operator at the heart of the nation's power grid. Your mission? 
+
+Step into the role of a reactor operator at the heart of the nation's power grid. Your mission?
 Keep the country powered up! But remember, it's all about balance: match the country's electricity demand without overloading the system.
 
 ### Gameplay Essentials
+
 Your reactor relies on <b>fuel</b> to generate electricity. The more fuel you use, the hotter the reactor becomes, leading to increased power output.
-<b>Stay vigilant!</b> <b>Demand</b> can fluctuate based on various events, such as other reactors going offline. 
+<b>Stay vigilant!</b> <b>Demand</b> can fluctuate based on various events, such as other reactors going offline.
 These events will be highlighted at the top of your screen.
 
 <strong>Quick Tips for Power Mastery:</strong>
+
 <ul className='list-inside list-disc'>
     <li>Adding fuel boosts power but also heats up the reactor.</li>
     <li>A hotter reactor means a faster reaction-factor, giving you more power.</li>
@@ -22,12 +25,12 @@ The game can be accessed here: <a target="_blank">https://kalvinter.github.io/re
 
 <img src="https://github.com/kalvinter/react-reactor-game/assets/37836612/20e0f0ff-edac-4f9e-8951-c4bd8d3c9c55" height="500" />
 
-
 # About the Repository
 
 This repository is an experiment to practice working with react. It is a constant work-in-progress and more of a playground for myself than a production-ready project. Use the code with care.
 
 # Usage
+
 ```shell
 git clone https://github.com/kalvinter/react-reactor-game.git
 cd react-reactor-game
