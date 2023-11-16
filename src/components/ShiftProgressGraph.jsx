@@ -19,7 +19,7 @@ export default function ShiftProgressGraph(props) {
                 })}
                 <div
                     key="remaining-time"
-                    className="bg-gray-500"
+                    className="bg-neutral"
                     style={{ width: `${props.shiftTimeLeft / 50}%`, height: '100%' }}
                 ></div>
             </div>

@@ -14,14 +14,14 @@ export default function SwitchReactorModal(props) {
                         various parts of the power grid, affecting the time you have to react to events.
                     </p>
 
-                    <p>
-                        Note: Your progress and achievements are specific to each reactor. If you switch, you'll need to
-                        earn them again.
-                    </p>
-
-                    <p className="font-bold my-4">
+                    <p className="font-bold text-center my-10">
                         Currently, there is only one reactor available. Reactor switching coming soon!
                     </p>
+
+                    <small>
+                        Note: Your progress and achievements are specific to each reactor. If you switch, you'll need to
+                        earn them again.
+                    </small>
                 </div>
             </div>
             <ModalFooter>

@@ -60,7 +60,12 @@ export default function EventsBar() {
                     </span>
                 </div>
             </div>
-            {activeEventsSection}
+            <div className="w-full my-2 gap-2 flex flex-col md:flex-row justify-between items-center">
+                <b className="ml-2 md:mr-4 w-full md:w-fit whitespace-nowrap">Active Events</b>
+                <div className="w-full my-1 flex items-center flex-wrap gap-2" id="activeEventsArea">
+                    {activeEvents.length > 0 ? activeEvents : '-'}
+                </div>
+            </div>
         </Card>
     )
 }

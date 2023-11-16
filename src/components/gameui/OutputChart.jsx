@@ -95,7 +95,7 @@ export default function OutputChart() {
                 data: displayedLowerElectricityDemandLimit,
                 fill: {
                     target: '-1',
-                    below: 'rgb(86, 98, 116)',
+                    below: 'rgb(86, 98, 116)'
                 },
             },
         ],
