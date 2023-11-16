@@ -1,3 +1,5 @@
+import { createHashRouter } from 'react-router-dom'
+
 import MainLayout from './pages/MainLayout'
 import App from './pages/App'
 import GameHistoryPage from './pages/GameHistoryPage'
@@ -11,21 +13,23 @@ export const routerConfiguration = [
         errorElement: <ErrorPage />,
         children: [
             {
-                path: '/react-reactor-game/',
+                path: "/",
                 element: <App />,
             },
             {
-                path: '/react-reactor-game/game-history/',
+                path: '/game-history/',
                 element: <GameHistoryPage />,
             },
             {
-                path: '/react-reactor-game/achievements/',
+                path: '/achievements/',
                 element: <AchievementsPage />,
             },
             {
-                path: '*',
+                path: '/*',
                 element: <NotFoundPage />,
             },
         ],
     },
 ]
+
+export const router = createHashRouter(routerConfiguration)

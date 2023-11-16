@@ -15,7 +15,7 @@ export default function GameHistoryPage() {
     return (
         <div className="w-full" data-testid={gameHistoryPageTestId}>
             <Card className="align-center flex">
-                <Link to={`/react-reactor-game/`} className="flex items-center gap-2 no-underline">
+                <Link to={`/`} className="flex items-center gap-2 no-underline">
                     <ArrowLeftIcon className="small-icon"></ArrowLeftIcon>Go Back
                 </Link>
             </Card>

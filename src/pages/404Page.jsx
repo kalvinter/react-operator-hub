@@ -17,8 +17,8 @@ export default function NotFoundPage() {
                 <h1 className="mb-2 w-full text-center">404</h1>
                 <p className="mb-10">Page not found</p>
 
-                <Link to={links.rootUrl}>
-                    <Button buttonType={buttonTypes.neutralButton}>Back to Home</Button>
+                <Link to={"/"}>
+                    <Button onClick={() => {}} buttonType={buttonTypes.neutralButton}>Back to Home</Button>
                 </Link>
             </Card>
         </div>

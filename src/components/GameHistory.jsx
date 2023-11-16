@@ -76,7 +76,7 @@ export default function GameHistorySummary() {
     let showMoreButton = ''
 
     if (gameHistory.length > displayedHistoryEntriesLimit) {
-        showMoreButton = <Link to={`/react-reactor-game/game-history/`}>all Game History Entries</Link>
+        showMoreButton = <Link to={`game-history/`}>all Game History Entries</Link>
     }
 
     let displayedEntriesSummary = <small>{gameHistory.length} Entries</small>

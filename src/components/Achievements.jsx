@@ -56,7 +56,7 @@ export function AchievementsBar() {
                     <StarIcon className="small-icon mr-2"></StarIcon> Achievements
                 </h2>
 
-                <Link to={`/react-reactor-game/achievements/`}>
+                <Link to={`achievements/`}>
                     <button className="underline ">More Information</button>
                 </Link>
             </div>
