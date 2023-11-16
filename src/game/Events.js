@@ -28,6 +28,20 @@ const decreaseEvents = [
         effect: effectLevels.low,
         direction: effectDirection.decrease,
     },
+    {
+        title: 'Earth Hour started',
+        textStart:
+            'People participate in Earth Hour, turning off lights and electronics. Large demand decrease expected shortly',
+        effect: effectLevels.large,
+        direction: effectDirection.decrease,
+    },
+    {
+        title: 'Partial Power Grid Failure',
+        textStart: 'Construction workers caused a district-wide power outage. Large demand decrease expected shortly!',
+        textEnd: 'Power grid stability restored. Large demand increase expected shortly!',
+        effect: effectLevels.large,
+        direction: effectDirection.decrease,
+    }
 ]
 
 const increaseEvents = [
@@ -60,6 +74,20 @@ const increaseEvents = [
         textEnd: 'Most people have finished wathcing the new episode. Low demand decrease decrease shortly!',
         effect: effectLevels.low,
         direction: effectDirection.increase,
+    },
+    {
+        title: 'Championship Game Tonight',
+        textStart: 'The national sports championship is tonight, leading to increased TV and appliance use. Medium demand surge expected shortly!',
+        textEnd: 'The game has ended. Medium demand decrease expected shortly!',
+        effect: effectLevels.medium,
+        direction: effectDirection.increase,
+    },
+    {
+        title: 'City-wide Festival Lights Up the Night',
+        textStart: 'A large festival with extensive lighting and sound systems is underway. Low demand surge expected shortly!',
+        textEnd: 'The festival has concluded for the night. Low demand decrease expected shortly!',
+        effect: effectLevels.low,
+        direction: effectDirection.increase
     },
 ]
 
