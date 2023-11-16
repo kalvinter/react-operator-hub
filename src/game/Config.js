@@ -1,5 +1,5 @@
 export const GameConfig = {
-    productionDemandDeltaLimit: 60,
+    productionDemandDeltaLimit: 80,
 
     naturalCoolingFactor: 0.1,
     minimumTemperature: 90,
@@ -13,7 +13,7 @@ export const GameConfig = {
 
     // 50 * 20 = 1 second * 60 * X = X Minutes
     shiftDuration: 50 * 20 * 60 * 2,
-    shiftDuration: 50 * 20 * 5  // for testing
+    // shiftDuration: 50 * 20 * 5  // for testing
 }
 
 export const GameEndTypes = {
