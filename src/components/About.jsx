@@ -1,4 +1,6 @@
 
+import { version } from '../../package.json'; // Adjust the path as necessary
+
 import { useTranslation } from 'react-i18next'
 
 import { links } from '../Config'
@@ -33,7 +35,7 @@ function About() {
                     <Logo className="small-icon mr-2" /> {t("About--Github-Link-Label")}
                 </a>
 
-                <small>{t("About--Version")}: 1.0.0</small>
+                <small>{t("About--Version")}: {version}</small>
             </div>
         </div>
     )

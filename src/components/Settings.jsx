@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { useState, useEffect } from 'react'
 
 import Button, { buttonSizes, buttonTypes } from './common/Button'
@@ -30,7 +28,7 @@ function Settings(props) {
         return () => clearTimeout(timeout)
     }, [activeTheme])
 
-    const [activeLanguage, setActiveLanguage] = useState(i18n.language)
+    const [activeLanguage, setActiveLanguage] = useState(i18n.resolvedLanguage)
 
     useEffect(() => {
         if (activeLanguage === i18n.language){
@@ -45,6 +43,8 @@ function Settings(props) {
         return () => clearTimeout(timeout)
 
     }, [activeLanguage])
+
+    console.log("i18n.resolvedLanguage, ", i18n.resolvedLanguage)
 
     return (
         <div className="w-full h-full flex flex-col">
@@ -76,7 +76,7 @@ function Settings(props) {
 
                 <select
                     className="w-full bg-element border-2 border-solid border-color-text col-span-2"
-                    value={i18n.language}
+                    value={i18n.resolvedLanguage}
                     onChange={(event) => setActiveLanguage(event.currentTarget.value)}
                 >
                     {Object.keys(locales).map((key) => {
