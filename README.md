@@ -1,5 +1,3 @@
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-
 ![Automated Testing](https://github.com/kalvinter/react-operator-hub/actions/workflows/test.yml/badge.svg)
 ![Depyloment](https://github.com/kalvinter/react-operator-hub/actions/workflows/deploy.yml/badge.svg)
 
