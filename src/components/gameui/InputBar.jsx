@@ -10,12 +10,14 @@ const inputLevelList = Array.from({ length: 100 }, (_, i) => (
     </option>
 ))
 
+export const inputBarTestId = "inputBarTestId"
+
 export default function InputBar() {
     const reactorData = useContext(ReactorDataContext)
     const {t} = useTranslation()
 
     return (
-        <Card className="w-full mb-0">
+        <Card className="w-full mb-0" testId={inputBarTestId}>
             <datalist id="input-level-list">{inputLevelList}</datalist>
             <div className="grid grid-cols-8 gap-2 mb-2 items-center">
                 <label className="md:col-span-1 col-span-2">{t("Input--Fuel-Label")}</label>

@@ -56,6 +56,8 @@ const outputChartOptions = {
     },
 }
 
+export const outputChartTestId = "outputChartTestId"
+
 export default function OutputChart() {
     const {t} = useTranslation()
 
@@ -119,7 +121,7 @@ export default function OutputChart() {
     }
 
     return (
-        <Card className="w-full my-0">
+        <Card className="w-full my-0" testId={outputChartTestId}>
             <div className="grid grid-cols-2 mb-2 border-b-2 border-gray-200 items-center py-1">
                 <div className="flex items-center gap-1">
                     <BoltIcon className="small-icon" />

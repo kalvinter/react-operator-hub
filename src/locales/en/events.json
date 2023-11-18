@@ -1,4 +1,5 @@
 {
+    "No-Event-Text": "Electricity Demand is stable.",
     "Decrease-Blackout-Drill": "Blackout Drill in Industrial Area",
     "Decrease-Blackout-Drill-textStart": "One of the largest factories is conducting a blackout drill for emergency preparedness. Small demand decrease expected shortly!",
     "Decrease-Blackout-Drill-textEnd": "The blackout drill has ended. Small demand increase expected shortly!",

@@ -49,7 +49,7 @@ export function GameHistoryCard(props) {
     }
 
     return (
-        <div className="bg-element w-full p-2 rounded" data-testid={gameHistoryCardTestId}>
+        <div className="bg-element w-full p-2 rounded" data-testid={gameHistoryCardTestId} key={entry.id}>
             <div className="grid grid-cols-12 items-center gap-2">
                 <div className="flex flex-col col-span-2 md:col-span-1 min-h-[2rem] min-w-[2rem] justify-center">
                     {icon}
@@ -86,7 +86,7 @@ export default function GameHistorySummary() {
         gameHistoryList = gameHistory
             .slice(0, displayedHistoryEntriesLimit)
             .map((gameHistoryEntry) => (
-                <GameHistoryCard gameHistoryEntry={gameHistoryEntry} key={gameHistoryEntry.date} />
+                <GameHistoryCard gameHistoryEntry={gameHistoryEntry} key={gameHistoryEntry.id} />
             ))
     }
 

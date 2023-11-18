@@ -10,6 +10,8 @@ import { getProductionBg } from '../Utils.js'
 import ShiftProgressGraph from '../ShiftProgressGraph.jsx'
 
 
+export const shiftProgessBarTestId = "shiftProgressBarTestId"
+
 function ShiftProgressBar() {
     const {t} = useTranslation()
 
@@ -21,7 +23,7 @@ function ShiftProgressBar() {
     })
 
     return (
-        <Card className="w-full items-center">
+        <Card className="w-full items-center" testId={shiftProgessBarTestId}>
             <div className="w-full flex justify-between">
                 <span className="hidden md:block">{t("ShiftProgessBar--Graph-Label")}</span>
                 <span className="pr-2">{t("ShiftProgessBar--Match-Rate-Label")}</span>

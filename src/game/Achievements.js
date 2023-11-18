@@ -1,6 +1,7 @@
-import i18n from '../i18n.js'
 
 import { GameEndTypes } from './Config'
+
+import i18n from '../i18n'
 
 export const AchievementGroups = {
     achievedMatchedRate: 'Achieved Matched Rate',

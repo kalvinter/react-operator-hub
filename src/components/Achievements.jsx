@@ -27,6 +27,7 @@ export const unlockedAchievementBadgeTestId = 'unlockedAchievementBadge'
 export function AchievementBadge(props) {
     return (
         <div
+            key={props.achievement.label}
             data-testid={`${props.achievement.isUnlocked ? unlockedAchievementBadgeTestId : achievementBadgeTestId}`}
             className={`${props.achievement.isUnlocked ? 'unlocked' : ''} 
           ${props.achievement.achievementType} ${props.showDescription ? 'justify-start' : 'justify-center'}	

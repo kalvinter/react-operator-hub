@@ -9,6 +9,7 @@ import Button, { buttonSizes, buttonTypes } from '../common/Button.jsx'
 import { useTranslation } from 'react-i18next'
 
 export const quitButtonTestId = "quitButtonTestId"
+export const pauseButtonTestId = "pauseButtonTestId"
 
 function ButtonLabel(props) {
     const {t} = useTranslation()
@@ -52,6 +53,7 @@ export default function TopBar(props) {
                 buttonType={gameData.gameIsPaused ? buttonTypes.successButton : buttonTypes.neutralButton}
                 buttonSize={buttonSizes.small}
                 className={'w-full md:w-fit'}
+                testId={pauseButtonTestId}
             >
                 <ButtonLabel gameData={gameData} />
             </Button>

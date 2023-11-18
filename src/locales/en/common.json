@@ -1,7 +1,7 @@
 {
   "About--Header": "About",
   "About--Text": "This game is an experiment to practice working with react. I always loved browser games and as such I wanted to learn react by creating something I would enjoy using. I hope that you have as much fun with this little game as I had.",
-  "About--Personal-Message": "",
+  "About--Personal-Message": " ",
   "About--Github-Link-Label": "Github",
   "About--Version": "Version",
   "Achievements": "Achievements",

@@ -6,6 +6,8 @@ import { EventDataContext } from '../../pages/Game.jsx'
 import Card from '../common/Card.jsx'
 import { useTranslation } from 'react-i18next'
 
+export const eventsBarTestId = "eventsBarTestId"
+
 function EventTag(props) {
     let icon
 
@@ -42,7 +44,7 @@ export default function EventsBar() {
     let eventPrefixLabel = eventData.upcomingEventChange ? <span className="text-orange-600">{t("Events--New-Event-Prefix")}:</span> : null
 
     return (
-        <Card className="w-full">
+        <Card className="w-full" testId={eventsBarTestId}>
             <div className="w-full my-2 flex justify-between items-center">
                 <div className="w-full my-1 border-solid border-2 text-color--light rounded border-color-card bg-black p-2 flex items-center min-h-[3rem]">
                     <span>

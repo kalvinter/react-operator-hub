@@ -51,6 +51,8 @@ const temperatureChartOptions = {
     },
 }
 
+export const temperatureChartTestId = "temperatureChartTestId"
+
 const TemperatureChart = () => {
     const {t} = useTranslation()
 
@@ -63,27 +65,27 @@ const TemperatureChart = () => {
 
     if (reactorData.currentTemperature <= GameConfig.minimumTemperature) {
         temperature_indication_bg = 'bg-dark text-color--light'
-        temperature_text = <span>{t("TemperatureChart--Message-Low")}</span>
+        temperature_text = (<span>{t("TemperatureChart--Message-Low")}</span>)
         display_temperature_text = true
     } else if (reactorData.currentTemperature <= 150) {
         temperature_indication_bg = 'bg-light'
-        temperature_text = <span>{t("TemperatureChart--Message-Normal")}</span>
+        temperature_text = (<span>{t("TemperatureChart--Message-Normal")}</span>)
         display_temperature_text = true
     } else if (reactorData.currentTemperature <= 200) {
         temperature_indication_bg = 'bg-warning'
-        temperature_text = <span>{t("TemperatureChart--Message-Above-Normal")}</span>
+        temperature_text = (<span>{t("TemperatureChart--Message-Above-Normal")}</span>)
         display_temperature_text = true
     } else if (reactorData.currentTemperature < 250) {
         temperature_indication_bg = 'bg-strong-warning'
-        temperature_text = <span>{t("TemperatureChart--Message-High")}</span>
+        temperature_text = (<span>{t("TemperatureChart--Message-High")}</span>)
         display_temperature_text = true
     } else if (reactorData.currentTemperature < GameConfig.maximumTemperature) {
         temperature_indication_bg = 'bg-danger'
-        temperature_text = <span>{t("TemperatureChart--Message-Critical")} {GameConfig.maximumTemperature}°C!</span>
+        temperature_text = (<span>{t("TemperatureChart--Message-Critical")} {GameConfig.maximumTemperature}°C!</span>)
         display_temperature_text = true
     } else {
         temperature_indication_bg = 'bg-danger'
-        temperature_text = <span>{t("TemperatureChart--Message-Lost")}</span>
+        temperature_text = (<span>{t("TemperatureChart--Message-Lost")}</span>)
         display_temperature_text = true
     }
 
@@ -102,7 +104,7 @@ const TemperatureChart = () => {
     }
 
     return (
-        <Card className="w-full my-0">
+        <Card className="w-full my-0" testId={temperatureChartTestId}>
             <div className="grid grid-cols-8 mb-2 border-b-2 border-gray-200 py-1 items-center">
                 <div className="flex items-center md:col-span-4 col-span-5 gap-1">
                     <ExclamationTriangleIcon className="small-icon" />

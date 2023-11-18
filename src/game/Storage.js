@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import { GameEndTypes } from './Config'
 import { defaultTheme } from './ThemeManager'
 
@@ -46,6 +48,7 @@ export class LocalStorageManager {
 
 export class gameHistoryEntry {
     constructor({
+        id,
         date,
         timeRunningInSeconds,
         shiftTimeLeft,
@@ -54,6 +57,7 @@ export class gameHistoryEntry {
         demandMatchedStatusHistory,
         gameStatus,
     }) {
+        this.id = id
         this.date = date
         this.timeRunningInSeconds = timeRunningInSeconds
         this.shiftTimeLeft = shiftTimeLeft
@@ -65,6 +69,7 @@ export class gameHistoryEntry {
 
     serialize() {
         return {
+            id: this.id,
             date: this.date.toISOString(),
             timeRunningInSeconds: this.timeRunningInSeconds,
             shiftTimeLeft: this.shiftTimeLeft,
@@ -85,6 +90,11 @@ export class gameHistoryEntry {
                 throw Error(`ERROR: Received an invalid game status: '${gameStatus}'`)
             }
 
+            if(!Object.keys(parsedData).includes("id")){
+                // Ensuring backwards compatibility. Add an id if it does not exist yet
+                parsedData.id = uuidv4()
+            }
+
             let requiredKeys = [
                 'date',
                 'timeRunningInSeconds',
@@ -103,6 +113,7 @@ export class gameHistoryEntry {
             })
 
             return new gameHistoryEntry({
+                id: parsedData.id,
                 date: date,
                 timeRunningInSeconds: parsedData.timeRunningInSeconds,
                 shiftTimeLeft: parsedData.shiftTimeLeft,

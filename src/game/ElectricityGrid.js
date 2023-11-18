@@ -1,5 +1,12 @@
 import { GameConfig } from './Config.js'
-import { AvailableEventHandler, effectDirection, noEventText } from './Events.js'
+import { AvailableEventHandler, effectDirection } from './Events.js'
+
+import i18n from '../i18n.js'
+
+export const eventOperation = {
+    add: "add",
+    remove: "remove"
+}
 
 export class ElectricityGrid {
     constructor({ initialElectricityDemand, productionDemandDeltaLimit, baseDemandAddition, maximumPossibleDemand }) {
@@ -26,16 +33,20 @@ export class ElectricityGrid {
 
         this.appliedDemandChange = 0
 
-        this.displayedEventText = noEventText
+        this.displayedEventText = this.getNoEventText()
+    }
+
+    getNoEventText(){
+        return i18n.t("No-Event-Text", {ns: "events"})
     }
 
     performScheduledEventChange() {
         /* Introduce the scheduled event change */
         console.log(this.upcomingEventChange)
 
-        this.displayedEventText = noEventText
+        this.displayedEventText = this.getNoEventText()
 
-        if (this.upcomingEventChange[0].operation === 'add') {
+        if (this.upcomingEventChange[0].operation === eventOperation.add) {
             if (this.upcomingEventChange[0].originalEvent.direction === effectDirection.increase) {
                 this.activeIncreaseEvents.push(this.upcomingEventChange[0])
                 this.availableEventHandler.removeEvent(
@@ -60,14 +71,10 @@ export class ElectricityGrid {
         }
 
         /* Change electricity demand accordingly - use -1 to reverse the effect when it is removed */
-        let upDownFactor = this.upcomingEventChange[0].operation === 'add' ? 1 : -1
+        let upDownFactor = this.upcomingEventChange[0].operation === eventOperation.add ? 1 : -1
+        
+        this.appliedDemandChange += this.upcomingEventChange[0].addedElectricityDemand * upDownFactor
 
-        console.log(upDownFactor)
-        console.log(this.upcomingEventChange[0].addedElectricityDemand)
-
-        this.appliedDemandChange = this.upcomingEventChange[0].addedElectricityDemand * upDownFactor
-
-        console.log(this.activeIncreaseEvents)
         this.upcomingEventChange = []
     }
 
@@ -86,7 +93,7 @@ export class ElectricityGrid {
         console.log(timeRunning % 100)
 
         /* If there is no upcoming event - decide if there should be one */
-        if (this.upcomingEventChange.length === 0 && timeRunning % 100 == 40 && Math.random() > 0.2) {
+        if (this.upcomingEventChange.length === 0 && timeRunning % 100 == 40 && Math.random() > 0.1) {
             /* If there is now a new event coming, decide if an existing event should be phased out or a new one should be introduced */
             const introduceNewEvent = activeEvents.length === 0 ? true : Math.random() > 0.4
             console.log('introduceNewEvent ', introduceNewEvent)
@@ -101,7 +108,7 @@ export class ElectricityGrid {
                     /* If an increase event could push the demand above the limit, introduce a decrease event */
                     introduceIncreaseEvent = false
                 } else {
-                    introduceIncreaseEvent = Math.random() > 0.1
+                    introduceIncreaseEvent = Math.random() > 0.4
                 }
 
                 const eventList = introduceIncreaseEvent ? availableIncreaseEvents : availableDecreaseEvents
@@ -129,7 +136,7 @@ export class ElectricityGrid {
 
                     this.upcomingEventChange = [
                         {
-                            operation: 'add',
+                            operation: eventOperation.add,
                             indexInSourceList: index,
                             direction: newEvent.direction,
                             addedElectricityDemand: this.baseDemandAddition * addedElectricityDemandFactor,
@@ -147,7 +154,7 @@ export class ElectricityGrid {
                     const removedEvent = eventList[index]
 
                     this.displayedEventText = removedEvent.originalEvent.getTextEnd()
-                    removedEvent.operation = 'remove'
+                    removedEvent.operation = eventOperation.remove
 
                     this.upcomingEventChange = [removedEvent]
                 }
@@ -157,11 +164,21 @@ export class ElectricityGrid {
         if (this.upcomingEventChange.length > 0 && timeRunning % 100 === 0) {
             this.performScheduledEventChange()
         }
+        
+        this.applyDemandChange()
 
+        /* Initialize a minimum demand at the beginning of the game  */
+        if (timeRunning === 0) {
+            this.currentElectricityDemand += 300 * Math.random() + 100
+        }
+
+        this.electricityDemandHistory.push(this.currentElectricityDemand)
+    }
+
+    applyDemandChange(){
         /* Apply any further demand changes.
-        Electricity demand changes that stem from events are not fulle added at once to make it
-        easier for players to follow the change.
-        Instead it is added gradually
+        Electricity demand changes that stem from events are not fully added at once but gradually
+        to make it easier for players to follow the change.
         */
         if (this.appliedDemandChange !== 0) {
             let change =
@@ -172,17 +189,8 @@ export class ElectricityGrid {
             this.currentElectricityDemand += change
             this.appliedDemandChange -= change
 
-            console.log(this.appliedDemandChange)
-
             this.currentElectricityDemand = this.currentElectricityDemand <= 0 ? 0 : this.currentElectricityDemand
         }
-
-        /* Initialize a minimum demand at the beginning of the game  */
-        if (timeRunning === 0) {
-            this.currentElectricityDemand += 300 * Math.random() + 100
-        }
-
-        this.electricityDemandHistory.push(this.currentElectricityDemand)
     }
 
     updateDemandDelta(currentElectricityOutput) {

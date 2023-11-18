@@ -103,7 +103,7 @@ describe('game', () => {
         )
         
         checkAppMainComponentsLoaded(screen)
-        
+
         let startGameButton = screen.getByTestId(startGameButtonTestId)
         fireEvent.click(startGameButton)
 
