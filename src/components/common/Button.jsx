@@ -51,6 +51,7 @@ export default function Button(props) {
 
     return (
         <button
+            data-testid={props.testId !== undefined ? props.testId : ''}
             disabled={props.disabled === true ? true : false}
             className={`${buttonColorClasses} ${buttonSizeClasses} ${!props.className ? '' : props.className} 
                       font-bold uppercase rounded shadow hover:shadow-lg outline-none focus:outline-none 

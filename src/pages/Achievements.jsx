@@ -10,7 +10,7 @@ import { achievementsManager } from '../game/Achievements'
 import Card from '../components/common/Card'
 import { useTranslation } from 'react-i18next'
 
-export const achievemenetsPageTestId = 'game-history-page'
+export const achievementsPageTestId = 'game-history-page'
 
 export default function AchievementsPage() {
     const {t} = useTranslation()
@@ -18,7 +18,7 @@ export default function AchievementsPage() {
     let unlockedAchievements = achievementsManager.getUnlockedAchievements()
 
     return (
-        <div className="w-full" data-testid={achievemenetsPageTestId}>
+        <div className="w-full" data-testid={achievementsPageTestId}>
             <Card className="align-center flex">
                 <Link to={`/`} className="flex items-center gap-2 no-underline">
                     <ArrowLeftIcon className="small-icon"></ArrowLeftIcon>{t("Go-Back-Button-Label")}

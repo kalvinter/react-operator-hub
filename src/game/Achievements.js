@@ -53,8 +53,6 @@ class Achievement {
     }
 
     getDescription(){
-        console.log(i18n.t(this.descriptionKey, { ns: "achievements" }))
-        console.log(this.descriptionKey)
         return i18n.t(this.descriptionKey, { ns: "achievements" })
     }
 

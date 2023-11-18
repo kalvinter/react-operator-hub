@@ -20,6 +20,8 @@ export const ReactorDataContext = React.createContext()
 export const GameDataContext = React.createContext()
 export const EventDataContext = React.createContext()
 
+export const gameTestId = "gameTestId"
+
 class Game extends React.Component {
     constructor(props) {
         super(props)
@@ -359,7 +361,7 @@ class Game extends React.Component {
         }
 
         return (
-            <div>
+            <div data-testid={gameTestId}>
                 <ReactorDataContext.Provider value={reactorData}>
                     <GameDataContext.Provider value={gameData}>
                         <EventDataContext.Provider value={eventData}>

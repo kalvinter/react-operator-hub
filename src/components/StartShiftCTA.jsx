@@ -6,6 +6,8 @@ import Button from './common/Button'
 import { buttonTypes } from './common/Button'
 import { BoltIcon, CubeTransparentIcon } from '@heroicons/react/20/solid'
 
+export const startGameButtonTestId = "startGameButtonTestId"
+
 function StartShiftCTA(props) {
     const {t} = useTranslation()
 
@@ -20,6 +22,7 @@ function StartShiftCTA(props) {
                 onClick={() => {
                     props.startGame()
                 }}
+                testId={startGameButtonTestId}
             >
                 <div className="flex items-center">
                     <BoltIcon className="small-icon mr-2" />

@@ -8,6 +8,8 @@ import { PauseIcon, PlayIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import Button, { buttonSizes, buttonTypes } from '../common/Button.jsx'
 import { useTranslation } from 'react-i18next'
 
+export const quitButtonTestId = "quitButtonTestId"
+
 function ButtonLabel(props) {
     const {t} = useTranslation()
 
@@ -69,6 +71,7 @@ export default function TopBar(props) {
                     buttonType={buttonTypes.neutralButton}
                     buttonSize={buttonSizes.small}
                     className={'w-full md:w-fit'}
+                    testId={quitButtonTestId}
                 >
                     <span className="flex items-center justify-center">
                         <XMarkIcon className="small-icon mr-1" />{t("Quit-Button-Label")}

@@ -24,6 +24,10 @@ import StartShiftCTA from '../components/StartShiftCTA'
 import SwitchReactorModal from '../components/modals/SwitchReactorModal'
 import { MotionWrapper } from '../hocs/MotionWrapper'
 
+
+export const appTestId = "appTestId"
+
+
 function App() {
     achievementsManager.checkGameHistoryEntries({
         gameHistoryEntries: gameHistoryManager.gameHistory,
@@ -70,53 +74,55 @@ function App() {
                 </MotionWrapper>
             ) : (
                 <MotionWrapper locationKey={'Menu'}>
-                    <SwitchReactorModal
-                        showModal={showSwitchReactorModal}
-                        cancelButtonOnClick={() => setShowSwitchReactorModal(false)}
-                    />
-                    <ResetHistoryModal
-                        showModal={showDeleteHistoryModal}
-                        cancelButtonOnClick={() => setShowDeleteHistoryModal(false)}
-                        deleteButtonOnClick={() => deleteHistory()}
-                    />
+                    <div data-testid={appTestId}>
+                        <SwitchReactorModal
+                            showModal={showSwitchReactorModal}
+                            cancelButtonOnClick={() => setShowSwitchReactorModal(false)}
+                        />
+                        <ResetHistoryModal
+                            showModal={showDeleteHistoryModal}
+                            cancelButtonOnClick={() => setShowDeleteHistoryModal(false)}
+                            deleteButtonOnClick={() => deleteHistory()}
+                        />
 
-                    <UnlockedAchievementsModal
-                        showModal={showUnlockedAchievementsModal}
-                        cancelButtonOnClick={() => setShowUnlockedAchievementsModal(false)}
-                        newlyUnlockedAchievements={newlyUnlockedAchievements}
-                    />
+                        <UnlockedAchievementsModal
+                            showModal={showUnlockedAchievementsModal}
+                            cancelButtonOnClick={() => setShowUnlockedAchievementsModal(false)}
+                            newlyUnlockedAchievements={newlyUnlockedAchievements}
+                        />
 
-                    <ReactorConnectionBar setShowSwitchReactorModal={setShowSwitchReactorModal} />
+                        <ReactorConnectionBar setShowSwitchReactorModal={setShowSwitchReactorModal} />
 
-                    <StartShiftCTA
-                        startGame={() => {
-                            setGameIsRunning(true)
-                        }}
-                    />
+                        <StartShiftCTA
+                            startGame={() => {
+                                setGameIsRunning(true)
+                            }}
+                        />
 
-                    <Card>
-                        <Welcome />
-                    </Card>
-
-                    <Card>
-                        <AchievementsBar achievementsManager={achievementsManager} />
-                    </Card>
-
-                    <Card>
-                        <GameHistorySummary />
-                    </Card>
-
-                    <div className="md:grid md:grid-cols-3 md:gap-2 flex flex-col">
                         <Card>
-                            <Settings
-                                themeManager={themeManager}
-                                showDeleteHistoryModal={() => setShowDeleteHistoryModal(true)}
-                            />
+                            <Welcome />
                         </Card>
 
-                        <Card className="col-span-2">
-                            <About />
+                        <Card>
+                            <AchievementsBar achievementsManager={achievementsManager} />
                         </Card>
+
+                        <Card>
+                            <GameHistorySummary />
+                        </Card>
+
+                        <div className="md:grid md:grid-cols-3 md:gap-2 flex flex-col">
+                            <Card>
+                                <Settings
+                                    themeManager={themeManager}
+                                    showDeleteHistoryModal={() => setShowDeleteHistoryModal(true)}
+                                />
+                            </Card>
+
+                            <Card className="col-span-2">
+                                <About />
+                            </Card>
+                        </div>
                     </div>
                 </MotionWrapper>
             )}
