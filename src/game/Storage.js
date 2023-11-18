@@ -29,10 +29,9 @@ export class LocalStorageManager {
     }
 
     load({ storedDataType }) {
-        console.log('LOADING ', storedDataType)
         try {
             const serializedData = localStorage.getItem(storedDataType)
-            console.log('serializedData, ', serializedData)
+
             if (serializedData === null) {
                 return null
             }
@@ -144,9 +143,6 @@ export class GameHistoryStorage {
         let gameHistoryData = this.storageManager.load({
             storedDataType: this.storedDataType,
         })
-
-        console.log('gameHistoryData')
-        console.log(gameHistoryData)
 
         if (gameHistoryData === null || gameHistoryData === undefined) {
             // return an empty list, if no gameHistory was saved yet

@@ -5,8 +5,7 @@ import GameHistoryPage, { gameHistoryPageTestId } from '../../pages/GameHistoryP
 
 import { gameHistoryCardTestId } from '../../components/GameHistory'
 
-import { storedDataTypes, gameHistoryEntry } from '../../game/Storage'
-import { GameEndTypes } from '../../game/Config'
+import { storedDataTypes } from '../../game/Storage'
 
 import { gameHistoryManager } from '../../game/GameHistoryManager'
 import { MemoryRouter } from 'react-router-dom'
@@ -46,6 +45,7 @@ describe('page loads without error', () => {
          * beginning of the test
          */
         gameHistoryManager.reloadHistoryFromStorage()
+
         render(
             <MemoryRouter>
                 <GameHistoryPage />
