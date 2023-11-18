@@ -57,7 +57,7 @@ export class gameHistoryEntry {
         demandMatchedStatusHistory,
         gameStatus,
     }) {
-        this.id = id
+        this.id = id || uuidv4()
         this.date = date
         this.timeRunningInSeconds = timeRunningInSeconds
         this.shiftTimeLeft = shiftTimeLeft
@@ -111,6 +111,8 @@ export class gameHistoryEntry {
                 }
                 return null
             })
+            
+            console.log(parsedData)
 
             return new gameHistoryEntry({
                 id: parsedData.id,
@@ -170,6 +172,7 @@ export class GameHistoryStorage {
             }
         }
         // parse saved objects
+        console.log(gameHistory)
         return gameHistory
     }
 }

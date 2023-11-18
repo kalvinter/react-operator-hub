@@ -42,7 +42,7 @@ export class ElectricityGrid {
 
     performScheduledEventChange() {
         /* Introduce the scheduled event change */
-        console.log(this.upcomingEventChange)
+        // console.log(this.upcomingEventChange)
 
         this.displayedEventText = this.getNoEventText()
 
@@ -74,10 +74,6 @@ export class ElectricityGrid {
             }
         }
 
-        console.warn("EVENT CHANGED")
-        console.log(this.activeIncreaseEvents)
-        console.log(this.activeDecreaseEvents)
-
         /* Change electricity demand accordingly - use -1 to reverse the effect when it is removed */
         let upDownFactor = this.upcomingEventChange[0].operation === eventOperation.add ? 1 : -1
         
@@ -88,8 +84,6 @@ export class ElectricityGrid {
 
     updateElectricityDemand(timeRunning) {
         let lastElectricityDemand = this.currentElectricityDemand
-        console.log(this.activeIncreaseEvents)
-        console.log(this.activeDecreaseEvents)
 
         let activeEvents = [...this.activeDecreaseEvents, ...this.activeIncreaseEvents]
 
