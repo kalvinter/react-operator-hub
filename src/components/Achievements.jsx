@@ -7,6 +7,7 @@ import { StarIcon } from '@heroicons/react/20/solid'
 import { StarIcon as StarIconOutline } from '@heroicons/react/24/outline'
 
 import { achievementsManager } from '../game/Achievements'
+import { useTranslation } from 'react-i18next'
 
 export function AchievementGroup(props) {
     let achievements = props.achievements.sort((a, b) => a.order - b.order)
@@ -14,7 +15,7 @@ export function AchievementGroup(props) {
     return (
         <div className="w-full flex gap-2 justify-around md:flex-row flex-col" key={props.achievementGroup}>
             {achievements.map((achievement) => {
-                return <AchievementBadge key={achievement.label} achievement={achievement} />
+                return <AchievementBadge key={achievement.getLabel()} achievement={achievement} />
             })}
         </div>
     )
@@ -26,6 +27,7 @@ export const unlockedAchievementBadgeTestId = 'unlockedAchievementBadge'
 export function AchievementBadge(props) {
     return (
         <div
+            key={props.achievement.label}
             data-testid={`${props.achievement.isUnlocked ? unlockedAchievementBadgeTestId : achievementBadgeTestId}`}
             className={`${props.achievement.isUnlocked ? 'unlocked' : ''} 
           ${props.achievement.achievementType} ${props.showDescription ? 'justify-start' : 'justify-center'}	
@@ -33,12 +35,12 @@ export function AchievementBadge(props) {
         >
             <div className="flex flex-col align-middle items-center md:min-w-[10rem] min-w-[40%]">
                 {props.achievement.isUnlocked ? <StarIcon className="unlocked" /> : <StarIconOutline />}
-                <span className="label">{props.achievement.label} </span>
+                <span className="label">{props.achievement.getLabel()} </span>
             </div>
             {props.showDescription ? (
                 <div>
                     <p>
-                        <small>{props.achievement.description}</small>
+                        <small>{props.achievement.getDescription()}</small>
                     </p>
                 </div>
             ) : null}
@@ -49,21 +51,23 @@ export function AchievementBadge(props) {
 export function AchievementsBar() {
     let unlockedAchievements = achievementsManager.getUnlockedAchievements()
 
+    const {t} = useTranslation()
+
     return (
         <div className="w-full">
             <div className="w-full flex justify-between items-center">
                 <h2 className="flex items-center">
-                    <StarIcon className="small-icon mr-2"></StarIcon> Achievements
+                    <StarIcon className="small-icon mr-2"></StarIcon> {t("Achievements")}
                 </h2>
 
                 <Link to={`achievements/`}>
-                    <button className="underline ">More Information</button>
+                    <button className="underline ">{t("Achievement-Details-Link")}</button>
                 </Link>
             </div>
 
             <p>
                 <small className="mb-5 w-full">
-                    {unlockedAchievements.length} / {achievementsManager.availableAchievements.length} unlocked
+                    {unlockedAchievements.length} / {achievementsManager.availableAchievements.length} {t("unlocked")}
                 </small>
             </p>
 

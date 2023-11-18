@@ -20,6 +20,8 @@ export const ReactorDataContext = React.createContext()
 export const GameDataContext = React.createContext()
 export const EventDataContext = React.createContext()
 
+export const gameTestId = "gameTestId"
+
 class Game extends React.Component {
     constructor(props) {
         super(props)
@@ -239,6 +241,10 @@ class Game extends React.Component {
         // Other metrics
         let gameIsLost = this.gameIsLost()
 
+        console.log("-# active Events")
+        console.log(this.electricityGrid.activeIncreaseEvents)
+        console.log(this.electricityGrid.activeDecreaseEvents)
+
         this.setState({
             gameIsLost: gameIsLost,
 
@@ -248,8 +254,8 @@ class Game extends React.Component {
 
             achievedMatchedRate: achievedMatchedRate,
 
-            activeIncreaseEvents: this.electricityGrid.activeIncreaseEvents,
-            activeDecreaseEvents: this.electricityGrid.activeDecreaseEvents,
+            activeIncreaseEvents: this.electricityGrid.activeIncreaseEvents.slice(),
+            activeDecreaseEvents: this.electricityGrid.activeDecreaseEvents.slice(),
 
             upcomingEventChange: this.electricityGrid.upcomingEventChange,
             displayedEventText: this.electricityGrid.displayedEventText,
@@ -359,7 +365,7 @@ class Game extends React.Component {
         }
 
         return (
-            <div>
+            <div data-testid={gameTestId}>
                 <ReactorDataContext.Provider value={reactorData}>
                     <GameDataContext.Provider value={gameData}>
                         <EventDataContext.Provider value={eventData}>

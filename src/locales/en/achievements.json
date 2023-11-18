@@ -1,0 +1,34 @@
+{
+    "Recrut": "Recrut",
+    "Recrut-Description": "Achieve a matched rate of 10 %. Not really impressive but at least you did not blow anything up ...",
+
+    "Solid Worker": "Solid Worker",
+    "Solid Worker-Description": "Achieve a matched rate of 50 % and prove that you are somewhat capable for this job ...",
+
+    "Expert": "Expert",
+    "Expert-Description": "Achieve a matched rate of 70 % and prove that you are an expert in your field!",
+
+    "Hero": "Hero",
+    "Hero-Description": "Achieve a matched rate of 80 % and become the hero of the grid!",
+
+    "God": "Legend",
+    "God-Description": "Achieve a matched rate of 90 % and become a legend! We thought this was impossible ... ",
+
+    "First Day": "First Day",
+    "First Day-Description": "Finish your first shift!",
+
+    "Regular": "Regular",
+    "Regular-Description": "Finish your second shift and show that you are a member of our operator team!",
+
+    "Senior": "Senior",
+    "Senior-Description": "Finish five shifts and become a senior member the team!",
+
+    "Veteran": "Veteran",
+    "Veteran-Description": "Finish ten shifts and show your dedication to our power grid!",
+
+    "Bad Day": "Bad Day",
+    "Bad Day-Description": "We said, just do your best but don't blow anything up ...",
+
+    "Quitter": "Quitter",
+    "Quitter-Description": "You are leaving already?"
+}

@@ -1,0 +1,34 @@
+{
+    "Recrut": "Rekrut",
+    "Recrut-Description": "Erreiche eine Nachfrage-Match-Rate von 10 %. Nicht beeindruckend, aber hey, immerhin ist nichts explodiert ...",
+
+    "Solid Worker": "Guter Arbeiter",
+    "Solid Worker-Description": "Erreiche eine Nachfrage-Match-Rate von 50 % und beweise, dass du für diesen Job zumindest etwas taugst ...",
+
+    "Expert": "Experte",
+    "Expert-Description": "Erreiche eine Nachfrage-Match-Rate von 70 % und zeige, dass du ein Experte auf deinem Gebiet bist!",
+
+    "Hero": "Held",
+    "Hero-Description": "Erreiche eine Nachfrage-Match-Rate von 80 % und werde zum Helden des Stromnetzes!",
+
+    "God": "Legende",
+    "God-Description": "Erreiche eine Nachfrage-Match-Rate von 90 % und werde zur Legende! Wir dachten, das wäre unmöglich ... ",
+
+    "First Day": "Erster Tag",
+    "First Day-Description": "Beende deine erste Schicht!",
+
+    "Regular": "Routiniert",
+    "Regular-Description": "Beende deine zweite Schicht und zeige, dass du gekommen bist, um zu bleiben!",
+
+    "Senior": "Festangestellter",
+    "Senior-Description": "Beende fünf Schichten und werde ein fixes Mitglied des Teams!",
+
+    "Veteran": "Veteran",
+    "Veteran-Description": "Beende zehn Schichten und beweise deine Hingabe an unser Stromnetz!",
+
+    "Bad Day": "Schlechter Tag",
+    "Bad Day-Description": "Wir haben dir gesagt, gib einfach dein Bestes, aber spreng nichts in die Luft  ...",
+
+    "Quitter": "Drückeberger",
+    "Quitter-Description": "Du gehst schon?"
+}

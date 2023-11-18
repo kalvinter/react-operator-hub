@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 
 import Card from '../common/Card'
-
+import { useTranslation } from 'react-i18next'
 import { ReactorDataContext } from '../../pages/Game.jsx'
 
 const inputLevelList = Array.from({ length: 100 }, (_, i) => (
@@ -10,14 +10,17 @@ const inputLevelList = Array.from({ length: 100 }, (_, i) => (
     </option>
 ))
 
+export const inputBarTestId = "inputBarTestId"
+
 export default function InputBar() {
     const reactorData = useContext(ReactorDataContext)
+    const {t} = useTranslation()
 
     return (
-        <Card className="w-full mb-0">
+        <Card className="w-full mb-0" testId={inputBarTestId}>
             <datalist id="input-level-list">{inputLevelList}</datalist>
             <div className="grid grid-cols-8 gap-2 mb-2 items-center">
-                <label className="md:col-span-1 col-span-2">Fuel</label>
+                <label className="md:col-span-1 col-span-2">{t("Input--Fuel-Label")}</label>
                 <span className="text-right mr-2">{reactorData.currentFuelInputLevel}</span>
                 <input
                     type="range"
@@ -35,7 +38,7 @@ export default function InputBar() {
                 ></input>
             </div>
             <div className="grid grid-cols-8 gap-2 items-center">
-                <label className="md:col-span-1 col-span-2">Cooling</label>
+                <label className="md:col-span-1 col-span-2">{t("Input--Cooling-Label")}</label>
                 <span className="text-right mr-2">{reactorData.currentCoolingLevel}</span>
                 <input
                     type="range"

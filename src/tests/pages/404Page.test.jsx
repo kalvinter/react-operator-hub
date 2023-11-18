@@ -15,7 +15,11 @@ test('page loads without error', () => {
     )
 
     // Make sure that the page renders
-    expect(screen.getByText(/404/)).toBeInTheDocument()
+    let nodes = screen.getAllByText(/404/)
+
+    nodes.forEach((node) => {
+        expect(node).toBeInTheDocument()
+    })
 
     // Make sure that there is button that leads back to the main page
     let link = screen.getByRole('link')

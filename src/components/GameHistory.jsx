@@ -5,10 +5,13 @@ import { gameHistoryManager } from '../game/GameHistoryManager'
 import { ArrowLeftOnRectangleIcon, CheckIcon, ListBulletIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import { GameEndTypes } from '../game/Config'
 import ShiftProgressGraph from './ShiftProgressGraph'
+import { useTranslation } from 'react-i18next'
 
 export const gameHistoryCardTestId = 'gameHistoryCardTestId'
 
 export function GameHistoryCard(props) {
+    const {t} = useTranslation()
+
     let entry = props.gameHistoryEntry
 
     let statusColor = ''
@@ -29,18 +32,34 @@ export function GameHistoryCard(props) {
             break
     }
 
+    let gameStatusLabel;
+
+    switch (entry.gameStatus){
+        case GameEndTypes.shiftWasFinished:
+            gameStatusLabel = t("Finished")
+            break
+
+        case GameEndTypes.aborted:
+            gameStatusLabel = t("Aborted")
+            break
+
+        case GameEndTypes.shiftWasFinished:
+            gameStatusLabel = t("Lost")
+            break
+    }
+
     return (
         <div className="bg-element w-full p-2 rounded" data-testid={gameHistoryCardTestId}>
             <div className="grid grid-cols-12 items-center gap-2">
                 <div className="flex flex-col col-span-2 md:col-span-1 min-h-[2rem] min-w-[2rem] justify-center">
                     {icon}
-                    <small className={`${statusColor} text-center`}>{entry.gameStatus}</small>
+                    <small className={`${statusColor} text-center`}>{gameStatusLabel}</small>
                 </div>
                 <div className="flex gap-2 col-span-10 md:col-span-4 justify-around">
                     <span>
                         {entry.date.toLocaleDateString('de-DE')} {entry.date.getUTCHours()}:{entry.date.getUTCMinutes()}
                     </span>
-                    <span>{entry.timeRunningInSeconds.toFixed(0)} seconds</span>
+                    <span>{entry.timeRunningInSeconds.toFixed(0)} {t("seconds")}</span>
                 </div>
                 <div className="col-span-12 md:col-span-7">
                     <ShiftProgressGraph
@@ -58,33 +77,31 @@ export function GameHistoryCard(props) {
 const displayedHistoryEntriesLimit = 5
 
 export default function GameHistorySummary() {
-    // const [addGameHistoryEntry, deleteGameHistory, gameHistory] = useGameHistory()
+    const {t} = useTranslation()
 
-    // console.warn("gameHistory in history summary, ", gameHistory)
-    // const gameHistoryManager = useGameHistory()
     let gameHistory = gameHistoryManager.gameHistory
-    let gameHistoryList = <div>You have not played any games yet. Finished games and highscores will appear here.</div>
+    let gameHistoryList = <div>{t("No-Games-Yet-Message")}</div>
 
     if (gameHistory.length > 0) {
         gameHistoryList = gameHistory
             .slice(0, displayedHistoryEntriesLimit)
             .map((gameHistoryEntry) => (
-                <GameHistoryCard gameHistoryEntry={gameHistoryEntry} key={gameHistoryEntry.date} />
+                <GameHistoryCard gameHistoryEntry={gameHistoryEntry} key={gameHistoryEntry.id} />
             ))
     }
-
+    console.log(gameHistoryList)
     let showMoreButton = ''
 
     if (gameHistory.length > displayedHistoryEntriesLimit) {
-        showMoreButton = <Link to={`game-history/`}>all Game History Entries</Link>
+        showMoreButton = <Link to={`game-history/`}>{t("All-Game-Entries-Link-Label")}</Link>
     }
 
-    let displayedEntriesSummary = <small>{gameHistory.length} Entries</small>
+    let displayedEntriesSummary = <small>{gameHistory.length} {t("Entries")}</small>
 
     if (gameHistory.length > displayedHistoryEntriesLimit) {
         displayedEntriesSummary = (
             <small>
-                Showing {displayedHistoryEntriesLimit} of {gameHistory.length} Entries{' '}
+                {t("Game-History--showing")} {displayedHistoryEntriesLimit} {t("Game-History--of")} {gameHistory.length} {t("Game-History--Entries")}
             </small>
         )
     }
@@ -93,7 +110,7 @@ export default function GameHistorySummary() {
         <div className="w-full">
             <div className="flex flex-row justify-between">
                 <h2 className="flex items-center">
-                    <ListBulletIcon className="small-icon mr-2"></ListBulletIcon> Game History
+                    <ListBulletIcon className="small-icon mr-2"></ListBulletIcon> {t("Game-History--Header")}
                 </h2>
                 {showMoreButton}
             </div>

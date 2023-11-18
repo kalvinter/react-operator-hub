@@ -5,11 +5,11 @@ import GameHistoryPage, { gameHistoryPageTestId } from '../../pages/GameHistoryP
 
 import { gameHistoryCardTestId } from '../../components/GameHistory'
 
-import { storedDataTypes, gameHistoryEntry } from '../../game/Storage'
-import { GameEndTypes } from '../../game/Config'
+import { storedDataTypes } from '../../game/Storage'
 
 import { gameHistoryManager } from '../../game/GameHistoryManager'
 import { MemoryRouter } from 'react-router-dom'
+import { gameHistoryEntriesUnlockingAchievments } from '../utils'
 
 describe('page loads without error', () => {
     afterEach(() => {
@@ -32,26 +32,11 @@ describe('page loads without error', () => {
     })
 
     test('with GameHistoryItems', () => {
-        let gameHistoryEntries = [
-            new gameHistoryEntry({
-                date: new Date(),
-                timeRunningInSeconds: 50,
-                shiftTimeLeft: 70,
-                producedEnergy: 0,
-                achievedMatchedRate: 0.2,
-                demandMatchedStatusHistory: [],
-                gameStatus: GameEndTypes.aborted,
-            }).serialize(),
-            new gameHistoryEntry({
-                date: new Date(),
-                timeRunningInSeconds: 120,
-                shiftTimeLeft: 0,
-                producedEnergy: 0,
-                achievedMatchedRate: 1,
-                demandMatchedStatusHistory: [],
-                gameStatus: GameEndTypes.shiftWasFinished,
-            }).serialize(),
-        ]
+        let gameHistoryEntries = []
+
+        gameHistoryEntriesUnlockingAchievments.map((entry) => {
+            gameHistoryEntries.push(entry.serialize())
+        })
 
         localStorage.setItem(storedDataTypes.gameHistory, JSON.stringify(gameHistoryEntries))
 
@@ -60,6 +45,7 @@ describe('page loads without error', () => {
          * beginning of the test
          */
         gameHistoryManager.reloadHistoryFromStorage()
+
         render(
             <MemoryRouter>
                 <GameHistoryPage />
@@ -73,6 +59,8 @@ describe('page loads without error', () => {
 
         // The screen should include two GameHistoryCards
         let nodes = screen.getAllByTestId(gameHistoryCardTestId)
+        
+        expect(nodes.length).equals(2)
 
         nodes.forEach((node) => {
             expect(node).toBeInTheDocument()

@@ -7,6 +7,7 @@ class GameHistoryManager {
     }
 
     addNewEntry(newGameHistory) {
+        console.log(newGameHistory)
         this.gameHistory = [newGameHistory, ...this.gameHistory]
         this.gameHistoryStorage.save({
             gameHistory: this.gameHistory,

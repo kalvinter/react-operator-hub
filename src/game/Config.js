@@ -9,7 +9,7 @@ export const GameConfig = {
     maximumPossibleDemand: 800,
     baseDemandAddition: 200,
 
-    demandChangeStepSize: 5,
+    demandChangeStepSize: 3,
 
     // 50 * 20 = 1 second * 60 * X = X Minutes
     shiftDuration: 50 * 20 * 60 * 2,
