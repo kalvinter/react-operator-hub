@@ -8,32 +8,35 @@ import { ArrowLeftIcon } from '@heroicons/react/20/solid'
 import { achievementsManager } from '../game/Achievements'
 
 import Card from '../components/common/Card'
+import { useTranslation } from 'react-i18next'
 
 export const achievemenetsPageTestId = 'game-history-page'
 
 export default function AchievementsPage() {
+    const {t} = useTranslation()
+
     let unlockedAchievements = achievementsManager.getUnlockedAchievements()
 
     return (
         <div className="w-full" data-testid={achievemenetsPageTestId}>
             <Card className="align-center flex">
                 <Link to={`/`} className="flex items-center gap-2 no-underline">
-                    <ArrowLeftIcon className="small-icon"></ArrowLeftIcon>Go Back
+                    <ArrowLeftIcon className="small-icon"></ArrowLeftIcon>{t("Go-Back-Button-Label")}
                 </Link>
             </Card>
 
             <Card>
                 <h2 className="flex items-center">
-                    <StarIcon className="small-icon mr-2"></StarIcon> Achievements
+                    <StarIcon className="small-icon mr-2"></StarIcon> {t("Achievements")}
                 </h2>
 
                 <p className="mb-6">
                     <small className="w-full">
-                        {unlockedAchievements.length} / {achievementsManager.availableAchievements.length} unlocked
+                        {unlockedAchievements.length} / {achievementsManager.availableAchievements.length} {t("unlocked")}
                     </small>
                 </p>
-
-                <h4>Achievements related to the Achieved Mathed Rate</h4>
+                
+                <h4>{t("Achievements-Group-Matched-Rate--Header")}</h4>
                 <div className="mb-6 flex gap-2 flex-col">
                     {achievementsManager
                         .getAchievementsByGroup({ achievementGroup: AchievementGroups.achievedMatchedRate })
@@ -47,8 +50,8 @@ export default function AchievementsPage() {
                             )
                         })}
                 </div>
-
-                <h4>Achievements related to finished Shifts</h4>
+                
+                <h4>{t("Achievements-Group-Finished-Shifts--Header")}</h4>
                 <div className="mb-6 flex gap-2 flex-col">
                     {achievementsManager
                         .getAchievementsByGroup({ achievementGroup: AchievementGroups.numberOfGames })
@@ -63,7 +66,7 @@ export default function AchievementsPage() {
                         })}
                 </div>
 
-                <h4>Other Achievements</h4>
+                <h4>{t("Achievements-Group-Other--Header")}</h4>
                 <div className="mb-1 flex gap-2 flex-col">
                     {achievementsManager
                         .getAchievementsByGroup({ achievementGroup: AchievementGroups.numberOfGameEnds })

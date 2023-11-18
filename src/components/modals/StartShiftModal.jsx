@@ -1,32 +1,37 @@
 import ModalFooter from './ModalFooter'
 import Button from '../common/Button'
 import ModalLayout from './ModalLayout'
+import { BoltIcon } from '@heroicons/react/20/solid'
 import { buttonTypes } from '../common/Button'
+import { useTranslation } from 'react-i18next'
 
 export default function StartShiftModal(props) {
+    const {t} = useTranslation()
+
     return (
-        <ModalLayout showModal={props.showModal} title={'Welcome, Operator!'}>
+        <ModalLayout showModal={props.showModal} title={t("StartShiftModal--Title")}>
             <div className="relative p-6 flex-auto">
                 <div className="text-lg leading-relaxed">
-                    <p>Your shift is about to start and will last {props.shiftDurationInSeconds} seconds.</p>
+                    <p>{t("StartShiftModal--Duration-Prefix")} <b>{props.shiftDurationInSeconds} {t("seconds")}</b>{t("StartShiftModal--Duration-Ending")}</p>
 
                     <p>
-                        You are in charge of this reactor's energy output. Keep it matched to the current electricity
-                        demand in the grid. At the end of your shift, you will be judged by how well you matched the
-                        demand.
+                        {t("StartShiftModal--Explanation")}
                     </p>
 
                     <p className="font-bold my-4">
-                        But be careful ... <br></br> do not let the reactor's temperature get above{' '}
-                        {props.maximumTemperature} °C or you will be fired!
+                        {t("StartShiftModal--Warning-Start")}
+                        {props.maximumTemperature} °C {t("StartShiftModal--Warning-End")}
                     </p>
 
-                    <p>Good luck on your shift, operator ... you will need it.</p>
+                    <p>{t("StartShiftModal--Good-Luck")}</p>
                 </div>
             </div>
             <ModalFooter>
                 <Button buttonType={buttonTypes.successButton} onClick={() => props.actionButtonOnClick()}>
-                    Start Shift
+                    <div className="flex items-center">
+                        <BoltIcon className="small-icon mr-2" />
+                        {t("StartShiftModal--Start-Shift-Button-Label")}
+                    </div>
                 </Button>
             </ModalFooter>
         </ModalLayout>

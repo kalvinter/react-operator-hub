@@ -1,0 +1,81 @@
+{
+    "Decrease-Blackout-Drill": "Blackout Drill in Industrial Area",
+    "Decrease-Blackout-Drill-textStart": "One of the largest factories is conducting a blackout drill for emergency preparedness. Small demand decrease expected shortly!",
+    "Decrease-Blackout-Drill-textEnd": "The blackout drill has ended. Small demand increase expected shortly!",
+
+    "Decrease-Streaming-Platforms-Down": "Major Streaming Platforms are down",
+    "Decrease-Streaming-Platforms-Down-textStart": "Major streaming platforms are down, significantly reducing internet activity. Small demand decrease expected shortly!",
+    "Decrease-Streaming-Platforms-Down-textEnd": "The streaming platforms are online again. Small demand increase expected shortly!",
+
+    "Decrease-Social-Media-Break": "Celebrity calls for Social Media Break",
+    "Decrease-Social-Media-Break-textStart": "A major celebrity has called on people for a social media break to improve their mental health. Small demand decrease expected shortly!",
+    "Decrease-Social-Media-Break-textEnd": "Despite pledges, few could resist the pull of social media for long. Small demand increase expected shortly!",
+
+    "Decrease-Online-Platforms-Down": "Major online Platforms are down",
+    "Decrease-Online-Platforms-Down-textStart": "Due to a cyber attack, several large online platforms are down. People are now less online. Low demand decrease expected shortly!",
+    "Decrease-Online-Platforms-Down-textEnd": "The platforms are up again. Low demand increase expected shortly!",
+
+    "Decrease-Factory-Maintenance": "Scheduled Maintenance at Factories",
+    "Decrease-Factory-Maintenance-textStart": "Several factory buildings are shut down due to scheduled maintenance of the machinery. Medium demand decrease expected shortly!",
+    "Decrease-Factory-Maintenance-textEnd": "The scheduled factory maintenance has ended. Medium demand increase expected shortly!",
+
+    "Decrease-High-Solar-Output": "High Solar Energy Output",
+    "Decrease-High-Solar-Output-textStart": "A cloudless sky and strong sun increase electricity generated from solar energy farms. Medium demand decrease expected shortly!",
+    "Decrease-High-Solar-Output-textEnd": "Solar output decreased again. Medium demand increase expected shortly!",
+
+    "Decrease-High-Wind-Output": "High Wind Energy Output",
+    "Decrease-High-Wind-Output-textStart": "Strong winds increase electricity generated from wind farms. Medium demand decrease expected shortly!",
+    "Decrease-High-Wind-Output-textEnd": "Winds have returned to normal. Medium demand increase expected shortly!",
+
+    "Decrease-Earth-Hour": "Earth Hour started",
+    "Decrease-Earth-Hour-textStart": "People participate in Earth Hour, turning off lights and electronics. Large demand decrease expected shortly!",
+    "Decrease-Earth-Hour-textEnd": "Earth hour has ended. Large demand increase expected shortly!",
+
+    "Decrease-Power-Grid-Failure": "Partial Power Grid Failure",
+    "Decrease-Power-Grid-Failure-textStart": "Construction workers caused a district-wide power outage. Large demand decrease expected shortly!",
+    "Decrease-Power-Grid-Failure-textEnd": "Power grid stability restored. Large demand increase expected shortly!",
+
+    "Decrease-Climate-Protest": "Climate protesters disrupting Factories",
+    "Decrease-Climate-Protest-textStart": "Climate protesters glued themselves to roads shutting down most adjacent factories. Large demand decrease expected shortly!",
+    "Decrease-Climate-Protest-textEnd": "The protesters were removed by police. Large demand increase expected shortly!",
+
+    "Increase-New-Netflix-Series": "New Netflix Series",
+    "Increase-New-Netflix-Series-textStart": "Everybody is about to watch the new series on Netflix. Low demand increase expected shortly!",
+    "Increase-New-Netflix-Series-textEnd": "Most people have finished watching the new episode. Low demand decrease expected shortly!",
+
+    "Increase-AI-Fridge-Leak": "AI-Powered Fridge Leak",
+    "Increase-AI-Fridge-Leak-textStart": "A leak about a prototype for an AI-powered fridge goes viral on social media. Low demand surge expected!",
+    "Increase-AI-Fridge-Leak-textEnd": "The leak turned out to be a fake. Low demand decrease expected shortly!",
+
+    "Increase-Real-Estate-Rumors": "Real Estate Firm Rumors",
+    "Increase-Real-Estate-Rumors-textStart": "Rumors about a large real estate firm struggling spur hectic online trading and social media buzz. Low demand surge expected!",
+    "Increase-Real-Estate-Rumors-textEnd": "The rumors were found to be exaggerated. Low demand decrease expected shortly!",
+
+    "Increase-Celebrity-Scandal": "Celebrity Scandal causes Social Media Frenzy",
+    "Increase-Celebrity-Scandal-textStart": "A celebrity scandal just broke, leading a nation-wide social media frenzy. Low demand increase expected shortly!",
+    "Increase-Celebrity-Scandal-textEnd": "The scandal has died down. Low demand decrease expected shortly!",
+
+    "Increase-Double-Shifts-Factory": "Double-Shifts at Factories",
+    "Increase-Double-Shifts-Factory-textStart": "Temporary double-shifts were introduced at the industrial center. Medium demand surge expected shortly!",
+    "Increase-Double-Shifts-Factory-textEnd": "Temporary double-shifts at the industrial center ended. Medium demand decrease expected shortly!",
+
+    "Increase-LLM-App-Launch": "New LLM-App launched",
+    "Increase-LLM-App-Launch-textStart": "A new LLM wrapper app was launched and everyone is hyped. Medium demand surge by our data centers expected shortly!",
+    "Increase-LLM-App-Launch-textEnd": "People realised that the new app was not so good. Medium demand decrease expected shortly!",
+
+    "Increase-Government-Press-Conference": "Government Press Conference",
+    "Increase-Government-Press-Conference-textStart": "A highly anticipated government press conference on inflation measures has started. Medium demand surge expected shortly!",
+    "Increase-Government-Press-Conference-textEnd": "The press conference has concluded and social media activity is subsiding. Medium demand decrease expected shortly!",
+
+    "Increase-Championship-Game": "Championship Game",
+    "Increase-Championship-Game-textStart": "The national sports championship is about to begin, leading to increased TV and appliance use. Large demand surge expected shortly!",
+    "Increase-Championship-Game-textEnd": "The game has ended. Large demand decrease expected shortly!",
+
+    "Increase-Citywide-Festival": "City-wide Festival lights up the Night",
+    "Increase-Citywide-Festival-textStart": "A large city-wide festival with extensive lighting and sound systems is underway. Large demand surge expected shortly!",
+    "Increase-Citywide-Festival-textEnd": "The festival has concluded for the night. Large demand decrease expected shortly!",
+
+    "Increase-Reactor-7-Down": "Reactor #7 is down",
+    "Increase-Reactor-7-Down-textStart": "Technical difficulties at reactor #7. Large demand surge expected shortly!",
+    "Increase-Reactor-7-Down-textEnd": "Reactor #7 will soon be back online. Large demand decrease expected shortly!"
+}

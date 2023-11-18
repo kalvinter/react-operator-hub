@@ -23,6 +23,7 @@
         ]
     },
     "scripts": {
+        "extract-translations": "i18next -c i18next-parser.config.js",
         "deploy": "gh-pages -d dist",
         "dev": "vite",
         "build": "vite build",
@@ -38,6 +39,9 @@
         "autoprefixer": "^10.4.16",
         "chart.js": "^4.4.0",
         "framer-motion": "^10.16.5",
+        "i18next": "^23.7.6",
+        "i18next-browser-languagedetector": "^7.2.0",
+        "i18next-parser": "^8.9.0",
         "jsdom": "^22.1.0",
         "localforage": "^1.10.0",
         "match-sorter": "^6.3.1",
@@ -45,6 +49,7 @@
         "react": "^18.2.0",
         "react-chartjs-2": "^5.2.0",
         "react-dom": "^18.2.0",
+        "react-i18next": "^13.5.0",
         "react-router-dom": "^6.18.0",
         "react-transition-group": "^4.4.5",
         "sort-by": "^0.0.2",

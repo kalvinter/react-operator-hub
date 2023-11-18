@@ -1,24 +1,27 @@
 import ModalFooter from './ModalFooter'
 import ModalLayout from './ModalLayout'
 import Button, { buttonTypes } from '../common/Button'
+import { useTranslation } from 'react-i18next'
 
 export default function ResetHistoryModal(props) {
+    const {t} = useTranslation()
+
     return (
-        <ModalLayout showModal={props.showModal} title={'Reset saved History'}>
+        <ModalLayout showModal={props.showModal} title={t("ResetHistoryModal--Title")}>
             <div className="relative p-6 flex-auto">
                 <div className="my-4 text-lg leading-relaxed">
-                    <h4>Are you sure?</h4>
+                    <h4>{t("ResetHistoryModal--Are-You-Sure")}</h4>
 
-                    <p>Deleting your locally saved history cannot be reversed</p>
+                    <p>{t("ResetHistoryModal--Explanation")}</p>
                 </div>
             </div>
             <ModalFooter>
                 <Button buttonType={buttonTypes.neutralButton} onClick={() => props.cancelButtonOnClick()}>
-                    Cancel
+                    {t("Cancel-Button-Label")}
                 </Button>
 
                 <Button buttonType={buttonTypes.dangerButton} onClick={() => props.deleteButtonOnClick()}>
-                    Delete History
+                    {t("ResetHistoryModal--Confirm-Button-Label")}
                 </Button>
             </ModalFooter>
         </ModalLayout>

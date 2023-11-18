@@ -1,0 +1,81 @@
+{
+    "Decrease-Blackout-Drill": "Blackout-Übung im Industriegebiet",
+    "Decrease-Blackout-Drill-textStart": "Eine der größten Fabriken führt eine Blackout-Übung zur Notfallvorsorge durch. Geringer Nachfragerückgang in Kürze erwartet!",
+    "Decrease-Blackout-Drill-textEnd": "Die Blackout-Übung ist beendet. Geringer Nachfrageanstieg in Kürze erwartet!",
+
+    "Decrease-Streaming-Platforms-Down": "Wichtige Streaming-Plattformen sind ausgefallen",
+    "Decrease-Streaming-Platforms-Down-textStart": "Wichtige Streaming-Plattformen sind ausgefallen, was die Internetaktivität deutlich reduziert. Geringer Nachfragerückgang in Kürze erwartet!",
+    "Decrease-Streaming-Platforms-Down-textEnd": "Die Streaming-Plattformen sind wieder online. Geringer Nachfrageanstieg in Kürze erwartet!",
+
+    "Decrease-Social-Media-Break": "Celebrity fordern Social-Media-Pause",
+    "Decrease-Social-Media-Break-textStart": "Ein Celebrity ruft zu einer Social-Media-Pause auf, um die psychische Gesundheit zu verbessern. Geringer Nachfragerückgang in Kürze erwartet!",
+    "Decrease-Social-Media-Break-textEnd": "Trotz Versprechen konnten nur wenige den sozialen Medien lange widerstehen. Geringer Nachfrageanstieg in Kürze erwartet!",
+
+    "Decrease-Online-Platforms-Down": "Große Online-Plattformen sind ausgefallen",
+    "Decrease-Online-Platforms-Down-textStart": "Aufgrund eines Cyberangriffs sind mehrere große Online-Plattformen ausgefallen. Weniger Menschen sind online. Geringer Nachfragerückgang in Kürze erwartet!",
+    "Decrease-Online-Platforms-Down-textEnd": "Die Plattformen sind wieder verfügbar. Geringer Nachfrageanstieg in Kürze erwartet!",
+
+    "Decrease-Factory-Maintenance": "Geplante Wartungen in Fabriken",
+    "Decrease-Factory-Maintenance-textStart": "Mehrere Fabrikgebäude sind wegen geplanter Maschinenwartungen geschlossen. Mittlerer Nachfragerückgang in Kürze erwartet!",
+    "Decrease-Factory-Maintenance-textEnd": "Die geplante Wartung in den Fabriken ist beendet. Mittlerer Nachfrageanstieg in Kürze erwartet!",
+
+    "Decrease-High-Solar-Output": "Hohe Solarstromproduktion",
+    "Decrease-High-Solar-Output-textStart": "Ein wolkenloser Himmel und starke Sonneneinstrahlung erhöhen die Stromerzeugung in Solaranlagen. Mittlerer Nachfragerückgang in Kürze erwartet!",
+    "Decrease-High-Solar-Output-textEnd": "Die Solarstromproduktion hat wieder abgenommen. Mittlerer Nachfrageanstieg in Kürze erwartet!",
+
+    "Decrease-High-Wind-Output": "Hohe Windenergieproduktion",
+    "Decrease-High-Wind-Output-textStart": "Starke Winde erhöhen die Stromerzeugung in Windkraftanlagen. Mittlerer Nachfragerückgang in Kürze erwartet!",
+    "Decrease-High-Wind-Output-textEnd": "Die Winde haben sich normalisiert. Mittlerer Nachfrageanstieg in Kürze erwartet!",
+
+    "Decrease-Earth-Hour": "Earth Hour hat begonnen",
+    "Decrease-Earth-Hour-textStart": "Die Menschen nehmen an der Earth Hour teil und schalten Lichter und Elektronik aus. Großer Nachfragerückgang in Kürze erwartet!",
+    "Decrease-Earth-Hour-textEnd": "Die Earth Hour ist beendet. Großer Nachfrageanstieg in Kürze erwartet!",
+
+    "Decrease-Power-Grid-Failure": "Teilweiser Stromnetzausfall",
+    "Decrease-Power-Grid-Failure-textStart": "Bauarbeiter haben einen stadtweiten Stromausfall verursacht. Großer Nachfragerückgang in Kürze erwartet!",
+    "Decrease-Power-Grid-Failure-textEnd": "Die Stabilität des Stromnetzes ist wiederhergestellt. Großer Nachfrageanstieg in Kürze erwartet!",
+
+    "Decrease-Climate-Protest": "Klimaproteste stören Fabriken",
+    "Decrease-Climate-Protest-textStart": "Klimaprotestierende haben sich auf Straßen geklebt und die angrenzende Fabriken stillgelegt. Großer Nachfragerückgang in Kürze erwartet!",
+    "Decrease-Climate-Protest-textEnd": "Die Protestierenden wurden von der Polizei entfernt. Großer Nachfrageanstieg in Kürze erwartet!",
+
+    "Increase-New-Netflix-Series": "Neue Netflix-Serie",
+    "Increase-New-Netflix-Series-textStart": "Eine neue Serie auf Netflix führt zu Rekordzuseherzahlen. Geringer Nachfrageanstieg in Kürze erwartet!",
+    "Increase-New-Netflix-Series-textEnd": "Die meisten Menschen haben die neue Folgen auf Netflix gesehen. Geringer Nachfragerückgang in Kürze erwartet!",
+
+    "Increase-AI-Fridge-Leak": "Leak eines AI-betriebenen Kühlschranks",
+    "Increase-AI-Fridge-Leak-textStart": "Ein Leak über einen Prototyp eines AI-betriebenen Kühlschranks geht in den sozialen Medien viral. Geringer Nachfrageanstieg erwartet!",
+    "Increase-AI-Fridge-Leak-textEnd": "Das Leak stellte sich als Fälschung heraus. Geringer Nachfragerückgang in Kürze erwartet!",
+
+    "Increase-Real-Estate-Rumors": "Gerüchte um Immobilienfirma",
+    "Increase-Real-Estate-Rumors-textStart": "Gerüchte über Schwierigkeiten einer großen Immobilienfirma führen zu Aufgregung in sozialen Medien. Geringer Nachfrageanstieg erwartet!",
+    "Increase-Real-Estate-Rumors-textEnd": "Die Gerüchte erwiesen sich als übertrieben. Geringer Nachfragerückgang in Kürze erwartet!",
+
+    "Increase-Celebrity-Scandal": "Promi-Skandal löst Social-Media-Wahnsinn aus",
+    "Increase-Celebrity-Scandal-textStart": "Ein Promi-Skandal ist aufgebrochen und führt zu einem landesweiten Social-Media-Wahnsinn. Geringer Nachfrageanstieg in Kürze erwartet!",
+    "Increase-Celebrity-Scandal-textEnd": "Der Skandal hat sich gelegt. Geringer Nachfragerückgang in Kürze erwartet!",
+
+    "Increase-Double-Shifts-Factory": "Doppelschichten in Fabriken",
+    "Increase-Double-Shifts-Factory-textStart": "Vorübergehend wurden Doppelschichten im Industriezentrum eingeführt. Mittlerer Nachfrageanstieg in Kürze erwartet!",
+    "Increase-Double-Shifts-Factory-textEnd": "Die vorübergehenden Doppelschichten im Industriezentrum sind beendet. Mittlerer Nachfragerückgang in Kürze erwartet!",
+
+    "Increase-LLM-App-Launch": "Neue LLM-App gelauncht",
+    "Increase-LLM-App-Launch-textStart": "Eine neue LLM-Wrapper-App wurde gelauncht und alle sind begeistert. Mittlerer Nachfrageanstieg in Kürze erwartet!",
+    "Increase-LLM-App-Launch-textEnd": "Die Menschen haben erkannt, dass die neue App doch nicht so gut ist. Mittlerer Nachfragerückgang in Kürze erwartet!",
+
+    "Increase-Government-Press-Conference": "Regierungspressekonferenz",
+    "Increase-Government-Press-Conference-textStart": "Eine mit Spannung erwartete Regierungspressekonferenz zu Inflationsmaßnahmen hat begonnen. Mittlerer Nachfrageanstieg in Kürze erwartet!",
+    "Increase-Government-Press-Conference-textEnd": "Die Pressekonferenz ist beendet und die Aktivität in den sozialen Medien nimmt ab. Mittlerer Nachfragerückgang in Kürze erwartet!",
+
+    "Increase-Championship-Game": "Meisterschaftsspiel",
+    "Increase-Championship-Game-textStart": "Die nationale Sportmeisterschaft beginnt gleich. Erhöhter Gebrauch von Fernsehern und Geräten. Große Nachfragesteigerung in Kürze erwartet!",
+    "Increase-Championship-Game-textEnd": "Das Spiel ist beendet. Große Nachfrageabnahme in Kürze erwartet!",
+
+    "Increase-Citywide-Festival": "Stadtfest erleuchtet die Nacht",
+    "Increase-Citywide-Festival-textStart": "Ein großes Stadtfest mit umfangreicher Beleuchtung und Soundanlagen ist im Gange. Große Nachfragesteigerung in Kürze erwartet!",
+    "Increase-Citywide-Festival-textEnd": "Das Fest ist für heute Nacht beendet. Große Nachfrageabnahme in Kürze erwartet!",
+
+    "Increase-Reactor-7-Down": "Reaktor #7 ist ausgefallen",
+    "Increase-Reactor-7-Down-textStart": "Technische Schwierigkeiten bei Reaktor #7. Große Nachfragesteigerung in Kürze erwartet!",
+    "Increase-Reactor-7-Down-textEnd": "Reaktor #7 wird bald wieder online sein. Große Nachfrageabnahme in Kürze erwartet!"
+}

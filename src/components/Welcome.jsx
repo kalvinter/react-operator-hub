@@ -1,37 +1,40 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next';
 
 import { InformationCircleIcon } from '@heroicons/react/20/solid'
 
 function Welcome() {
+    const {t} = useTranslation()
+
     return (
         <div>
             <h2 className="flex items-center">
-                <InformationCircleIcon className="small-icon mr-2" /> Welcome to the Grid
+                <InformationCircleIcon className="small-icon mr-2" /> {t("Welcome-Header")}
             </h2>
 
             <p>
-                You are a reactor operator at the heart of the nation's power grid. Your mission? Keep the country
-                powered up! But remember, it's all about balance: match the country's electricity demand without
-                overloading the system. <b>Start your shift to take control of the reactor.</b>
+                {t("Welcome-Introduction")}
+            </p>
+            <p className='mb-6'>
+                <b>{t("Welcome-Introduction-CTA")}</b>
             </p>
 
-            <h3 className="mt-4">Reactor Essentials</h3>
+            <h3 className="mt-4">{t("Welcome-Sub-Header-Essentials")}</h3>
             <p>
-                Your reactor relies on <b>fuel</b> to generate electricity. The more fuel you use, the hotter the
-                reactor becomes, leading to increased power output.
+                {t("Welcome-Essentials-Fuel-Text")}
             </p>
-            <p>
-                <b>Stay vigilant!</b> <b>Demand</b> can fluctuate based on various events, such as other reactors going
-                offline. These events will be highlighted at the top of your screen.
+            <p className='mb-6'>
+                <b>{t("Welcome-Essentials-Call-to-Attention")} </b> 
+                {t("Welcome-Essentials-Demand-Text")}
             </p>
 
-            <h3 className="mt-4">Quick Tips for Power Mastery:</h3>
+            <h3 className="mt-4">{t("Welcome-Sub-Header-Quick-Tips")}</h3>
             <ul className="list-inside list-disc mb-2">
-                <li>Adding fuel boosts power but also heats up the reactor.</li>
-                <li>A hotter reactor means a faster reaction-factor, giving you more power.</li>
-                <li>If things heat up too much, up the cooling level to keep things stable.</li>
-                <li>Always be on the lookout for events affecting power demand.</li>
-                <li>Always maintain power production within the optimal green zone to earn achievements.</li>
+                <li>{t("Welcome-Quick-Tip-Fuel-Heat")}</li>
+                <li>{t("Welcome-Quick-Tip-Heat")}</li>
+                <li>{t("Welcome-Quick-Tip-Heat-Cooling")}</li>
+                <li>{t("Welcome-Quick-Tip-Events")}</li>
+                <li>{t("Welcome-Quick-Tip-Demand-Match")}</li>
             </ul>
         </div>
     )

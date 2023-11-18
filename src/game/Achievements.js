@@ -1,3 +1,5 @@
+import i18n from '../i18n.js'
+
 import { GameEndTypes } from './Config'
 
 export const AchievementGroups = {
@@ -20,9 +22,9 @@ const AchievementTypes = {
 }
 
 class Achievement {
-    constructor({ label, description, order, achievementGroup, targetMetric, targetValue, achievementType }) {
-        this.label = label
-        this.description = description || ''
+    constructor({ labelKey, descriptionKey, order, achievementGroup, targetMetric, targetValue, achievementType }) {
+        this.labelKey = labelKey
+        this.descriptionKey = descriptionKey
 
         /* This is used to group achievements together. Achievement within the same group 
         will be displayed together. 
@@ -44,6 +46,16 @@ class Achievement {
 
         /* This is used to render the appropriate achievement badge */
         this.achievementType = achievementType || ''
+    }
+
+    getLabel(){
+        return i18n.t(this.labelKey, { ns: "achievements" })
+    }
+
+    getDescription(){
+        console.log(i18n.t(this.descriptionKey, { ns: "achievements" }))
+        console.log(this.descriptionKey)
+        return i18n.t(this.descriptionKey, { ns: "achievements" })
     }
 
     unlock({ gameHistoryEntries }) {
@@ -103,92 +115,91 @@ class GameHistoryNumberAchievement extends Achievement {
 const getInitialAvailabelAchievements = () => {
     return [
         new Achievement({
-            label: 'Recrut',
+            labelKey: 'Recrut',
             order: 1,
-            description:
-                'Achieve a matched rate of 10 %. Not really impressive but at least you did not blow anything up ...',
+            descriptionKey: 'Recrut-Description',
             achievementGroup: AchievementGroups.achievedMatchedRate,
             targetMetric: AchievementMetricTypes.achievedMatchedRate,
             targetValue: 0.1,
         }),
         new Achievement({
-            label: 'Solid Worker',
+            labelKey: 'Solid Worker',
             order: 2,
-            description: 'Achieve a matched rate of 50 % and prove that you are somewhat capable for this job ...',
+            descriptionKey: 'Solid Worker-Description',
             achievementGroup: AchievementGroups.achievedMatchedRate,
             targetMetric: AchievementMetricTypes.achievedMatchedRate,
             targetValue: 0.5,
         }),
         new Achievement({
-            label: 'Expert',
+            labelKey: 'Expert',
             order: 3,
-            description: 'Achieve a matched rate of 70 % and prove that you are an expert in your field!',
+            descriptionKey: 'Expert-Description',
             achievementGroup: AchievementGroups.achievedMatchedRate,
             targetMetric: AchievementMetricTypes.achievedMatchedRate,
             targetValue: 0.7,
         }),
         new Achievement({
-            label: 'Hero',
+            labelKey: 'Hero',
             order: 4,
-            description: 'Achieve a matched rate of 80 % and become the hero of the grid!',
+            descriptionKey: 'Hero-Description',
             achievementGroup: AchievementGroups.achievedMatchedRate,
             targetMetric: AchievementMetricTypes.achievedMatchedRate,
             targetValue: 0.8,
         }),
         new Achievement({
-            label: 'God',
+            labelKey: 'God',
             order: 5,
-            description:
-                'Achieve a matched rate of 90 % and become the GOD of the grid! We thought this was impossible ... ',
+            descriptionKey:
+                'God-Description',
             achievementGroup: AchievementGroups.achievedMatchedRate,
             targetMetric: AchievementMetricTypes.achievedMatchedRate,
             targetValue: 0.9,
         }),
         new GameHistoryNumberAchievement({
-            label: 'First Day',
+            labelKey: 'First Day',
             order: 1,
-            description: 'Finish your first shift!',
+            descriptionKey: 'First Day-Description',
             achievementGroup: AchievementGroups.numberOfGames,
             targetMetric: AchievementMetricTypes.numberOfGames,
             targetValue: 1,
         }),
         new GameHistoryNumberAchievement({
-            label: 'Regular',
+            labelKey: 'Regular',
             order: 2,
-            description: 'Finish your second shift and show that you are a member of our operator team!',
+            descriptionKey: 'Regular-Description',
             achievementGroup: AchievementGroups.numberOfGames,
             targetMetric: AchievementMetricTypes.numberOfGames,
             targetValue: 2,
         }),
         new GameHistoryNumberAchievement({
-            label: 'Senior',
+            labelKey: 'Senior',
             order: 3,
-            description: 'Finish five shifts and become a senior member the team!',
+            descriptionKey: 'Senior-Description',
             achievementGroup: AchievementGroups.numberOfGames,
             targetMetric: AchievementMetricTypes.numberOfGames,
             targetValue: 5,
         }),
         new GameHistoryNumberAchievement({
-            label: 'Veteram',
+            labelKey: 'Veteran',
             order: 3,
-            description: 'Finish ten shifts and show your dedication to our power grid!',
+            descriptionKey: 'Veteran-Description',
             achievementGroup: AchievementGroups.numberOfGames,
             targetMetric: AchievementMetricTypes.numberOfGames,
             targetValue: 10,
         }),
         new GameHistoryNumberAchievement({
-            label: 'Bad Day',
+            labelKey: 'Bad Day',
             order: 1,
-            description: "We said, just do your best but don't blow anything up ...",
+            descriptionKey: "Bad Day-Description",
             achievementGroup: AchievementGroups.numberOfGameEnds,
             targetMetric: AchievementMetricTypes.lostGames,
             targetValue: 1,
             achievementType: AchievementTypes.negative,
         }),
         new GameHistoryNumberAchievement({
-            label: 'Quitter',
+            labelKey: 'Quitter',
             order: 2,
-            description: 'You are leaving already?',
+            descriptionKey: 'Quitter-Description',
             achievementGroup: AchievementGroups.numberOfGameEnds,
             targetMetric: AchievementMetricTypes.abortedGames,
             targetValue: 1,

@@ -4,10 +4,12 @@ import ModalLayout from './ModalLayout'
 import { buttonTypes } from '../common/Button'
 
 import { AchievementBadge } from '../Achievements'
+import { useTranslation } from 'react-i18next'
 
 export default function unlockedAchievementsModal(props) {
+    const {t} = useTranslation()
     return (
-        <ModalLayout showModal={props.showModal} title={'You have unlocked new Achievements!'}>
+        <ModalLayout showModal={props.showModal} title={t("UnlockedAchievementsModal--Title")}>
             <div className="relative p-6 gap-2 flex flex-auto">
                 <div className="w-full flex flex-col">
                     {props.newlyUnlockedAchievements.map((achievement) => {
@@ -23,7 +25,7 @@ export default function unlockedAchievementsModal(props) {
             </div>
             <ModalFooter>
                 <Button buttonType={buttonTypes.neutralButton} onClick={() => props.cancelButtonOnClick()}>
-                    Close
+                    {t("Close-Button-Label")}
                 </Button>
             </ModalFooter>
         </ModalLayout>

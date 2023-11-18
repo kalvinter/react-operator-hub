@@ -22,6 +22,11 @@ export default class ThemeManager {
         node.classList.add(this.themeChangingEffectClass)
     }
 
+    removeThemeChangeEffect() {
+        let node = document.querySelector('body')
+        node.classList.remove(this.themeChangingEffectClass)
+    }
+
     setActiveTheme({ activeTheme }) {
         // console.log(activeTheme)
         let node = document.querySelector('body')
@@ -33,7 +38,7 @@ export default class ThemeManager {
         this.themeStorage.save({ data: themeData })
 
         node.classList.add(this.activeTheme)
-        node.classList.remove(this.themeChangingEffectClass)
+        this.removeThemeChangeEffect()
     }
 
     getActiveTheme() {

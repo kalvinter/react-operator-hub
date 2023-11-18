@@ -115,7 +115,7 @@ export class ElectricityGrid {
                     /* calculate effect */
                     const upDownFactor = newEvent.direction === effectDirection.increase ? 1 : -1
 
-                    this.displayedEventText = newEvent.textStart
+                    this.displayedEventText = newEvent.getTextStart()
 
                     /* the effect is the main component - the math-random effect is added on top
                      * so that a low effect is unlikely to be stronger than a medium effect
@@ -146,7 +146,7 @@ export class ElectricityGrid {
                     const index = Math.floor(Math.random() * eventList.length)
                     const removedEvent = eventList[index]
 
-                    this.displayedEventText = removedEvent.originalEvent.textEnd
+                    this.displayedEventText = removedEvent.originalEvent.getTextEnd()
                     removedEvent.operation = 'remove'
 
                     this.upcomingEventChange = [removedEvent]
@@ -190,6 +190,5 @@ export class ElectricityGrid {
         this.overProduction = this.productionDemandDelta > this.productionDemandDeltaLimit
         this.underProduction = this.productionDemandDelta < -1 * this.productionDemandDeltaLimit
         this.productionDemandMatch = !this.overProduction && !this.underProduction
-        console.log(this.productionDemandDelta, this.overProduction, this.underProduction, this.productionDemandMatch)
     }
 }
