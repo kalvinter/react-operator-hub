@@ -5,65 +5,76 @@ Keep the country powered up! But remember, it's all about balance: match the cou
 
 ### Gameplay Essentials
 
-Your reactor relies on <b>fuel</b> to generate electricity. The more fuel you use, the hotter the reactor becomes, leading to increased power output.
-<b>Stay vigilant!</b> <b>Demand</b> can fluctuate based on various events, such as other reactors going offline.
-These events will be highlighted at the top of your screen.
-
-### Quick Tips for Power Mastery:
-
-<ul className='list-inside list-disc'>
-    <li>Adding fuel boosts power but also heats up the reactor.</li>
-    <li>A hotter reactor means a faster reaction-factor, giving you more power.</li>
-    <li>If things heat up too much, up the cooling level to keep things stable.</li>
-    <li>Always be on the lookout for events affecting power demand.</li>
-    <li>Earn points by maintaining power production within the optimal green zone.</li>
-</ul>
+- More Fuel = Higher Heat: Increasing fuel levels boosts power but also heats up the reactor.
+- Monitor the Demand: Demand fluctuates! Events like other reactors going offline will be highlighted at the top of your screen.
+- Manage the Heat: If your reactor gets too hot, increase cooling levels to prevent overloading.
 
 # Features
 
-- Simple yet addictive game loop which is perfect for quick game sessions
-- <strong>20</strong> different Events affecting power demand
-- <strong>11</strong> Achievements with increasing difficulty
-- Translated into <strong>English</strong> and <strong>German</strong>
-- <strong>Dark</strong> and <strong>light</strong> mode
+- Simple yet slightly addictive gameplay for quick sessions.
+- <strong>20</strong> unique events affecting power demand.
+- <strong>11</strong> challenging achievements.
+- Available in <strong>English</strong> and <strong>German</strong>.
+- <strong>Dark</strong> and <strong>light</strong> mode.
 
 # Coming Soon
 
-- Switching reactors for players who are looking for a challenge
-- More themes (because why not)
-- Saving / Loading
-- More events
+- Switching reactors for players who are looking for a challenge.
+- Additional themes for personalized gameplay.
+- Saving / Loading of individual sessions.
+- Even more events to challenge you!
 
 # Play the Game
 
-The game can be accessed here: <a target="_blank">https://kalvinter.github.io/react-operator-hub/</a>
+Dive into the world of reactor management here: <a target="_blank" href="https://kalvinter.github.io/react-operator-hub/">Play Operator-Hub</a>
 
-<img src="https://github.com/kalvinter/react-operator-hub/assets/37836612/20e0f0ff-edac-4f9e-8951-c4bd8d3c9c55" height="500" />
+<img src="https://github.com/kalvinter/react-operator-hub/assets/37836612/3639603a-9cac-49bf-a6ce-77bf306ce250" width="500" />
 
-<img src="https://github.com/kalvinter/react-operator-hub/assets/37836612/20e0f0ff-edac-4f9e-8951-c4bd8d3c9c55" height="500" />
+<img src="https://github.com/kalvinter/react-operator-hub/blob/c473ccfab9f0c50b24b8ac820d232d73a2c42cc3/docs/20231118_Game.png" width="500" />
 
 # About the Repository
 
-This game is an experiment to practice working with react. I always loved browser games and as such I wanted to learn react by creating something I would enjoy using. I hope that you have as much fun with this little game as I had.
+As someone who's always been fascinated by the interactive nature and accessibility of browser games, I embarked on this project to delve deeper into React and create something both fun and educational. This game represents not just a learning curve, but also a passion for combining technology with entertainment. I sincerely hope you find as much joy and intrigue in playing it as I did in creating it.
+ 
+# Technology Stack
+
+- Vite
+- Vitest
+- React
+- React-Router
+- i18next
+- framer-motion
+- ChartJS
+- TailwindCSS
+
+# Continuous Integration and Deployment
+
+This repository leverages GitHub Actions to ensures a high standard of code quality and seamless deployment:
+
+- <strong>Test Automation</strong>: Pushing code to the develop branch automatically triggers a series of tests, ensuring each feature meets our quality benchmarks.
+- <strong>Release Process</strong>: Merging changes from develop to main initiates the deployment pipeline. The main branch is automatically deployed to GitHub Pages, making the latest version of the game readily available to players.
 
 # Usage
 
 ```shell
+# Clone the repository
 git clone https://github.com/kalvinter/react-operator-hub.git
-cd react-reactor-game
+
+# Navigate to the project directory
+cd react-operator-hub
 
 # Install dependencies
 npm install
 
-# Start a development server with vite
+# Start the vite development server
 npm run dev
 
 # Run tests
 npm run test
 
-# Run eslint to identify issues
+# Identify issues with ESLint
 npm run lint
 
-# Build the final project
+# Build the project
 npm run build
 ```
