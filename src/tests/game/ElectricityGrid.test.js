@@ -24,14 +24,12 @@ describe('electricity grid event handling', () => {
     test('add and remove increase events', () => {
         let electricityGrid = getElectricityGridInstance()
 
-        let index = 0
-        let newEvent = electricityGrid.availableEventHandler.increaseEvents[index]
+        let newEvent = electricityGrid.availableEventHandler.increaseEvents[initialIncreaseEventsLength - 2]
         let addedElectricityDemand = 200
 
         let eventChange = [
             {
                 operation: eventOperation.add,
-                indexInSourceList: index,
                 direction: newEvent.direction,
                 addedElectricityDemand: addedElectricityDemand,
                 originalEvent: newEvent,
@@ -46,14 +44,12 @@ describe('electricity grid event handling', () => {
         expect(electricityGrid.availableEventHandler.increaseEvents.length).equals(initialIncreaseEventsLength - 1)
         expect(electricityGrid.activeIncreaseEvents === eventChange)
 
-        let secondIndex = 0
-        let secondNewEvent = electricityGrid.availableEventHandler.increaseEvents[index]
+        let secondNewEvent = electricityGrid.availableEventHandler.increaseEvents[initialIncreaseEventsLength - 3]
         let secondAddedElectricityDemand = 100
 
         let secondEventChange = [
             {
                 operation: eventOperation.add,
-                indexInSourceList: secondIndex,
                 direction: newEvent.direction,
                 addedElectricityDemand: secondAddedElectricityDemand,
                 originalEvent: secondNewEvent,
@@ -95,14 +91,12 @@ describe('electricity grid event handling', () => {
     test('add decrease events', () => {
         let electricityGrid = getElectricityGridInstance()
 
-        let index = 0
-        let newEvent = electricityGrid.availableEventHandler.decreaseEvents[index]
+        let newEvent = electricityGrid.availableEventHandler.decreaseEvents[initialDecreaseEventsLength - 2]
         let addedElectricityDemand = 200
 
         let eventChange = [
             {
                 operation: eventOperation.add,
-                indexInSourceList: index,
                 direction: newEvent.direction,
                 addedElectricityDemand: addedElectricityDemand,
                 originalEvent: newEvent,
@@ -117,14 +111,12 @@ describe('electricity grid event handling', () => {
         expect(electricityGrid.availableEventHandler.decreaseEvents.length).equals(initialDecreaseEventsLength - 1)
         expect(electricityGrid.activeDecreaseEvents === eventChange)
 
-        let secondIndex = 0
-        let secondNewEvent = electricityGrid.availableEventHandler.decreaseEvents[index]
+        let secondNewEvent = electricityGrid.availableEventHandler.decreaseEvents[initialDecreaseEventsLength - 3]
         let secondAddedElectricityDemand = 100
 
         let secondEventChange = [
             {
                 operation: eventOperation.add,
-                indexInSourceList: secondIndex,
                 direction: newEvent.direction,
                 addedElectricityDemand: secondAddedElectricityDemand,
                 originalEvent: secondNewEvent,

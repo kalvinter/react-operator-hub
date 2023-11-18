@@ -211,11 +211,16 @@ export class AvailableEventHandler {
         }
     }
 
-    removeEvent(index, direction) {
-        if (direction === effectDirection.increase) {
-            this.increaseEvents.splice(index, 1)
+    removeEvent(event) {
+        if (event.direction === effectDirection.increase) {
+            this.increaseEvents = this.increaseEvents.filter((entry) => {
+                return entry.id !== event.id
+            })
+
         } else {
-            this.decreaseEvents.splice(index, 1)
+            this.decreaseEvents = this.decreaseEvents.filter((entry) => {
+                return entry.id !== event.id
+            })
         }
     }
 }

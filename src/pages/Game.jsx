@@ -241,6 +241,10 @@ class Game extends React.Component {
         // Other metrics
         let gameIsLost = this.gameIsLost()
 
+        console.log("-# active Events")
+        console.log(this.electricityGrid.activeIncreaseEvents)
+        console.log(this.electricityGrid.activeDecreaseEvents)
+
         this.setState({
             gameIsLost: gameIsLost,
 
@@ -250,8 +254,8 @@ class Game extends React.Component {
 
             achievedMatchedRate: achievedMatchedRate,
 
-            activeIncreaseEvents: this.electricityGrid.activeIncreaseEvents,
-            activeDecreaseEvents: this.electricityGrid.activeDecreaseEvents,
+            activeIncreaseEvents: this.electricityGrid.activeIncreaseEvents.slice(),
+            activeDecreaseEvents: this.electricityGrid.activeDecreaseEvents.slice(),
 
             upcomingEventChange: this.electricityGrid.upcomingEventChange,
             displayedEventText: this.electricityGrid.displayedEventText,

@@ -46,29 +46,37 @@ export class ElectricityGrid {
 
         this.displayedEventText = this.getNoEventText()
 
+        let originalEvent = this.upcomingEventChange[0].originalEvent
+
         if (this.upcomingEventChange[0].operation === eventOperation.add) {
-            if (this.upcomingEventChange[0].originalEvent.direction === effectDirection.increase) {
+            if (originalEvent.direction === effectDirection.increase) {
                 this.activeIncreaseEvents.push(this.upcomingEventChange[0])
                 this.availableEventHandler.removeEvent(
-                    this.upcomingEventChange[0].indexInSourceList,
-                    effectDirection.increase
+                    originalEvent
                 )
             } else {
                 this.activeDecreaseEvents.push(this.upcomingEventChange[0])
                 this.availableEventHandler.removeEvent(
-                    this.upcomingEventChange[0].indexInSourceList,
-                    effectDirection.decrease
+                    originalEvent
                 )
             }
         } else {
-            this.availableEventHandler.addEvent(this.upcomingEventChange[0].originalEvent)
+            this.availableEventHandler.addEvent(originalEvent)
 
-            if (this.upcomingEventChange[0].direction === effectDirection.increase) {
-                this.activeIncreaseEvents.splice(this.upcomingEventChange[0].indexInSourceList, 1)
+            if (originalEvent.direction === effectDirection.increase) {
+                this.activeIncreaseEvents = this.activeIncreaseEvents.filter((eventChange) => {
+                    return eventChange.originalEvent.id !== originalEvent.id
+                })
             } else {
-                this.activeDecreaseEvents.splice(this.upcomingEventChange[0].indexInSourceList, 1)
+                this.activeDecreaseEvents = this.activeDecreaseEvents.filter((eventChange) => {
+                    return eventChange.originalEvent.id !== originalEvent.id
+                })
             }
         }
+
+        console.warn("EVENT CHANGED")
+        console.log(this.activeIncreaseEvents)
+        console.log(this.activeDecreaseEvents)
 
         /* Change electricity demand accordingly - use -1 to reverse the effect when it is removed */
         let upDownFactor = this.upcomingEventChange[0].operation === eventOperation.add ? 1 : -1
@@ -80,20 +88,20 @@ export class ElectricityGrid {
 
     updateElectricityDemand(timeRunning) {
         let lastElectricityDemand = this.currentElectricityDemand
-        console.log(this.activeDecreaseEvents)
         console.log(this.activeIncreaseEvents)
+        console.log(this.activeDecreaseEvents)
 
         let activeEvents = [...this.activeDecreaseEvents, ...this.activeIncreaseEvents]
 
         let availableIncreaseEvents = this.availableEventHandler.getAvailableEvents(effectDirection.increase)
         let availableDecreaseEvents = this.availableEventHandler.getAvailableEvents(effectDirection.decrease)
 
-        console.log(availableIncreaseEvents)
-        console.log(availableDecreaseEvents)
-        console.log(timeRunning % 100)
+        // console.log(availableIncreaseEvents)
+        // console.log(availableDecreaseEvents)
+        console.log(timeRunning % 200)
 
         /* If there is no upcoming event - decide if there should be one */
-        if (this.upcomingEventChange.length === 0 && timeRunning % 100 == 40 && Math.random() > 0.1) {
+        if (this.upcomingEventChange.length === 0 && timeRunning % 200 === 125) {
             /* If there is now a new event coming, decide if an existing event should be phased out or a new one should be introduced */
             const introduceNewEvent = activeEvents.length === 0 ? true : Math.random() > 0.4
             console.log('introduceNewEvent ', introduceNewEvent)
@@ -137,7 +145,6 @@ export class ElectricityGrid {
                     this.upcomingEventChange = [
                         {
                             operation: eventOperation.add,
-                            indexInSourceList: index,
                             direction: newEvent.direction,
                             addedElectricityDemand: this.baseDemandAddition * addedElectricityDemandFactor,
                             originalEvent: newEvent,
@@ -161,7 +168,7 @@ export class ElectricityGrid {
             }
         }
 
-        if (this.upcomingEventChange.length > 0 && timeRunning % 100 === 0) {
+        if (this.upcomingEventChange.length > 0 && timeRunning % 200 === 0) {
             this.performScheduledEventChange()
         }
         
