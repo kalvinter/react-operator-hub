@@ -33,7 +33,7 @@ function About() {
                     <Logo className="small-icon mr-2" /> {t("About--Github-Link-Label")}
                 </a>
 
-                <small>{t("About--Version")}: 0.0.0</small>
+                <small>{t("About--Version")}: 1.0.0</small>
             </div>
         </div>
     )
