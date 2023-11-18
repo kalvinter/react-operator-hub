@@ -5,6 +5,23 @@ on:
         branches: [main]
 
 jobs:
+    # Bump version using semantic-release
+    release:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version: '20'
+            - run: npm install
+            - name: Semantic Release
+              run: npx semantic-release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    # Build the final app
     build:
         runs-on: ubuntu-latest
 
@@ -16,17 +33,13 @@ jobs:
                   node-version: '20'
             - run: npm install
             - run: npm run build
-            - name: Semantic Release
-              run: npx semantic-release
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             - name: Upload artifact to enable deployment
               uses: actions/upload-artifact@v3
               with:
                   name: production-files
                   path: ./dist
 
-    # Deploy Job
+    # Deploy the app
     deploy:
         # Add a dependency to the build job
         needs: build
