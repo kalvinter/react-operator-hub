@@ -9,10 +9,14 @@ lerna-debug.log*
 
 coverage
 
+drafts
+
 node_modules
 dist
 dist-ssr
 *.local
+
+dist*.zip
 
 # Editor directories and files
 .vscode/*

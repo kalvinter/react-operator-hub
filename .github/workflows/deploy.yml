@@ -23,6 +23,8 @@ jobs:
 
     # Build the final app
     build:
+        # Add a dependency to the build job
+        needs: release
         runs-on: ubuntu-latest
 
         steps:

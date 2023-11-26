@@ -1,6 +1,9 @@
 ![Automated Testing](https://github.com/kalvinter/react-operator-hub/actions/workflows/test.yml/badge.svg)
 ![Depyloment](https://github.com/kalvinter/react-operator-hub/actions/workflows/deploy.yml/badge.svg)
 
+
+<img src="https://github.com/kalvinter/react-operator-hub/blob/e9239cc23ec3164c04455c3a83137e195b525c8f/docs/20231126_Banner.png" width="100%" />
+
 # Welcome to the Grid
 
 Step into the role of a reactor operator at the heart of the nation's power grid. Your mission?
@@ -31,11 +34,11 @@ Keep the country powered up! But remember, it's all about balance: match the cou
 
 Dive into the world of reactor management here: <a target="_blank" href="https://kalvinter.github.io/react-operator-hub/">Play Operator-Hub</a>
 
-<img src="https://github.com/kalvinter/react-operator-hub/assets/37836612/3639603a-9cac-49bf-a6ce-77bf306ce250" width="500" />
+<img src="https://github.com/kalvinter/react-operator-hub/blob/4190b95d04007a07cff477acce6a0315beafe6e5/docs/20231126_Home.png" width="500" />
 
 <hr>
 
-<img src="https://github.com/kalvinter/react-operator-hub/blob/3d07a65d34e38b36439ab13ac7503ec63437eaf2/docs/20231118_Game.png" width="500" />
+<img src="https://github.com/kalvinter/react-operator-hub/blob/4190b95d04007a07cff477acce6a0315beafe6e5/docs/20231126_Game.png" width="500" />
 
 <hr>
 

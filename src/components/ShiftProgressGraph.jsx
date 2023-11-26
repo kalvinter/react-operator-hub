@@ -23,11 +23,13 @@ export default function ShiftProgressGraph(props) {
                     style={{ width: `${props.shiftTimeLeft / 50}%`, height: '100%' }}
                 ></div>
             </div>
-            <h4
-                className={`${props.rateBg} w-[10ch] text-right border-2 border-l-0 border-rounded border-color-element px-2 my-0 whitespace-nowrap`}
-            >
-                <Percentage decimalFigure={props.achievedMatchedRate} /> %
-            </h4>
+            <div className='m-0 border-rounded border-color-element border-2 w-[12ch] border-l-0'>
+                <h4
+                    className={`${props.rateBg} text-right px-2 my-0 whitespace-nowrap`}
+                >
+                    <Percentage decimalFigure={props.achievedMatchedRate} /> %
+                </h4>
+            </div>
         </div>
     )
 }
