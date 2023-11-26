@@ -1,6 +1,9 @@
 ![Automated Testing](https://github.com/kalvinter/react-operator-hub/actions/workflows/test.yml/badge.svg)
 ![Depyloment](https://github.com/kalvinter/react-operator-hub/actions/workflows/deploy.yml/badge.svg)
 
+
+<img src="https://github.com/kalvinter/react-operator-hub/blob/e9239cc23ec3164c04455c3a83137e195b525c8f/docs/20231126_Banner.png" width="100%" />
+
 # Welcome to the Grid
 
 Step into the role of a reactor operator at the heart of the nation's power grid. Your mission?
