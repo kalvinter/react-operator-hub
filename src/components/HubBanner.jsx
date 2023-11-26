@@ -1,7 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next';
-
-import { CubeTransparentIcon } from '@heroicons/react/20/solid'
+import Logo from '../assets/svg/logo.svg?react'
 
 function HubBanner() {
     const {t} = useTranslation()
@@ -9,10 +8,14 @@ function HubBanner() {
     return (
         <div className="p-2 text-color--hover rounded">
             <div className="mb-4">
-                <h1 className="justify-center md:justify-start mb-1 text-4xl flex items-center">
-                    <CubeTransparentIcon className="large-icon mr-2" /> OperatorHub <sup className="text-sm">TM</sup>
-                </h1>
+                
+                <div className="justify-center md:justify-start flex items-center">
+                    <Logo className="mr-2 w-[4rem] h-[4rem] main-logo-svg" /> 
+                    <h1 className="text-4xl">OperatorHub</h1>
+                </div>
+
                 <p className="text-center md:text-left italic opacity-80">{t("App-Banner-Slogan")}</p>
+                
             </div>
         </div>
     )

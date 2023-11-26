@@ -9,6 +9,8 @@ lerna-debug.log*
 
 coverage
 
+drafts
+
 node_modules
 dist
 dist-ssr
