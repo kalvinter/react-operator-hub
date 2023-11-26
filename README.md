@@ -32,7 +32,9 @@ Keep the country powered up! But remember, it's all about balance: match the cou
 
 # Play the Game
 
-Dive into the world of reactor management here: <a target="_blank" href="https://kalvinter.github.io/react-operator-hub/">Play Operator-Hub</a>
+Dive into the world of reactor management here: <a target="_blank" href="https://kalvinter.github.io/react-operator-hub/">Play Operator-Hub</a> or in Itch.io 
+
+The game is also available on <a target="_blank" href="https://kalvinter.itch.io/operatorhub">Itch.io</a>
 
 <img src="https://github.com/kalvinter/react-operator-hub/blob/4190b95d04007a07cff477acce6a0315beafe6e5/docs/20231126_Home.png" width="500" />
 
