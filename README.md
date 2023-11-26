@@ -31,11 +31,11 @@ Keep the country powered up! But remember, it's all about balance: match the cou
 
 Dive into the world of reactor management here: <a target="_blank" href="https://kalvinter.github.io/react-operator-hub/">Play Operator-Hub</a>
 
-<img src="https://github.com/kalvinter/react-operator-hub/assets/37836612/3639603a-9cac-49bf-a6ce-77bf306ce250" width="500" />
+<img src="https://github.com/kalvinter/react-operator-hub/blob/4190b95d04007a07cff477acce6a0315beafe6e5/docs/20231126_Home.png" width="500" />
 
 <hr>
 
-<img src="https://github.com/kalvinter/react-operator-hub/blob/3d07a65d34e38b36439ab13ac7503ec63437eaf2/docs/20231118_Game.png" width="500" />
+<img src="https://github.com/kalvinter/react-operator-hub/blob/4190b95d04007a07cff477acce6a0315beafe6e5/docs/20231126_Game.png" width="500" />
 
 <hr>
 
