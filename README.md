@@ -2,7 +2,7 @@
 ![Depyloment](https://github.com/kalvinter/react-operator-hub/actions/workflows/deploy.yml/badge.svg)
 
 
-<img src="https://github.com/kalvinter/react-operator-hub/blob/e9239cc23ec3164c04455c3a83137e195b525c8f/docs/20231126_Banner.png" width="100%" />
+<img src="https://github.com/kalvinter/react-operator-hub/blob/54010c1918c9b26988e116981d346ebc51e61716/docs/20231126_Banner.png" width="100%" />
 
 # Welcome to the Grid
 
@@ -32,7 +32,9 @@ Keep the country powered up! But remember, it's all about balance: match the cou
 
 # Play the Game
 
-Dive into the world of reactor management here: <a target="_blank" href="https://kalvinter.github.io/react-operator-hub/">Play Operator-Hub</a>
+Dive into the world of reactor management here: <a target="_blank" href="https://kalvinter.github.io/react-operator-hub/">Play Operator-Hub</a> or in Itch.io 
+
+The game is also available on <a target="_blank" href="https://kalvinter.itch.io/operatorhub">Itch.io</a>
 
 <img src="https://github.com/kalvinter/react-operator-hub/blob/4190b95d04007a07cff477acce6a0315beafe6e5/docs/20231126_Home.png" width="500" />
 
