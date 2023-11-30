@@ -31,7 +31,7 @@ function Settings(props) {
     const [activeLanguage, setActiveLanguage] = useState(i18n.resolvedLanguage)
 
     useEffect(() => {
-        if (activeLanguage === i18n.language){
+        if (activeLanguage === i18n.resolvedLanguage){
             return
         }
 
