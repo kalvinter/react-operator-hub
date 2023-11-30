@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { GameEndTypes } from './Config'
-import { defaultTheme } from './ThemeManager'
+import { darkTheme, lightTheme } from './ThemeManager'
 
 export const storedDataTypes = {
     // Finished Games
@@ -201,12 +201,16 @@ export class ThemeStorage {
             storedDataType: this.storedDataType,
         })
 
-        // console.log(themeData)
+        console.log("themeData, ", themeData)
 
         if (themeData === null || themeData === undefined) {
-            // return an empty list, if no gameHistory was saved yet
+            // if no theme was selected before, use the system Preference
+            const systemPreferenceDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+            let theme = systemPreferenceDarkMode ? darkTheme.key : lightTheme.key
+
             return {
-                theme: defaultTheme,
+                theme: theme,
             }
         }
 

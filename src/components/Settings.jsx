@@ -20,7 +20,7 @@ function Settings(props) {
         if (activeTheme === props.themeManager.activeTheme) {
             return
         }
-
+        
         props.themeManager.setThemeChangeEffect()
         let timeout = setTimeout(() => {
             props.themeManager.setActiveTheme({ activeTheme: activeTheme })
@@ -61,10 +61,10 @@ function Settings(props) {
                     value={activeTheme}
                     onChange={(event) => setActiveTheme(event.currentTarget.value)}
                 >
-                    {Object.keys(themes).map((key) => {
+                    {themes.map((themeEntry) => {
                         return (
-                            <option key={key} value={key}>
-                                {themes[key]}
+                            <option key={themeEntry.key} value={themeEntry.key}>
+                                {themeEntry.label}
                             </option>
                         )
                     })}

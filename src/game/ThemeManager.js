@@ -1,18 +1,26 @@
 import { ThemeStorage } from './Storage'
 
-export const themes = {
-    'dark-theme': 'Dark',
-    'light-theme': 'Light',
+export const darkTheme = {
+    key: "dark-theme",
+    label: "Dark"
 }
 
-export const defaultTheme = themes.dark
+export const lightTheme = {
+    key: "light-theme",
+    label: "Light"
+}
+
+export const themes = [
+    darkTheme,
+    lightTheme
+]
 
 export default class ThemeManager {
     constructor() {
         this.themeStorage = new ThemeStorage()
 
         this.activeTheme = this.themeStorage.load().theme
-        this.setActiveTheme({ activeTheme: this.activeTheme })
+        console.log("this.activeTheme post setting active theme in consturctor, ", this.activeTheme)
 
         this.themeChangingEffectClass = 'theme-is-changing'
     }
@@ -29,6 +37,9 @@ export default class ThemeManager {
 
     setActiveTheme({ activeTheme }) {
         // console.log(activeTheme)
+        console.log("setting active theme")
+        
+        console.log("this.activeTheme, ", this.activeTheme)
         let node = document.querySelector('body')
         node.classList.remove(this.activeTheme)
 
