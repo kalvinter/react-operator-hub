@@ -1,3 +1,4 @@
+import { themeChangingEffectClass } from './Config'
 import { ThemeStorage } from './Storage'
 
 export const darkTheme = {
@@ -20,19 +21,16 @@ export default class ThemeManager {
         this.themeStorage = new ThemeStorage()
 
         this.activeTheme = this.themeStorage.load().theme
-        console.log("this.activeTheme post setting active theme in consturctor, ", this.activeTheme)
-
-        this.themeChangingEffectClass = 'theme-is-changing'
     }
 
     setThemeChangeEffect() {
         let node = document.querySelector('body')
-        node.classList.add(this.themeChangingEffectClass)
+        node.classList.add(themeChangingEffectClass)
     }
 
     removeThemeChangeEffect() {
         let node = document.querySelector('body')
-        node.classList.remove(this.themeChangingEffectClass)
+        node.classList.remove(themeChangingEffectClass)
     }
 
     setActiveTheme({ activeTheme }) {

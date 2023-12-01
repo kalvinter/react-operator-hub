@@ -9,8 +9,8 @@ export default function ResetHistoryModal(props) {
     return (
         <ModalLayout showModal={props.showModal} title={t("ResetHistoryModal--Title")}>
             <div className="relative p-6 flex-auto">
-                <div className="my-4 text-lg leading-relaxed">
-                    <h4>{t("ResetHistoryModal--Are-You-Sure")}</h4>
+                <div className="text-lg leading-relaxed">
+                    <h3 className='mb-2'>{t("ResetHistoryModal--Are-You-Sure")}</h3>
 
                     <p>{t("ResetHistoryModal--Explanation")}</p>
                 </div>

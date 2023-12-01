@@ -64,6 +64,7 @@
   "SwitchReactorModal--Coming-Soon": "Weitere Reaktoren werden demnächst verfügbar sein!",
   "SwitchReactorModal--Note": "Deine Fortschritte und Errungenschaften gelten jeweils nur für den Reaktor mit dem du sie erreicht hast.",
   "UnlockedAchievementsModal--Title": "Neue Errungenschaften freigeschaltet!",
+  "UnlockedAchievementsModal--Description": "Du kannst jederzeit den Reaktor ändern, um deine Schichten einfacher oder schwieriger zu machen. Klicke hierfür auf der Hauptseite einfach auf 'Reaktor ändern'.",
   "Close-Button-Label": "Schließen",
   "Connected to Reactor": "Verbunden mit Reaktor",
   "Switch-Reactor-Button-Label": "Reaktor ändern",
@@ -93,5 +94,7 @@
   "Achievements-Group-Finished-Shifts--Header": "Abgeschlossene Schichten",
   "Achievements-Group-Other--Header": "Andere Errungenschaften",
   "Error--Sub-Title": "Ein unerwarteter Fehler ist aufgetreten.",
-  "Error--Instructions": "Bitte kopiere die Error-Nachricht unten und eröffne ein Ticket auf "
+  "Error--Instructions": "Bitte kopiere die Error-Nachricht unten und eröffne ein Ticket auf ",
+  "SelectReactor-Button-Label": "Reaktor auswählen",
+  "SelectReactor-Button-Label-Already-Selected": "Aktuell ausgewählt"
 }

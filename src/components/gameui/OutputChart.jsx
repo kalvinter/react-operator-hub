@@ -26,36 +26,6 @@ import { GameDataContext, ReactorDataContext } from '../../pages/Game.jsx'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler)
 
-const outputChartOptions = {
-    ...lineChartBaseOptions,
-    plugins: {
-        legend: {
-            display: false,
-        },
-        title: {
-            display: false,
-            text: 'Energy Output',
-        },
-        tooltip: {
-            enabled: false,
-        },
-        filler: {
-            propagate: true,
-        },
-    },
-    scales: {
-        y: {
-            min: 0,
-            suggestedMax: GameConfig.maximumPossibleDemand,
-            ticks: {
-                callback: function (value, index, ticks) {
-                    return value + ' Watt'
-                },
-            },
-        },
-    },
-}
-
 export const outputChartTestId = "outputChartTestId"
 
 export default function OutputChart() {
@@ -64,15 +34,45 @@ export default function OutputChart() {
     const gameData = useContext(GameDataContext)
     const reactorData = useContext(ReactorDataContext)
 
+    const outputChartOptions = {
+        ...lineChartBaseOptions,
+        plugins: {
+            legend: {
+                display: false,
+            },
+            title: {
+                display: false,
+                text: 'Energy Output',
+            },
+            tooltip: {
+                enabled: false,
+            },
+            filler: {
+                propagate: true,
+            },
+        },
+        scales: {
+            y: {
+                min: 0,
+                suggestedMax: gameData.maximumPossibleDemand,
+                ticks: {
+                    callback: function (value, index, ticks) {
+                        return value + ' Watt'
+                    },
+                },
+            },
+        },
+    }
+    
     let displayedUpperElectricityDemandLimit = reactorData.displayedElectricityDemandHistory.map((element) => {
-        return element + GameConfig.productionDemandDeltaLimit === 0
+        return element + gameData.productionDemandDeltaLimit === 0
             ? 0
-            : element + GameConfig.productionDemandDeltaLimit
+            : element + gameData.productionDemandDeltaLimit
     })
     let displayedLowerElectricityDemandLimit = reactorData.displayedElectricityDemandHistory.map((element) => {
-        return element - GameConfig.productionDemandDeltaLimit === 0
+        return element - gameData.productionDemandDeltaLimit === 0
             ? 0
-            : element - GameConfig.productionDemandDeltaLimit
+            : element - gameData.productionDemandDeltaLimit
     })
 
     let labels = generateChartLabels(gameData.timeRunning)

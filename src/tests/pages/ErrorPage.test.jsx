@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import { test, expect, afterEach } from 'vitest'
+import { test, expect, afterEach, beforeEach, vi } from 'vitest'
 
 import { createMemoryRouter } from 'react-router-dom'
 
@@ -11,17 +11,27 @@ import { RouterProvider } from 'react-router-dom'
 import { links } from '../../Config'
 import { errorPageTestId } from '../../pages/ErrorPage'
 
-import { gameHistoryManager } from '../../game/GameHistoryManager'
+beforeEach(() => {
+    vi.mock('../../game/Storage', async () => {
+        const actual = await vi.importActual("../../game/Storage")
+        return {
+            ...actual,
+            gameHistoryStorage: {
+                load: () => {
+                    console.log("Inside the mocked load method")
+                    throw new Error("Mocked error")
+                }
+            }
+        }
+    })
+})
 
 afterEach(() => {
-    // reset loaded game history
-    gameHistoryManager.reloadHistoryFromStorage()
+    localStorage.clear()
+    vi.resetModules()
 })
 
 test('page loads without error', () => {
-    // Set gameHistory to a non-sensical value to cause an error during app rendering
-    gameHistoryManager.gameHistory = false
-
     let router = createMemoryRouter(routerConfiguration, { initialEntries: ["/"] })
 
     render(<RouterProvider router={router} />)

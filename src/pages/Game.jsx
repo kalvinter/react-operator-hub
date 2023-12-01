@@ -14,7 +14,7 @@ import TemperatureChart from '../components/gameui/TemperatureChart.jsx'
 
 import ShiftEndModal from '../components/modals/ShiftEndModal.jsx'
 import StartShiftModal from '../components/modals/StartShiftModal.jsx'
-import { gameHistoryEntry } from '../game/Storage.js'
+import { GameHistoryEntry } from '../game/Storage.js'
 
 export const ReactorDataContext = React.createContext()
 export const GameDataContext = React.createContext()
@@ -26,22 +26,28 @@ class Game extends React.Component {
     constructor(props) {
         super(props)
 
+        this.reactorConfig = props.activeReactorConfig
+
         this.shiftDuration = GameConfig.shiftDuration
         this.shiftDurationInSeconds = this.shiftDuration / 20 / 50
 
         this.reactor = new Reactor({
-            baseTemperature: GameConfig.baseTemperature,
-            maximumTemperature: GameConfig.maximumTemperature,
-            minimumTemperature: GameConfig.minimumTemperature,
-            naturalCoolingFactor: GameConfig.naturalCoolingFactor,
+            baseTemperature: this.reactorConfig.baseTemperature,
+            maximumTemperature: this.reactorConfig.maximumTemperature,
+            minimumTemperature: this.reactorConfig.minimumTemperature,
+            naturalCoolingFactor: this.reactorConfig.naturalCoolingFactor,
         })
 
         this.electricityGrid = new ElectricityGrid({
             initialElectricityDemand: 0,
-            productionDemandDeltaLimit: GameConfig.productionDemandDeltaLimit,
-            maximumPossibleDemand: GameConfig.maximumPossibleDemand,
-            baseDemandAddition: GameConfig.baseDemandAddition,
+            productionDemandDeltaLimit: this.reactorConfig.productionDemandDeltaLimit,
+            maximumPossibleDemand: this.reactorConfig.maximumPossibleDemand,
+            baseDemandAddition: this.reactorConfig.baseDemandAddition,
+            demandChangeStepSize: this.reactorConfig.demandChangeStepSize,
+            spaceBetweenEvents: this.reactorConfig.spaceBetweenEvents
         })
+
+        console.log("this.reactorConfig.productionDemandDeltaLimit, ", this.reactorConfig.productionDemandDeltaLimit)
 
         this.newGameState = {
             gameIsRunning: true,
@@ -136,7 +142,7 @@ class Game extends React.Component {
         console.log(gameStatus)
 
         this.props.endGame({
-            gameHistoryEntry: new gameHistoryEntry({
+            gameHistoryEntry: new GameHistoryEntry({
                 date: new Date(),
                 timeRunningInSeconds: this.state.timeRunning / 20,
                 shiftTimeLeft: this.state.shiftTimeLeft,
@@ -153,7 +159,7 @@ class Game extends React.Component {
     }
 
     gameIsLost() {
-        if (this.state.currentTemperature > GameConfig.maximumTemperature) {
+        if (this.state.currentTemperature > this.reactorConfig.maximumTemperature) {
             return true
         }
         return false
@@ -322,6 +328,8 @@ class Game extends React.Component {
                 this.changeCoolingLevelValue(event)
             },
 
+            maximumTemperature: this.reactorConfig.maximumTemperature,
+
             currentElectricityOutput: this.state.currentElectricityOutput,
             currentTemperature: this.state.currentTemperature,
 
@@ -348,6 +356,9 @@ class Game extends React.Component {
             gameIsRunning: this.state.gameIsRunning,
 
             toggleGamePauseOnClick: (event) => this.toggleGamePauseOnClick(event),
+            
+            productionDemandDeltaLimit: this.reactorConfig.productionDemandDeltaLimit,
+            maximumPossibleDemand: this.reactorConfig.maximumPossibleDemand,
 
             productionDemandDelta: this.state.productionDemandDelta,
             overProduction: this.state.overProduction,

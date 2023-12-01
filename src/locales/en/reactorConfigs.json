@@ -1,0 +1,10 @@
+{
+    "AuxiliaryReactor-Omega-17-Label": "Auxiliary-Omega-17",
+    "AuxiliaryReactor-Omega-17-Description": "This is one of the smaller auxiliary reactors that power a smaller portion of the grid. They are great for learning the basics with enough time to react to events.",
+
+    "SupportReactor-Gamma-5-Label": "Support-Gamma-5",
+    "SupportReactor-Gamma-5-Description": "This is one of the smaller reactors supporting the grid. They have to be more reponsive to events than auxiliary reactors. Select this reactor only of you have gathered some experience.",
+
+    "CoreReactor-Alpha-2-Label": "Core-Alpha-2",
+    "CoreReactor-Alpha-2-Description": "This is one of the main reactors powering the central grid. With it comes great responsibility and the challenge of quickly reacting to all events affecting the electricity grid. Only select this reactor if you are a real master of the grid."
+}

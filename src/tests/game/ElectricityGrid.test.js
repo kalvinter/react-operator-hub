@@ -1,16 +1,17 @@
 import { test, describe, expect, beforeEach } from "vitest";
 import { ElectricityGrid, eventOperation } from "../../game/ElectricityGrid";
 import { AvailableEventHandler } from "../../game/Events";
-import { t } from "i18next";
-import { GameConfig } from "../../game/Config";
 
+const demandChangeStepSize = 3
 
 const getElectricityGridInstance = () => {
     return new ElectricityGrid({
         initialElectricityDemand: 100, 
         productionDemandDeltaLimit: 100, 
         baseDemandAddition: 200, 
-        maximumPossibleDemand: 1000
+        maximumPossibleDemand: 1000,
+        spaceBetweenEvents: 200,
+        demandChangeStepSize: demandChangeStepSize
     })
 }
 
@@ -162,11 +163,11 @@ describe("test applying a scheduled demand change", () => {
         let electricityGrid = getElectricityGridInstance()
 
         electricityGrid.currentElectricityDemand = 100
-        electricityGrid.appliedDemandChange = GameConfig.demandChangeStepSize + 100
+        electricityGrid.appliedDemandChange = demandChangeStepSize + 100
 
         electricityGrid.applyDemandChange()
 
-        expect(electricityGrid.currentElectricityDemand).equals(100 + GameConfig.demandChangeStepSize)
+        expect(electricityGrid.currentElectricityDemand).equals(100 + demandChangeStepSize)
     })
 
     test("apply negative demand change but do not go below 0", () => {

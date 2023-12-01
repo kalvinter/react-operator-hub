@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { Link } from 'react-router-dom'
-import { gameHistoryManager } from '../game/GameHistoryManager'
 import { ArrowLeftOnRectangleIcon, CheckIcon, ListBulletIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import { GameEndTypes } from '../game/Config'
 import ShiftProgressGraph from './ShiftProgressGraph'
@@ -76,10 +75,11 @@ export function GameHistoryCard(props) {
 
 const displayedHistoryEntriesLimit = 5
 
-export default function GameHistorySummary() {
+export default function GameHistorySummary(props) {
     const {t} = useTranslation()
 
-    let gameHistory = gameHistoryManager.gameHistory
+    let gameHistory = props.gameHistoryManager.gameHistory
+
     let gameHistoryList = <div>{t("No-Games-Yet-Message")}</div>
 
     if (gameHistory.length > 0) {
@@ -89,7 +89,7 @@ export default function GameHistorySummary() {
                 <GameHistoryCard gameHistoryEntry={gameHistoryEntry} key={gameHistoryEntry.id} />
             ))
     }
-    console.log(gameHistoryList)
+
     let showMoreButton = ''
 
     if (gameHistory.length > displayedHistoryEntriesLimit) {

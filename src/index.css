@@ -102,6 +102,21 @@ body {
     fill: var(--text-color-hover);
 }
 
+.small-main-logo-svg {
+    width: 2rem;
+    height: 2rem;
+}
+
+.small-main-logo-svg path:first-of-type {
+    fill: var(--bg-back);
+    opacity: 20%;
+}
+
+.small-main-logo-svg path {
+    fill: var(--text-color-hover);
+}
+
+
 .start-cta-logo {
     width: 3rem;
     height: 3rem;

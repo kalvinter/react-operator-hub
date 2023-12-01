@@ -15,6 +15,7 @@ import { inputBarTestId } from '../../components/gameui/InputBar'
 import { outputChartTestId } from '../../components/gameui/OutputChart'
 import { shiftProgessBarTestId } from '../../components/gameui/ShiftProgressBar'
 import { temperatureChartTestId } from '../../components/gameui/TemperatureChart'
+import { defaultReactorConfig } from '../../game/AvailableReactors'
 
 
 afterEach(() => {
@@ -24,7 +25,9 @@ afterEach(() => {
 test('page loads with no GameHistory', () => {
     render(
         <MemoryRouter>
-            <Game />
+            <Game 
+                activeReactorConfig={defaultReactorConfig}
+            />
         </MemoryRouter>
     )
     

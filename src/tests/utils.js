@@ -1,12 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { gameHistoryEntry } from "../game/Storage"
+import { GameHistoryEntry } from "../game/Storage"
 
 import { GameEndTypes } from "../game/Config"
 
 // Each entry will unlock one achievement (100% matched rate & 1 aborted)
 export const gameHistoryEntriesUnlockingAchievments = [
-    new gameHistoryEntry({
+    new GameHistoryEntry({
         id: uuidv4(),
         date: new Date(),
         timeRunningInSeconds: 50,
@@ -16,7 +16,7 @@ export const gameHistoryEntriesUnlockingAchievments = [
         demandMatchedStatusHistory: [],
         gameStatus: GameEndTypes.aborted,
     }),
-    new gameHistoryEntry({
+    new GameHistoryEntry({
         id: uuidv4(),
         date: new Date(),
         timeRunningInSeconds: 120,

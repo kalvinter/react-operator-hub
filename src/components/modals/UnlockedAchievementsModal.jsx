@@ -10,12 +10,13 @@ export default function unlockedAchievementsModal(props) {
     const {t} = useTranslation()
     return (
         <ModalLayout showModal={props.showModal} title={t("UnlockedAchievementsModal--Title")}>
-            <div className="relative p-6 gap-2 flex flex-auto">
-                <div className="w-full flex flex-col">
+            <div className="relative p-6 gap-2">
+                <p>{t("UnlockedAchievementsModal--Description")}</p>
+                <div className="w-full flex flex-col mt-4">
                     {props.newlyUnlockedAchievements.map((achievement) => {
                         return (
                             <AchievementBadge
-                                key={achievement.label}
+                                key={achievement.labelKey}
                                 achievement={achievement}
                                 showDescription={true}
                             />

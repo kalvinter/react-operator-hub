@@ -24,33 +24,6 @@ import Card from '../common/Card.jsx'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
-const temperatureChartOptions = {
-    ...lineChartBaseOptions,
-    plugins: {
-        legend: {
-            display: false,
-        },
-        title: {
-            display: false,
-            text: 'Reactor Temperature',
-        },
-        tooltip: {
-            enabled: false,
-        },
-    },
-    scales: {
-        y: {
-            min: 0,
-            suggestedMax: GameConfig.maximumTemperature,
-            ticks: {
-                callback: function (value, index, ticks) {
-                    return value + ' °C'
-                },
-            },
-        },
-    },
-}
-
 export const temperatureChartTestId = "temperatureChartTestId"
 
 const TemperatureChart = () => {
@@ -58,6 +31,34 @@ const TemperatureChart = () => {
 
     const reactorData = useContext(ReactorDataContext)
     const gameData = useContext(GameDataContext)
+
+    
+    const temperatureChartOptions = {
+        ...lineChartBaseOptions,
+        plugins: {
+            legend: {
+                display: false,
+            },
+            title: {
+                display: false,
+                text: 'Reactor Temperature',
+            },
+            tooltip: {
+                enabled: false,
+            },
+        },
+        scales: {
+            y: {
+                min: 0,
+                suggestedMax: reactorData.maximumTemperature,
+                ticks: {
+                    callback: function (value, index, ticks) {
+                        return value + ' °C'
+                    },
+                },
+            },
+        },
+    }
 
     let temperature_indication_bg
     let temperature_text

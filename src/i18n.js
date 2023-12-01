@@ -6,10 +6,12 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import common_de from "./locales/de/common.json";
 import achievements_de from "./locales/de/achievements.json";
 import events_de from "./locales/de/events.json"
+import reactorConfig_de from "./locales/de/reactorConfigs.json"
 
 import common_en from "./locales/en/common.json";
 import achievements_en from "./locales/en/achievements.json";
 import events_en from "./locales/en/events.json"
+import reactorConfig_en from "./locales/en/reactorConfigs.json"
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -30,12 +32,14 @@ i18n
         en: {
             common: common_en,
             achievements: achievements_en,
-            events: events_en
+            events: events_en,
+            reactorConfigs: reactorConfig_en
         },
         de: {
             common: common_de,
             achievements: achievements_de,
-            events: events_de
+            events: events_de,
+            reactorConfigs: reactorConfig_de
         },
     },
     backend: {

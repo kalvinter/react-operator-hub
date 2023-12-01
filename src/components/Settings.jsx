@@ -44,8 +44,6 @@ function Settings(props) {
 
     }, [activeLanguage])
 
-    console.log("i18n.resolvedLanguage, ", i18n.resolvedLanguage)
-
     return (
         <div className="w-full h-full flex flex-col">
             <h2 className="flex items-center">
