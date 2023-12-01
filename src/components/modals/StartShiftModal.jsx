@@ -11,20 +11,18 @@ export default function StartShiftModal(props) {
     return (
         <ModalLayout showModal={props.showModal} title={t("StartShiftModal--Title")}>
             <div className="relative p-6 flex-auto">
-                <div className="text-lg leading-relaxed">
-                    <p>{t("StartShiftModal--Duration-Prefix")} <b>{props.shiftDurationInSeconds} {t("seconds")}</b>{t("StartShiftModal--Duration-Ending")}</p>
+                <p>{t("StartShiftModal--Duration-Prefix")} <b>{props.shiftDurationInSeconds} {t("seconds")}</b>{t("StartShiftModal--Duration-Ending")}</p>
 
-                    <p>
-                        {t("StartShiftModal--Explanation")}
-                    </p>
+                <p>
+                    {t("StartShiftModal--Explanation")}
+                </p>
 
-                    <p className="font-bold my-4">
-                        {t("StartShiftModal--Warning-Start")}
-                        {props.maximumTemperature} °C {t("StartShiftModal--Warning-End")}
-                    </p>
+                <p className="font-bold my-4">
+                    {t("StartShiftModal--Warning-Start")}
+                    {props.maximumTemperature} °C {t("StartShiftModal--Warning-End")}
+                </p>
 
-                    <p>{t("StartShiftModal--Good-Luck")}</p>
-                </div>
+                <p>{t("StartShiftModal--Good-Luck")}</p>
             </div>
             <ModalFooter>
                 <Button buttonType={buttonTypes.successButton} onClick={() => props.actionButtonOnClick()}>
