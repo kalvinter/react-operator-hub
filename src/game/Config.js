@@ -21,3 +21,5 @@ export const GameEndTypes = {
     lost: 'Lost',
     aborted: 'Aborted',
 }
+
+export const themeChangingEffectClass = 'theme-is-changing'

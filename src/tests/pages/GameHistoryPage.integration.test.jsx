@@ -7,9 +7,10 @@ import { gameHistoryCardTestId } from '../../components/GameHistory'
 
 import { storedDataTypes } from '../../game/Storage'
 
-import { gameHistoryManager } from '../../game/GameHistoryManager'
+import { GameHistoryManager } from '../../game/GameHistoryManager'
 import { MemoryRouter } from 'react-router-dom'
 import { gameHistoryEntriesUnlockingAchievments } from '../utils'
+import { defaultReactorConfig } from '../../game/AvailableReactors'
 
 describe('page loads without error', () => {
     afterEach(() => {
@@ -44,6 +45,7 @@ describe('page loads without error', () => {
          * This is necessary as the data is loaded during import but the fake data is added later in the
          * beginning of the test
          */
+        let gameHistoryManager = new GameHistoryManager({activeReactorConfigKey: defaultReactorConfig.key})
         gameHistoryManager.reloadHistoryFromStorage()
 
         render(

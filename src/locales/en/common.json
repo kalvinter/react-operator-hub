@@ -64,6 +64,7 @@
   "SwitchReactorModal--Coming-Soon": "Reactor switching coming soon!",
   "SwitchReactorModal--Note": "Note: Your progress and achievements are specific to each reactor. If you switch, you'll need to earn them again for the new reactor.",
   "UnlockedAchievementsModal--Title": "New Achievements unlocked!",
+  "UnlockedAchievementsModal--Description": "You can change the currently selected reactor at any time to make your shifts easier or more difficult. For this, simply click on 'Switch Reactor' on the main page.",
   "Close-Button-Label": "Close",
   "Connected to Reactor": "Connected to Reactor",
   "Switch-Reactor-Button-Label": "Switch Reactor",
@@ -93,5 +94,7 @@
   "Achievements-Group-Finished-Shifts--Header": "Achievements related to finished Shifts",
   "Achievements-Group-Other--Header": "Other Achievements",
   "Error--Sub-Title": "Sorry, an unexpected Error has occurred.",
-  "Error--Instructions": "Please copy the text below and open a new issue on "
+  "Error--Instructions": "Please copy the text below and open a new issue on ",
+  "SelectReactor-Button-Label": "Select Reactor",
+  "SelectReactor-Button-Label-Already-Selected": "Currently selected"
 }

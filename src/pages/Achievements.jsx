@@ -10,15 +10,25 @@ import { achievementsManager } from '../game/Achievements'
 import Card from '../components/common/Card'
 import { useTranslation } from 'react-i18next'
 
+import ReactorConnectionBar from '../components/ReactorConnectionBar'
+import { ReactorConfigManager } from '../game/AvailableReactors'
+
 export const achievementsPageTestId = 'game-history-page'
 
 export default function AchievementsPage() {
     const {t} = useTranslation()
 
-    let unlockedAchievements = achievementsManager.getUnlockedAchievements()
+    const reactorConfigManager = new ReactorConfigManager()
+
+    const unlockedAchievements = achievementsManager.getUnlockedAchievements()
 
     return (
         <div className="w-full" data-testid={achievementsPageTestId}>
+            <ReactorConnectionBar 
+                activeReactorConfig={reactorConfigManager.activeReactorConfig}
+                showSwitchReactorButton={false}
+            /> 
+
             <Card className="align-center flex">
                 <Link to={`/`} className="flex items-center gap-2 no-underline">
                     <ArrowLeftIcon className="small-icon"></ArrowLeftIcon>{t("Go-Back-Button-Label")}
@@ -43,7 +53,7 @@ export default function AchievementsPage() {
                         .map((achievement) => {
                             return (
                                 <AchievementBadge
-                                    key={achievement.label}
+                                    key={achievement.labelKey}
                                     achievement={achievement}
                                     showDescription={true}
                                 />
@@ -58,7 +68,7 @@ export default function AchievementsPage() {
                         .map((achievement) => {
                             return (
                                 <AchievementBadge
-                                    key={achievement.label}
+                                    key={achievement.labelKey}
                                     achievement={achievement}
                                     showDescription={true}
                                 />
@@ -73,7 +83,7 @@ export default function AchievementsPage() {
                         .map((achievement) => {
                             return (
                                 <AchievementBadge
-                                    key={achievement.label}
+                                    key={achievement.labelKey}
                                     achievement={achievement}
                                     showDescription={true}
                                 />

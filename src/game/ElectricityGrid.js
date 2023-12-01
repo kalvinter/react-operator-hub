@@ -9,9 +9,10 @@ export const eventOperation = {
 }
 
 export class ElectricityGrid {
-    constructor({ initialElectricityDemand, productionDemandDeltaLimit, baseDemandAddition, maximumPossibleDemand }) {
+    constructor({ initialElectricityDemand, productionDemandDeltaLimit, baseDemandAddition, maximumPossibleDemand, demandChangeStepSize, spaceBetweenEvents }) {
         this.availableEventHandler = new AvailableEventHandler()
 
+        this.demandChangeStepSize = demandChangeStepSize
         this.productionDemandDeltaLimit = productionDemandDeltaLimit
         this.productionDemandDelta = 0
         this.overProduction = false
@@ -34,6 +35,8 @@ export class ElectricityGrid {
         this.appliedDemandChange = 0
 
         this.displayedEventText = this.getNoEventText()
+
+        this.spaceBetweenEvents = spaceBetweenEvents
     }
 
     getNoEventText(){
@@ -92,10 +95,10 @@ export class ElectricityGrid {
 
         // console.log(availableIncreaseEvents)
         // console.log(availableDecreaseEvents)
-        console.log(timeRunning % 200)
+        console.log(timeRunning % this.spaceBetweenEvents)
 
         /* If there is no upcoming event - decide if there should be one */
-        if (this.upcomingEventChange.length === 0 && timeRunning % 200 === 125) {
+        if (this.upcomingEventChange.length === 0 && timeRunning % this.spaceBetweenEvents === (this.spaceBetweenEvents / 2)) {
             /* If there is now a new event coming, decide if an existing event should be phased out or a new one should be introduced */
             const introduceNewEvent = activeEvents.length === 0 ? true : Math.random() > 0.4
             console.log('introduceNewEvent ', introduceNewEvent)
@@ -162,7 +165,7 @@ export class ElectricityGrid {
             }
         }
 
-        if (this.upcomingEventChange.length > 0 && timeRunning % 200 === 0) {
+        if (this.upcomingEventChange.length > 0 && timeRunning % this.spaceBetweenEvents === 0) {
             this.performScheduledEventChange()
         }
         
@@ -183,8 +186,8 @@ export class ElectricityGrid {
         */
         if (this.appliedDemandChange !== 0) {
             let change =
-                this.appliedDemandChange > GameConfig.demandChangeStepSize
-                    ? GameConfig.demandChangeStepSize
+                this.appliedDemandChange > this.demandChangeStepSize
+                    ? this.demandChangeStepSize
                     : this.appliedDemandChange
 
             this.currentElectricityDemand += change

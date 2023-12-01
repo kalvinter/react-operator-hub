@@ -1,0 +1,10 @@
+{
+    "AuxiliaryReactor-Omega-17-Label": "Mini-Omega-17",
+    "AuxiliaryReactor-Omega-17-Description": "Das ist einer der kleineren Hilfsreaktoren, die nur einen Teil des Netzes versorgen. Sie sind perfekt, um die Grundlagen zu lernen. Es gibt genügend Zeit, um auf Ereignisse zu reagieren.",
+
+    "SupportReactor-Gamma-5-Label": "Mittel-Gamma-5",
+    "SupportReactor-Gamma-5-Description": "Das ist einer der mittleren Reaktoren, die das Netz unterstützen. Es muss schneller auf Ereignisse reagiert werden als bei einem Hilfsreaktoren. Dieser Reaktor sollte nur gewählt werden, wenn einiges an Erfahrung mit dem Hilfsreaktor gesammelt werden konnte.",
+
+    "CoreReactor-Alpha-2-Label": "Primär-Alpha-2",
+    "CoreReactor-Alpha-2-Description": "Das ist einer der Hauptreaktoren, die das zentrale Netz versorgen. Mit diesem Reaktor geht eine große Verantwortung einher, schnell auf alle Ereignisse zu reagieren, die das Stromnetz betreffen. Nur absolute Meister des Netzes sollten diese Reaktor auswählen."
+}

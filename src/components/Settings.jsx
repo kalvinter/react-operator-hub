@@ -20,7 +20,7 @@ function Settings(props) {
         if (activeTheme === props.themeManager.activeTheme) {
             return
         }
-
+        
         props.themeManager.setThemeChangeEffect()
         let timeout = setTimeout(() => {
             props.themeManager.setActiveTheme({ activeTheme: activeTheme })
@@ -31,7 +31,7 @@ function Settings(props) {
     const [activeLanguage, setActiveLanguage] = useState(i18n.resolvedLanguage)
 
     useEffect(() => {
-        if (activeLanguage === i18n.language){
+        if (activeLanguage === i18n.resolvedLanguage){
             return
         }
 
@@ -43,8 +43,6 @@ function Settings(props) {
         return () => clearTimeout(timeout)
 
     }, [activeLanguage])
-
-    console.log("i18n.resolvedLanguage, ", i18n.resolvedLanguage)
 
     return (
         <div className="w-full h-full flex flex-col">
@@ -61,10 +59,10 @@ function Settings(props) {
                     value={activeTheme}
                     onChange={(event) => setActiveTheme(event.currentTarget.value)}
                 >
-                    {Object.keys(themes).map((key) => {
+                    {themes.map((themeEntry) => {
                         return (
-                            <option key={key} value={key}>
-                                {themes[key]}
+                            <option key={themeEntry.key} value={themeEntry.key}>
+                                {themeEntry.label}
                             </option>
                         )
                     })}

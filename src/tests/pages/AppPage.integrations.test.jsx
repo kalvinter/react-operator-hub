@@ -6,7 +6,7 @@ import { gameHistoryCardTestId } from '../../components/GameHistory'
 
 import { storedDataTypes } from '../../game/Storage'
 
-import { gameHistoryManager } from '../../game/GameHistoryManager'
+import { GameHistoryManager } from '../../game/GameHistoryManager'
 
 import App, {appTestId} from '../../pages/App'
 
@@ -17,6 +17,7 @@ import { achievementsManager } from '../../game/Achievements'
 import { startGameButtonTestId } from '../../components/StartShiftCTA'
 import { gameTestId } from '../../pages/Game'
 import { quitButtonTestId } from '../../components/gameui/TopBar'
+import { defaultReactorConfig } from '../../game/AvailableReactors'
 
 function checkAppMainComponentsLoaded(screen){
     expect(screen.getByTestId(appTestId)).toBeInTheDocument()
@@ -58,6 +59,7 @@ describe('page loads without error', () => {
          * This is necessary as the data is loaded during import but the fake data is added later in the
          * beginning of the test
          */
+        let gameHistoryManager = new GameHistoryManager({activeReactorConfigKey: defaultReactorConfig.key})
         gameHistoryManager.reloadHistoryFromStorage()
 
         render(

@@ -5,6 +5,8 @@ import { MotionWrapper } from '../hocs/MotionWrapper'
 import { AnimatePresence } from 'framer-motion'
 import HubBanner from '../components/HubBanner'
 
+import ReactorConnectionBar from '../components/ReactorConnectionBar'
+
 import { useState } from 'react'
 
 import { useOutlet } from 'react-router-dom'

@@ -6,7 +6,6 @@ import { AchievementGroups } from '../game/Achievements'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { StarIcon as StarIconOutline } from '@heroicons/react/24/outline'
 
-import { achievementsManager } from '../game/Achievements'
 import { useTranslation } from 'react-i18next'
 
 export function AchievementGroup(props) {
@@ -15,7 +14,7 @@ export function AchievementGroup(props) {
     return (
         <div className="w-full flex gap-2 justify-around md:flex-row flex-col" key={props.achievementGroup}>
             {achievements.map((achievement) => {
-                return <AchievementBadge key={achievement.getLabel()} achievement={achievement} />
+                return <AchievementBadge key={achievement.labelKey} achievement={achievement} />
             })}
         </div>
     )
@@ -27,7 +26,7 @@ export const unlockedAchievementBadgeTestId = 'unlockedAchievementBadge'
 export function AchievementBadge(props) {
     return (
         <div
-            key={props.achievement.label}
+            key={props.achievement.labelKey}
             data-testid={`${props.achievement.isUnlocked ? unlockedAchievementBadgeTestId : achievementBadgeTestId}`}
             className={`${props.achievement.isUnlocked ? 'unlocked' : ''} 
           ${props.achievement.achievementType} ${props.showDescription ? 'justify-start' : 'justify-center'}	
@@ -48,8 +47,8 @@ export function AchievementBadge(props) {
     )
 }
 
-export function AchievementsBar() {
-    let unlockedAchievements = achievementsManager.getUnlockedAchievements()
+export function AchievementsBar(props) {
+    let unlockedAchievements = props.achievementsManager.getUnlockedAchievements()
 
     const {t} = useTranslation()
 
@@ -67,28 +66,28 @@ export function AchievementsBar() {
 
             <p>
                 <small className="mb-5 w-full">
-                    {unlockedAchievements.length} / {achievementsManager.availableAchievements.length} {t("unlocked")}
+                    {unlockedAchievements.length} / {props.achievementsManager.availableAchievements.length} {t("unlocked")}
                 </small>
             </p>
 
             <div className="flex flex-col gap-2">
                 <AchievementGroup
                     achievementGroup={AchievementGroups.achievedMatchedRate}
-                    achievements={achievementsManager.getAchievementsByGroup({
+                    achievements={props.achievementsManager.getAchievementsByGroup({
                         achievementGroup: AchievementGroups.achievedMatchedRate,
                     })}
                 />
 
                 <AchievementGroup
                     achievementGroup={AchievementGroups.numberOfGames}
-                    achievements={achievementsManager.getAchievementsByGroup({
+                    achievements={props.achievementsManager.getAchievementsByGroup({
                         achievementGroup: AchievementGroups.numberOfGames,
                     })}
                 />
 
                 <AchievementGroup
                     achievementGroup={AchievementGroups.numberOfGameEnds}
-                    achievements={achievementsManager.getAchievementsByGroup({
+                    achievements={props.achievementsManager.getAchievementsByGroup({
                         achievementGroup: AchievementGroups.numberOfGameEnds,
                     })}
                 />

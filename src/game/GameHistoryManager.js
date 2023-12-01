@@ -1,16 +1,31 @@
 import { gameHistoryStorage } from './Storage'
 
-class GameHistoryManager {
-    constructor() {
+import { defaultReactorConfig } from './AvailableReactors'
+
+export class GameHistoryManager {
+    constructor({activeReactorConfigKey}) {
         this.gameHistoryStorage = gameHistoryStorage
-        this.gameHistory = this.gameHistoryStorage.load()
+        this.gameHistoryData = this.gameHistoryStorage.load()
+        this.changeActiveReactorConfig({activeReactorConfigKey: activeReactorConfigKey || defaultReactorConfig.key})
+    }
+
+    changeActiveReactorConfig({activeReactorConfigKey}){
+        this.activeReactorConfigKey = activeReactorConfigKey
+        this.gameHistory = []
+
+        if (Object.keys(this.gameHistoryData).includes(this.activeReactorConfigKey)){
+            this.gameHistory = this.gameHistoryData[this.activeReactorConfigKey]
+        }
     }
 
     addNewEntry(newGameHistory) {
         console.log(newGameHistory)
         this.gameHistory = [newGameHistory, ...this.gameHistory]
+
+        this.gameHistoryData[this.activeReactorConfigKey] = this.gameHistory
+
         this.gameHistoryStorage.save({
-            gameHistory: this.gameHistory,
+            gameHistoryData: this.gameHistoryData
         })
     }
 
@@ -20,8 +35,7 @@ class GameHistoryManager {
     }
 
     reloadHistoryFromStorage() {
-        this.gameHistory = this.gameHistoryStorage.load()
+        this.gameHistoryData = this.gameHistoryStorage.load()
+        this.changeActiveReactorConfig({activeReactorConfig: this.activeReactorConfig})
     }
 }
-
-export const gameHistoryManager = new GameHistoryManager()

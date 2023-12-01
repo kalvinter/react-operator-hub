@@ -8,12 +8,13 @@ function ReactorConnectionBar(props) {
     const { t } = useTranslation();
 
     return (
-        <div className=" p-2 mb-2 flex gap-2 flex-col md:flex-row items-center justify-between">
-            <span className="flex items-center">
-                <CommandLineIcon className="small-icon mr-2" /> {t('Connected to Reactor')} 'TowesVil-05'
+        <div className="mb-4 flex gap-2 flex-col md:flex-row items-center justify-between bg-back">
+            <span className="flex items-center flex-col w-full md:w-fit md:flex-row bg-card p-1 rounded border-solid border-2 border-color-back">
+                <span className='flex items-center mb-2 md:mb-0'><CommandLineIcon className="small-icon mr-2" /> {t('Connected to Reactor')}</span>
+                <b className='ml-1'>{props.activeReactorConfig.getLabel()}</b>
             </span>
             <span>
-                <Button
+                {props.showSwitchReactorButton ? <Button
                     buttonType={buttonTypes.neutralButton}
                     buttonSize={buttonSizes.small}
                     onClick={() => {
@@ -23,7 +24,7 @@ function ReactorConnectionBar(props) {
                     <span className="flex items-center">
                         <ArrowPathIcon className="small-icon mr-2" /> {t('Switch-Reactor-Button-Label')}
                     </span>
-                </Button>
+                </Button> : null }
             </span>
         </div>
     )
