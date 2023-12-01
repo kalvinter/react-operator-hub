@@ -21,6 +21,7 @@ export default class ThemeManager {
         this.themeStorage = new ThemeStorage()
 
         this.activeTheme = this.themeStorage.load().theme
+        this.setActiveTheme({activeTheme: this.activeTheme})
     }
 
     setThemeChangeEffect() {
