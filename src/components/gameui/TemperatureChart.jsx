@@ -72,11 +72,11 @@ const TemperatureChart = () => {
         temperature_indication_bg = 'bg-light'
         temperature_text = (<span>{t("TemperatureChart--Message-Normal")}</span>)
         display_temperature_text = true
-    } else if (reactorData.currentTemperature <= 200) {
+    } else if (reactorData.currentTemperature <= (gameData.reactorConfig.maximumTemperature - 100)) {
         temperature_indication_bg = 'bg-warning'
         temperature_text = (<span>{t("TemperatureChart--Message-Above-Normal")}</span>)
         display_temperature_text = true
-    } else if (reactorData.currentTemperature < 250) {
+    } else if (reactorData.currentTemperature < (gameData.reactorConfig.maximumTemperature - 50)) {
         temperature_indication_bg = 'bg-strong-warning'
         temperature_text = (<span>{t("TemperatureChart--Message-High")}</span>)
         display_temperature_text = true

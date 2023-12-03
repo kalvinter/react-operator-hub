@@ -347,6 +347,8 @@ class Game extends React.Component {
         const gameData = {
             timeRunning: this.state.timeRunning,
 
+            reactorConfig: this.reactorConfig,
+
             shiftDuration: this.shiftDuration,
             shiftTimeLeft: this.state.shiftTimeLeft,
             achievedMatchedRate: this.state.achievedMatchedRate,
